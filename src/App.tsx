@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  BookMarked, BookOpen, Check, ChevronRight, CircleHelp, Clock3, Cloud, Download, Flame, FolderOpen, LayoutDashboard,
+  BookMarked, BookOpen, Check, ChevronDown, ChevronRight, ChevronUp, CircleHelp, Clock3, Cloud, Download, Flame, FolderOpen, LayoutDashboard,
   Edit3, LogOut, Pause, Play, Plus, RotateCcw, Save, Search, ShieldCheck, Snowflake, Target, TimerReset, Trash2, Upload, X,
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
@@ -333,46 +333,77 @@ function CloudAccount({ user, state }: { user: User | null; state: "local" | "sy
 function TimerBar({ seconds, running, onToggle, onReset, onFinish }: { seconds: number; running: boolean; onToggle: () => void; onReset: () => void; onFinish: () => void }) { const time = `${String(Math.floor(seconds / 3600)).padStart(2, "0")}:${String(Math.floor(seconds % 3600 / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`; return <div className="timer-bar"><div><TimerReset size={20}/><span>Sesión en vivo</span><strong>{time}</strong></div><div><button className="timer-button" onClick={onToggle}>{running ? <Pause size={18}/> : <Play size={18}/>} {running ? "Pausar" : seconds ? "Continuar" : "Iniciar"}</button>{seconds ? <><button className="icon-button" title="Descartar timer" onClick={onReset}><RotateCcw size={17}/></button><button className="btn small" onClick={onFinish}>Finalizar y guardar</button></> : null}</div></div>; }
 function SectionReader({ section, course, onEdit }: { section: StudySection; course?: StudyModule; onEdit: () => void }) {
   const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const content = `${section.notes}\n${section.learnings}\n${section.questions}`.toLowerCase();
-  const matches = query.trim() ? content.split(query.trim().toLowerCase()).length - 1 : 0;
+  const term = query.trim().toLowerCase();
+  const matches = term ? content.split(term).length - 1 : 0;
+  const counter = { current: 0 };
+
+  useEffect(() => { setActiveIndex(0); }, [query]);
+
+  useEffect(() => {
+    if (!term || !matches) return;
+    const mark = bodyRef.current?.querySelector<HTMLElement>(`mark[data-match-idx="${activeIndex}"]`);
+    mark?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [activeIndex, term, matches]);
+
+  const goTo = (delta: number) => { if (matches) setActiveIndex((current) => (current + delta + matches) % matches); };
+
   return <div className="reader-shell">
     <div className="reader-toolbar">
-      <label className="reader-search"><Search size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar dentro de este módulo…" autoFocus/><span>{query.trim() ? `${matches} resultado${matches === 1 ? "" : "s"}` : ""}</span></label>
+      <label className="reader-search">
+        <Search size={17}/>
+        <input value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); goTo(event.shiftKey ? -1 : 1); } }} placeholder="Buscar dentro de este módulo…" autoFocus/>
+        {term ? <span className="reader-search-nav">
+          <small>{matches ? `${activeIndex + 1} de ${matches}` : "Sin resultados"}</small>
+          <button type="button" className="icon-button" title="Anterior (Shift+Enter)" disabled={!matches} onClick={() => goTo(-1)}><ChevronUp size={16}/></button>
+          <button type="button" className="icon-button" title="Siguiente (Enter)" disabled={!matches} onClick={() => goTo(1)}><ChevronDown size={16}/></button>
+        </span> : null}
+      </label>
       <button className="btn ghost" onClick={onEdit}><Edit3 size={16}/> Editar</button>
       <button className="btn ghost" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, course))}><Download size={16}/> Descargar .md</button>
     </div>
     <div className="reader-meta"><span>{course?.platform ?? "Biblioteca personal"}</span><span>{course?.category ?? "Apuntes"}</span><span>{section.status}</span></div>
-    {section.learnings.trim() ? <ReaderBlock title="Resumen — qué aprendí"><ReadableText text={section.learnings} query={query}/></ReaderBlock> : null}
-    <ReaderBlock title="Apuntes completos"><MarkdownText text={section.notes || "Todavía no agregaste apuntes a este módulo."} query={query}/></ReaderBlock>
-    {section.questions.trim() ? <ReaderBlock title="Dudas para practicar" tone="question"><ReadableText text={section.questions} query={query}/></ReaderBlock> : null}
+    <div ref={bodyRef}>
+      {section.learnings.trim() ? <ReaderBlock title="Resumen — qué aprendí"><ReadableText text={section.learnings} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock> : null}
+      <ReaderBlock title="Apuntes completos"><MarkdownText text={section.notes || "Todavía no agregaste apuntes a este módulo."} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock>
+      {section.questions.trim() ? <ReaderBlock title="Dudas para practicar" tone="question"><ReadableText text={section.questions} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock> : null}
+    </div>
   </div>;
 }
 
 function ReaderBlock({ title, tone, children }: { title: string; tone?: "question"; children: React.ReactNode }) { return <section className={`reader-block ${tone ?? ""}`}><h3>{title}</h3><div className="reader-copy">{children}</div></section>; }
 
-function Highlight({ text, query }: { text: string; query: string }) {
+type MatchCounter = { current: number };
+
+function Highlight({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) {
   const term = query.trim();
   if (!term) return <>{text}</>;
   const parts = text.split(new RegExp(`(${escapeRegExp(term)})`, "gi"));
-  return <>{parts.map((part, index) => part.toLowerCase() === term.toLowerCase() ? <mark key={index}>{part}</mark> : part)}</>;
+  return <>{parts.map((part, index) => {
+    if (part.toLowerCase() !== term.toLowerCase()) return part;
+    const idx = counter ? counter.current++ : undefined;
+    return <mark key={index} data-match-idx={idx} className={idx === activeIndex ? "active" : undefined}>{part}</mark>;
+  })}</>;
 }
 
-function ReadableText({ text, query }: { text: string; query: string }) { return <>{text.split(/\n+/).filter(Boolean).map((line, index) => <p key={index}><Highlight text={line} query={query}/></p>)}</>; }
+function ReadableText({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) { return <>{text.split(/\n+/).filter(Boolean).map((line, index) => <p key={index}><Highlight text={line} query={query} counter={counter} activeIndex={activeIndex}/></p>)}</>; }
 
-function MarkdownText({ text, query }: { text: string; query: string }) {
+function MarkdownText({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) {
   const blocks: React.ReactNode[] = [];
   let code: string[] | null = null;
   text.split("\n").forEach((line, index) => {
-    if (line.trim().startsWith("```")) { if (code) { blocks.push(<pre key={`code-${index}`}><code><Highlight text={code.join("\n")} query={query}/></code></pre>); code = null; } else code = []; return; }
+    if (line.trim().startsWith("```")) { if (code) { blocks.push(<pre key={`code-${index}`}><code><Highlight text={code.join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>); code = null; } else code = []; return; }
     if (code) { code.push(line); return; }
-    if (line.startsWith("### ")) blocks.push(<h4 key={index}><Highlight text={line.slice(4)} query={query}/></h4>);
-    else if (line.startsWith("## ")) blocks.push(<h3 key={index}><Highlight text={line.slice(3)} query={query}/></h3>);
-    else if (line.startsWith("# ")) blocks.push(<h2 key={index}><Highlight text={line.slice(2)} query={query}/></h2>);
-    else if (/^[-*] /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>•</span><p><Highlight text={line.slice(2)} query={query}/></p></div>);
-    else if (/^\d+\. /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>{line.match(/^\d+/)?.[0]}.</span><p><Highlight text={line.replace(/^\d+\. /, "")} query={query}/></p></div>);
-    else if (line.trim()) blocks.push(<p key={index}><Highlight text={line} query={query}/></p>);
+    if (line.startsWith("### ")) blocks.push(<h4 key={index}><Highlight text={line.slice(4)} query={query} counter={counter} activeIndex={activeIndex}/></h4>);
+    else if (line.startsWith("## ")) blocks.push(<h3 key={index}><Highlight text={line.slice(3)} query={query} counter={counter} activeIndex={activeIndex}/></h3>);
+    else if (line.startsWith("# ")) blocks.push(<h2 key={index}><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></h2>);
+    else if (/^[-*] /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>•</span><p><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></p></div>);
+    else if (/^\d+\. /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>{line.match(/^\d+/)?.[0]}.</span><p><Highlight text={line.replace(/^\d+\. /, "")} query={query} counter={counter} activeIndex={activeIndex}/></p></div>);
+    else if (line.trim()) blocks.push(<p key={index}><Highlight text={line} query={query} counter={counter} activeIndex={activeIndex}/></p>);
   });
-  if (code !== null) blocks.push(<pre key="code-last"><code><Highlight text={(code as string[]).join("\n")} query={query}/></code></pre>);
+  if (code !== null) blocks.push(<pre key="code-last"><code><Highlight text={(code as string[]).join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>);
   return <>{blocks}</>;
 }
 

@@ -60,7 +60,10 @@
 .reader-search { min-width: 260px; flex: 1; min-height: 42px; display: flex; align-items: center; gap: 10px; padding: 0 13px; border: 1px solid #315440; background: #07100d; color: var(--muted); }
 .reader-search:focus-within { border-color: var(--green); box-shadow: 0 0 0 2px rgba(73,230,154,.08); }
 .reader-search input { min-width: 0; flex: 1; border: 0; outline: 0; color: #eef7f2; background: transparent; }
-.reader-search span { min-width: 82px; text-align: right; color: var(--green); font: 10px 'IBM Plex Mono'; }
+.reader-search-nav { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.reader-search-nav small { min-width: 74px; text-align: right; color: var(--green); font: 10px 'IBM Plex Mono'; }
+.reader-search-nav .icon-button { padding: 5px; border: 1px solid var(--line); border-radius: 3px; }
+.reader-search-nav .icon-button:disabled { opacity: .35; cursor: default; }
 .reader-meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .reader-meta span { padding: 6px 9px; border: 1px solid var(--line); color: #9bb1a6; background: #101f19; font: 10px 'IBM Plex Mono'; }
 .reader-block { padding: clamp(20px, 4vw, 38px); border: 1px solid var(--line); background: #0a1410; }
@@ -75,5 +78,6 @@
 .reader-list-item { display: grid; grid-template-columns: 24px 1fr; gap: 4px; }
 .reader-list-item > span { color: var(--green); font-family: 'IBM Plex Mono'; }
 .reader-copy mark { padding: 1px 3px; border-radius: 2px; background: #ffe26a; color: #172018; }
+.reader-copy mark.active { background: var(--amber); box-shadow: 0 0 0 2px #ffe26a; }
 @media (max-width: 1050px) { .global-search { min-width: 145px; } .section-item { grid-template-columns: 52px 1fr auto; } .section-item > b { display: none; } .section-item .text-button { font-size: 0; } }
 @media (max-width: 800px) { .sidebar nav { grid-template-columns: repeat(5, 1fr); } .topbar { flex-direction: column; gap: 14px; } .header-actions { width: 100%; flex-wrap: wrap; } .global-search { display: flex; order: -1; width: 100%; } .course-head { align-items: flex-start; flex-wrap: wrap; } .course-actions { width: 100%; margin-left: 0; } .question-card { grid-template-columns: 30px 1fr; } .question-card .btn { grid-column: 2; justify-self: start; } .modal.modal-wide { width: 100%; max-height: 100vh; padding: 24px 16px 90px; } .reader-toolbar { top: -24px; flex-wrap: wrap; } .reader-search { min-width: 100%; } .reader-toolbar .btn { flex: 1; } .reader-copy { font-size: 15px; line-height: 1.72; } .reader-block { padding: 20px 16px; } }

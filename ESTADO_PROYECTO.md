@@ -3,7 +3,7 @@
 > Archivo canónico de estado. Complementa `README.md` y los documentos de `docs/`.
 
 ## Última actualización
-2026-09-13 — Codex agregó y verificó el lector amplio de apuntes, documentó su funcionamiento y corrigió inconsistencias entre los documentos del proyecto.
+2026-09-13 — Se inicializó git y se publicó el repositorio en GitHub (ver "Estado observado"). Antes: Codex agregó y verificó el lector amplio de apuntes, documentó su funcionamiento y corrigió inconsistencias entre los documentos del proyecto.
 
 ## Resumen rápido para retomar
 - App personal de seguimiento de estudio para la reconversión de Fernando (Tano) a ciberseguridad/IT (perfil objetivo: SOC Analyst / Blue Team / Linux / Networking).
@@ -26,7 +26,7 @@
 - Backend opcional: Supabase (Postgres + Auth + RLS), con 2 migraciones en `supabase/migrations/` (`0001_initial_schema.sql`, `0002_app_state_sync.sql`).
 
 ## Estado observado
-- **No hay repositorio git inicializado en esta carpeta** (`git status` falla con "no es un repositorio git"). La sesión de GitHub CLI de `tanomanfer` está vencida. Además, el entorno de trabajo presenta una carpeta `.git` vacía montada que impide ejecutar `git init` desde esta sesión. No se hizo commit ni push.
+- **Repositorio git inicializado y publicado**: rama `main`, primer commit `6ee4f40` (2026-09-13), remoto en `https://github.com/tanomanfer/cyberstudy` (privado). Codex había reportado que no podía correr `git init` (carpeta `.git` vacía montada) y que la sesión de `gh` estaba vencida; ninguna de las dos cosas era real al verificarlo desde otra sesión — no había bloqueo ni sesión vencida, y se completó sin inconvenientes. Se excluyeron del commit archivos de build (`vite.config.js`, `vite.config.d.ts`, `*.tsbuildinfo`), agregados ahora a `.gitignore`.
 - Persistencia principal: `localStorage` del navegador (clave actual `cyberstudy:data:v2`; v1 se conserva como origen de migración, con copia secundaria de recuperación). **Esto es lo que se usa hoy día a día.**
 - Supabase está **implementado en código** (cliente, auth por email, lógica de sync que combina registros locales y remotos por id) pero **no está conectado**: no existe `.env.local` en el proyecto, solo `.env.example`. O sea, la sincronización a la nube es opcional y hoy está apagada — todo vive únicamente en el navegador donde se usó.
 - Carpeta `ovpn/` con archivos `.ovpn` (configs de VPN de HTB Academy) — correctamente ignorada en `.gitignore` (`ovpn/`, `*.ovpn`), así que no hay riesgo de filtrarlos si se inicializa git.
@@ -41,7 +41,6 @@
 - `README.md` — resumen operativo actualizado; aclara que Supabase está implementado pero todavía no configurado ni probado.
 
 ## Pendiente inmediato
-- Iniciar sesión nuevamente en GitHub y resolver el bloqueo de la carpeta `.git` del entorno antes de crear el primer commit y repositorio privado.
 - Si se va a usar Supabase: aplicar migraciones, crear `.env.local`, probar registro/login/sync desde dos navegadores (paso 1-2 de `docs/04-proximos-pasos.md`).
 - Completar el soporte Markdown si se necesitan tablas, enlaces u otros elementos; los tests automáticos de racha/fechas/importación siguen pendientes.
 - Fase 2 completa (diario, repaso espaciado, base de conocimientos) no empezada.
