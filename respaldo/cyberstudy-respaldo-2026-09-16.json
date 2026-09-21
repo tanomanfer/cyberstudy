@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dailyGoalMinutes": 120,
+  "modules": [
+    {
+      "title": "Linux Fundamentals",
+      "platform": "Hack The Box Academy",
+      "category": " Linux",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 25,
+      "startedAt": "2026-09-09",
+      "completedAt": "",
+      "url": "",
+      "notes": "",
+      "learnings": "",
+      "questions": "",
+      "id": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "createdAt": "2026-09-09T21:13:51.729Z"
+    }
+  ],
+  "sections": [],
+  "sessions": [],
+  "frozenDays": []
+}

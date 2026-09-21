@@ -8,6 +8,7 @@ Estas reglas se aplican a cualquier persona o asistente que trabaje en este proy
 2. Leer `README.md` y todos los documentos de `docs/` relevantes. Ante una tarea de documentación o continuidad, leerlos todos.
 3. Comparar la documentación con el código y no presentar como activado o probado algo que sólo esté preparado.
 4. Si existe una decisión técnica o de producto con alternativas importantes, explicarlas en español simple y consultar a Fernando antes de construir.
+5. Para acompañamiento de estudio o resúmenes de módulos, leer `estudio/README_IA.md` y `estudio/INDICE.md` antes de trabajar.
 
 ## Después de cada cambio
 
@@ -16,6 +17,15 @@ Estas reglas se aplican a cualquier persona o asistente que trabaje en este proy
 3. Actualizar `README.md` si cambia el uso, instalación, persistencia o estado general.
 4. Actualizar el documento específico de `docs/` cuando cambie arquitectura, funcionamiento, guía de uso o próximos pasos.
 5. No crear documentos duplicados si el tema ya tiene un archivo canónico.
+
+## Al terminar un módulo de estudio
+
+1. No dejar el resumen únicamente en la conversación.
+2. Crear o actualizar el Markdown correspondiente dentro de `estudio/modulos/`.
+3. Actualizar `estudio/INDICE.md`.
+4. Actualizar `estudio/cyberstudy-import.json`, listo para usar con el botón **Importar** de la aplicación.
+5. Validar el JSON antes de dar la tarea por terminada.
+6. Seguir el formato y las reglas detalladas en `estudio/README_IA.md`.
 
 ## Seguridad y control del usuario
 

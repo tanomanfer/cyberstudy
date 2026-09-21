@@ -1,0 +1,2 @@
+Este archivo fue entregado por un servidor HTTP de Python.
+El navegador actuó como cliente y solicitó este recurso al servidor.

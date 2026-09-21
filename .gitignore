@@ -13,3 +13,6 @@ vite.config.js
 vite.config.d.ts
 .vercel
 .env*
+!.env.example
+!supabase/functions/.env.example
+.directory

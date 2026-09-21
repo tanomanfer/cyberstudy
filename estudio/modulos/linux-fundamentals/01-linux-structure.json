@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "dailyGoalMinutes": 120,
+  "modules": [
+    {
+      "title": "Linux Fundamentals",
+      "platform": "Hack The Box Academy",
+      "category": "Linux",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 37,
+      "startedAt": "2026-09-09",
+      "completedAt": "",
+      "url": "",
+      "notes": "Reconstruido el 16/09/2026 a partir de los resúmenes conservados en tareas anteriores de Codex. HTB había mostrado 20% al retomar desde la sección 1; el respaldo original más reciente indicaba 25%.",
+      "learnings": "Fundamentos de Linux, uso de la shell, ayuda integrada, reconocimiento del sistema, navegación, búsqueda de archivos, redirecciones, permisos y administración de usuarios.",
+      "questions": "Revisar en HTB qué secciones intermedias figuran realmente completadas. Reforzar la opción de `su` que permite ejecutar un único comando como otro usuario y continuar practicando la lectura de `--help` en inglés.",
+      "id": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "createdAt": "2026-09-09T21:13:51.729Z"
+    }
+  ],
+  "sections": [
+    {
+      "id": "recovered-linux-01",
+      "moduleId": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "number": 1,
+      "total": 30,
+      "title": "Linux Structure",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 1 de 30 — Linux Structure\n\nLinux se organiza en capas: hardware, kernel, shell, servicios y sistema de archivos. El kernel administra los recursos y la shell permite comunicarse con el sistema mediante comandos. En Linux, prácticamente todo se representa como un archivo.",
+      "learnings": "Diferencié hardware, kernel, shell, servicios y sistema de archivos, y entendí cómo se relacionan.",
+      "questions": "",
+      "createdAt": "2026-09-10T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

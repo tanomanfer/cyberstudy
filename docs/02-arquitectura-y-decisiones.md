@@ -55,10 +55,37 @@ src/
 ├── lib/
 │   ├── dates.ts     # fechas locales, duración y semana
 │   ├── markdown.ts  # exportación Obsidian
-│   └── storage.ts   # persistencia local versionada
+│   ├── supabase.ts  # autenticación y sincronización remota
+│   ├── storage.ts   # persistencia local versionada
+│   └── tutor.ts     # cliente del Tutor IA
 ├── main.tsx         # inicio de React
 ├── styles.css       # sistema visual base responsive
 └── enhancements.css # cursos, buscador, cuaderno y lector
+```
+
+## Decisión 006 — Tutor IA contextual, temporal y protegido
+
+**Fecha:** 2026-09-20
+**Estado:** implementada; pendiente prueba manual completa
+
+El tutor utiliza como fuente el contenido del módulo abierto (`notes`, `learnings` y `questions`). React nunca llama directamente a DeepSeek. El frontend autenticado invoca la Edge Function `tutor`, que valida la sesión, consume de forma atómica una de las 15 consultas diarias y recién después llama al modelo `deepseek-flash`.
+
+`DEEPSEEK_API_KEY` está guardada como secreto de Supabase. No existe en variables `VITE_*`, en el bundle, en `localStorage` ni en Git.
+
+El historial se conserva solamente en el estado del componente `TutorPanel`. Al cerrar el lector o recargar la página, el componente se desmonta y la conversación desaparece. La base guarda únicamente el contador diario, no las preguntas ni las respuestas.
+
+El enfoque pedagógico toma de NotebookLM el principio de trabajar desde fuentes propias. Los accesos rápidos no envían solicitudes automáticamente: preparan prompts de explicación, práctica, diagrama ASCII o examen y dejan que Tano los revise antes de confirmar. Los diagramas son texto estructurado porque resultan más precisos y económicos para conceptos técnicos que una imagen generativa.
+
+Flujo:
+
+```text
+SectionReader / TutorPanel
+          ↓ supabase.functions.invoke + sesión
+Supabase Edge Function tutor
+          ↓ autenticación + cuota diaria
+DeepSeek Chat Completions
+          ↓ respuesta acotada
+TutorPanel temporal
 ```
 
 ## Seguridad

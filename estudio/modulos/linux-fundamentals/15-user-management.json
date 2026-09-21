@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "dailyGoalMinutes": 120,
+  "modules": [
+    {
+      "title": "Linux Fundamentals",
+      "platform": "Hack The Box Academy",
+      "category": "Linux",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 37,
+      "startedAt": "2026-09-09",
+      "completedAt": "",
+      "url": "",
+      "notes": "Reconstruido el 16/09/2026 a partir de los resúmenes conservados en tareas anteriores de Codex. HTB había mostrado 20% al retomar desde la sección 1; el respaldo original más reciente indicaba 25%.",
+      "learnings": "Fundamentos de Linux, uso de la shell, ayuda integrada, reconocimiento del sistema, navegación, búsqueda de archivos, redirecciones, permisos y administración de usuarios.",
+      "questions": "Revisar en HTB qué secciones intermedias figuran realmente completadas. Reforzar la opción de `su` que permite ejecutar un único comando como otro usuario y continuar practicando la lectura de `--help` en inglés.",
+      "id": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "createdAt": "2026-09-09T21:13:51.729Z"
+    }
+  ],
+  "sections": [
+    {
+      "id": "linux-15-user-management",
+      "moduleId": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "number": 15,
+      "total": 30,
+      "title": "User Management",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 15 de 30 — User Management\n\nCada usuario tiene una identidad propia, un UID, un grupo principal y posibles grupos secundarios. Los grupos permiten compartir permisos sin asignarlos persona por persona. Para consultar la identidad y pertenencias se usan `whoami`, `id`, `groups usuario`, `getent passwd usuario` y `getent group grupo`.\n\n## Crear, modificar y eliminar\n\n`useradd` crea una cuenta nueva. `sudo useradd -m alex` crea además `/home/alex`; la opción `-m` significa crear el directorio personal. `sudo passwd alex` establece su contraseña. `usermod` modifica una cuenta existente y `userdel` la elimina.\n\nPara agregar un usuario a un grupo secundario: `sudo usermod -aG developers alex`. `-G` selecciona los grupos secundarios y `-a` significa *append*: agrega sin reemplazar los grupos que ya tenía. Usar solamente `-G` puede quitar pertenencias anteriores por accidente.\n\nPara bloquear una cuenta se puede usar `sudo usermod --lock alex`. `-L` es la forma corta y `--lock` la larga. Bloquear no significa borrar la cuenta ni garantiza cerrar sesiones que ya estuvieran abiertas.\n\n## `sudo` y `su`\n\n`sudo comando` ejecuta un comando con privilegios elevados, normalmente como root. `sudo -u alex comando` lo ejecuta como `alex`. `su - alex` cambia la sesión a ese usuario y carga su entorno. Por eso `sudo` suele utilizarse para una acción concreta, mientras que `su` cambia de identidad o inicia otra shell.\n\n`/etc/shadow` contiene información sensible relacionada con contraseñas. Un usuario común recibe `Permission denied`; con permisos administrativos puede leerse, pero su contenido real nunca debe copiarse a los apuntes.\n\n## Lo que costó\n\nLa última pregunta no pedía simplemente cambiar de usuario: pedía la opción larga de `su` que pasa un único comando a la shell del otro usuario. Para investigarla: `su --help | grep -i command`. Había que reconocer una descripción como *pass a single command to the shell*.\n\n## Investigar con `--help`\n\nEjemplos: `useradd --help | grep -i home`, `usermod --help | grep -i lock` y `su --help | grep -i command`. Las opciones cortas tienen un guion (`-L`) y las largas dos (`--lock`). Si HTB pide *long version*, se responde la forma con `--`. Palabras útiles: create=crear, modify=modificar, delete=eliminar, lock=bloquear, execute/run=ejecutar, command=comando, user account=cuenta de usuario, home directory=directorio personal, group=grupo y shell=intérprete de comandos.\n\n## Práctica segura\n\nEn una máquina descartable: `sudo useradd -m practica`, `id practica`, `sudo passwd practica`, `sudo usermod -aG developers practica`, `groups practica` y `sudo usermod --lock practica`. Antes de eliminar cuentas, consultar `userdel --help`, porque puede borrar datos.",
+      "learnings": "Diferencié `useradd`, `usermod` y `userdel`; comprendí usuarios, grupos, sudo y su; y practiqué `comando --help | grep -i palabra` para encontrar opciones leyendo su descripción en inglés.",
+      "questions": "Repasar la diferencia entre cambiar de usuario y ejecutar un único comando con `su`. Seguir practicando la lectura e interpretación de `--help` en inglés.",
+      "createdAt": "2026-09-16T15:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

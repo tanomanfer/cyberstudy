@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "dailyGoalMinutes": 120,
+  "modules": [
+    {
+      "title": "Linux Fundamentals",
+      "platform": "Hack The Box Academy",
+      "category": "Linux",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 37,
+      "startedAt": "2026-09-09",
+      "completedAt": "",
+      "url": "",
+      "notes": "Reconstruido el 16/09/2026 a partir de los resúmenes conservados en tareas anteriores de Codex. HTB había mostrado 20% al retomar desde la sección 1; el respaldo original más reciente indicaba 25%.",
+      "learnings": "Fundamentos de Linux, uso de la shell, ayuda integrada, reconocimiento del sistema, navegación, búsqueda de archivos, redirecciones, permisos y administración de usuarios.",
+      "questions": "Revisar en HTB qué secciones intermedias figuran realmente completadas. Reforzar la opción de `su` que permite ejecutar un único comando como otro usuario y continuar practicando la lectura de `--help` en inglés.",
+      "id": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "createdAt": "2026-09-09T21:13:51.729Z"
+    }
+  ],
+  "sections": [
+    {
+      "id": "recovered-linux-02",
+      "moduleId": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "number": 2,
+      "total": 30,
+      "title": "Linux Distributions",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 2 de 30 — Linux Distributions\n\nUna distribución combina el kernel de Linux con herramientas, programas y un gestor de paquetes. Debian y Ubuntu usan paquetes .deb con apt/dpkg; Fedora usa rpm/dnf; Arch y CachyOS usan paquetes .pkg.tar.zst con pacman. Kali y Parrot están orientadas a seguridad.",
+      "learnings": "Comprendí que Linux no es una única edición y que las distribuciones comparten fundamentos aunque cambien sus herramientas.",
+      "questions": "",
+      "createdAt": "2026-09-10T12:01:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

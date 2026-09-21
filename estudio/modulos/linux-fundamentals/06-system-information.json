@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "dailyGoalMinutes": 120,
+  "modules": [
+    {
+      "title": "Linux Fundamentals",
+      "platform": "Hack The Box Academy",
+      "category": "Linux",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 37,
+      "startedAt": "2026-09-09",
+      "completedAt": "",
+      "url": "",
+      "notes": "Reconstruido el 16/09/2026 a partir de los resúmenes conservados en tareas anteriores de Codex. HTB había mostrado 20% al retomar desde la sección 1; el respaldo original más reciente indicaba 25%.",
+      "learnings": "Fundamentos de Linux, uso de la shell, ayuda integrada, reconocimiento del sistema, navegación, búsqueda de archivos, redirecciones, permisos y administración de usuarios.",
+      "questions": "Revisar en HTB qué secciones intermedias figuran realmente completadas. Reforzar la opción de `su` que permite ejecutar un único comando como otro usuario y continuar practicando la lectura de `--help` en inglés.",
+      "id": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "createdAt": "2026-09-09T21:13:51.729Z"
+    }
+  ],
+  "sections": [
+    {
+      "id": "recovered-linux-06",
+      "moduleId": "f2ef637f-c5b8-4e21-ba1d-b5133f92136f",
+      "number": 6,
+      "total": 30,
+      "title": "System Information",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 6 de 30 — System Information\n\nComandos para reconocer un sistema: `whoami`, `id`, `hostname`, `uname -a`, `pwd`, `ifconfig` o `ip addr`, `lsblk`, `lsusb` y `lscpu`. Permiten consultar usuario y grupos, host, kernel, arquitectura, red, discos, USB y procesador.",
+      "learnings": "Aprendí a obtener una primera fotografía de la máquina antes de trabajar o investigar en ella.",
+      "questions": "",
+      "createdAt": "2026-09-10T12:05:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

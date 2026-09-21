@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BookMarked, BookOpen, Check, ChevronDown, ChevronRight, ChevronUp, CircleHelp, Clock3, Cloud, Download, Flame, FolderOpen, LayoutDashboard,
-  Edit3, LogOut, Pause, Play, Plus, RotateCcw, Save, Search, ShieldCheck, Snowflake, Target, TimerReset, Trash2, Upload, X,
+  Bot, CheckCheck, Copy, Edit3, GraduationCap, Lightbulb, LogOut, Pause, Play, Plus, RotateCcw, Save, Search, Send, ShieldCheck, Snowflake, Sparkles, Target, TimerReset, Trash2, Upload, Workflow, X,
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { formatMinutes, lastSevenDays, localDate } from "./lib/dates";
 import { downloadMarkdown, moduleMarkdown, sectionMarkdown, sessionMarkdown } from "./lib/markdown";
 import { exportData, importData, loadData, loadTimer, saveData, saveTimer } from "./lib/storage";
 import { isSupabaseConfigured, loadCloudData, mergeData, saveCloudData, supabase } from "./lib/supabase";
+import { askTutor, type TutorMessage } from "./lib/tutor";
 import type { CyberStudyData, ModuleStatus, StudyModule, StudySection, StudySession } from "./types";
 
 type View = "dashboard" | "modules" | "notebook" | "questions" | "sessions" | "search";
@@ -237,7 +238,7 @@ export function App() {
 
       {modal === "module" ? <Modal title={editingModuleId ? "Editar curso" : "Registrar curso padre"} subtitle="Ejemplo: Linux Fundamentals, Redes o Web" onClose={closeModal}><ModuleForm value={moduleForm} setValue={setModuleForm} onSubmit={addModule} /></Modal> : null}
       {modal === "section" ? <Modal title={editingSectionId ? "Editar módulo" : "Registrar módulo hijo"} subtitle="Cada módulo queda ordenado dentro de su curso" onClose={closeModal}><SectionForm modules={data.modules} value={sectionForm} setValue={setSectionForm} onSubmit={addSection} /></Modal> : null}
-      {modal === "reader" && readingSectionId ? (() => { const section = data.sections.find((item) => item.id === readingSectionId); if (!section) return null; const course = data.modules.find((item) => item.id === section.moduleId); return <Modal title={`${section.number} de ${section.total} — ${section.title}`} subtitle={`${course?.title ?? "Sin curso"} · ${section.status} · ${section.progress}%`} onClose={closeModal} wide><SectionReader section={section} course={course} onEdit={() => editSection(section)} /></Modal>; })() : null}
+      {modal === "reader" && readingSectionId ? (() => { const section = data.sections.find((item) => item.id === readingSectionId); if (!section) return null; const course = data.modules.find((item) => item.id === section.moduleId); return <Modal title={`${section.number} de ${section.total} — ${section.title}`} subtitle={`${course?.title ?? "Sin curso"} · ${section.status} · ${section.progress}%`} onClose={closeModal} wide><SectionReader section={section} course={course} onEdit={() => editSection(section)} onAppendNote={(answer) => setData((current) => ({ ...current, sections: current.sections.map((item) => item.id === section.id ? { ...item, notes: `${item.notes.trim()}\n\n## Aporte del Tutor IA\n\n${answer}`.trim() } : item) }))} /></Modal>; })() : null}
       {modal === "session" ? <Modal title={editingSessionId ? "Editar sesión" : "Registrar sesión"} subtitle="Guardá lo que hiciste, no sólo cuánto tiempo" onClose={closeModal}><SessionForm value={sessionForm} setValue={setSessionForm} onSubmit={addSession} /></Modal> : null}
       {modal === "freeze" ? <Modal title="Congelar hoy" subtitle="Un descanso justificado no rompe tu constancia" onClose={() => setModal(null)}><form onSubmit={(event) => { event.preventDefault(); if (!freezeReason.trim()) return; setData((current) => ({ ...current, frozenDays: [...current.frozenDays.filter((d) => d.date !== today), { date: today, reason: freezeReason.trim() }] })); setFreezeReason(""); setModal(null); }}><Field label="Motivo"><input required value={freezeReason} onChange={(e) => setFreezeReason(e.target.value)} placeholder="Ej: descanso, trabajo, salud..." /></Field><button className="btn primary full" type="submit"><Snowflake size={18} /> Congelar día</button></form></Modal> : null}
       {modal === "cloud" ? <Modal title="Sincronización segura" subtitle={isSupabaseConfigured ? "Tus datos locales se conservan y se combinan con la nube." : "Primero configurá las variables de Supabase."} onClose={() => setModal(null)}><CloudAccount user={user} state={cloudState} /></Modal> : null}
@@ -267,9 +268,41 @@ function Dashboard({ data, todayMinutes, weekMinutes, progress, streak, latestSe
 }
 
 function Modules({ modules, sections, setData, onAddCourse, onAddSection, onEditCourse, onEditSection, search }: { modules: StudyModule[]; sections: StudySection[]; setData: React.Dispatch<React.SetStateAction<CyberStudyData>>; onAddCourse: () => void; onAddSection: (moduleId: string) => void; onEditCourse: (module: StudyModule) => void; onEditSection: (section: StudySection) => void; search: string }) {
+  const [expandedCourses, setExpandedCourses] = useState<Set<string>>(() => new Set());
   const query = search.trim().toLowerCase();
   const visible = modules.filter((module) => !query || `${module.title} ${module.category} ${module.platform}`.toLowerCase().includes(query) || sections.some((section) => section.moduleId === module.id && sectionText(section).includes(query)));
-  return <section className="content"><div className="section-intro"><p>Los cursos son carpetas principales; dentro viven los módulos numerados.</p><button className="btn primary" onClick={onAddCourse}><Plus size={18} /> Agregar curso</button></div>{visible.length ? <div className="course-list">{visible.map((module) => { const children = sections.filter((section) => section.moduleId === module.id && (!query || sectionText(section).includes(query))); return <article className="course-card" key={module.id}><header className="course-head"><div className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0, 3).toUpperCase()}</div><div><span className="parent-label">CURSO PADRE</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {children.length} módulos guardados</p></div><div className="course-actions"><button className="text-button" onClick={() => onEditCourse(module)}><Edit3 size={15}/> Editar curso</button><button className="btn small" onClick={() => onAddSection(module.id)}><Plus size={15}/> Añadir módulo</button></div></header><div className="course-progress"><div className="mini-track"><span style={{ width: `${module.progress}%` }}/></div><b>{module.progress}%</b></div>{children.length ? <div className="section-list">{children.sort((a,b) => a.number-b.number).map((section) => <div className="section-item" key={section.id}><span className="section-number">{section.number}/{section.total}</span><div><strong>{section.title}</strong><small>{section.status} · {section.questions.trim() ? "Con dudas pendientes" : "Sin dudas"}</small></div><b>{section.progress}%</b><button className="text-button" onClick={() => onEditSection(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> MD</button><button className="icon-button danger" title="Eliminar módulo" onClick={() => { if (window.confirm(`¿Eliminar el módulo ${section.number} de ${section.total}?`)) setData((current) => { const nextSections = current.sections.filter((item) => item.id !== section.id); return { ...current, sections: nextSections, modules: updateCourseProgress(current.modules, nextSections, module.id) }; }); }}><Trash2 size={15}/></button></div>)}</div> : <div className="empty-child"><p>Todavía no hay módulos dentro de este curso.</p><button className="text-button" onClick={() => onAddSection(module.id)}>Crear el primero →</button></div>}<footer><button className="text-button" onClick={() => downloadMarkdown(module.title, moduleMarkdown(module))}><Download size={15}/> Exportar resumen del curso</button><button className="icon-button danger" title="Eliminar curso" onClick={() => { if (window.confirm(`¿Eliminar el curso “${module.title}” y sus módulos?`)) setData((current) => ({ ...current, modules: current.modules.filter((item) => item.id !== module.id), sections: current.sections.filter((section) => section.moduleId !== module.id) })); }}><Trash2 size={15}/></button></footer></article>; })}</div> : <Empty text={query ? "No hay resultados para esa búsqueda." : "Tu ruta empieza creando un curso padre."} action={!query ? "Crear primer curso" : undefined} onAction={onAddCourse} />}</section>;
+  function toggleCourse(moduleId: string) {
+    setExpandedCourses((current) => {
+      const next = new Set(current);
+      if (next.has(moduleId)) next.delete(moduleId);
+      else next.add(moduleId);
+      return next;
+    });
+  }
+
+  return <section className="content">
+    <div className="section-intro"><p>Los cursos son carpetas principales; abrilos cuando quieras ver sus módulos.</p><button className="btn primary" onClick={onAddCourse}><Plus size={18}/> Agregar curso</button></div>
+    {visible.length ? <div className="course-list">{visible.map((module) => {
+      const children = sections.filter((section) => section.moduleId === module.id && (!query || sectionText(section).includes(query)));
+      const expanded = Boolean(query) || expandedCourses.has(module.id);
+      return <article className={`course-card ${expanded ? "expanded" : "collapsed"}`} key={module.id}>
+        <header className="course-head">
+          <div className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0, 3).toUpperCase()}</div>
+          <div><span className="parent-label">CURSO PADRE</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {children.length} módulos guardados</p></div>
+          <div className="course-actions">
+            <button className="text-button" onClick={() => onEditCourse(module)}><Edit3 size={15}/> Editar curso</button>
+            <button className="btn small" onClick={() => onAddSection(module.id)}><Plus size={15}/> Añadir módulo</button>
+            <button className="btn ghost small course-toggle" aria-expanded={expanded} aria-controls={`course-sections-${module.id}`} onClick={() => toggleCourse(module.id)}>{expanded ? <ChevronUp size={16}/> : <ChevronDown size={16}/>} {expanded ? "Ocultar módulos" : `Ver módulos (${children.length})`}</button>
+          </div>
+        </header>
+        <div className="course-progress"><div className="mini-track"><span style={{ width: `${module.progress}%` }}/></div><b>{module.progress}%</b></div>
+        {expanded ? <div id={`course-sections-${module.id}`} className="course-expandable">
+          {children.length ? <div className="section-list">{children.sort((a,b) => a.number-b.number).map((section) => <div className="section-item" key={section.id}><span className="section-number">{section.number}/{section.total}</span><div><strong>{section.title}</strong><small>{section.status} · {section.questions.trim() ? "Con dudas pendientes" : "Sin dudas"}</small></div><b>{section.progress}%</b><button className="text-button" onClick={() => onEditSection(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> MD</button><button className="icon-button danger" title="Eliminar módulo" onClick={() => { if (window.confirm(`¿Eliminar el módulo ${section.number} de ${section.total}?`)) setData((current) => { const nextSections = current.sections.filter((item) => item.id !== section.id); return { ...current, sections: nextSections, modules: updateCourseProgress(current.modules, nextSections, module.id) }; }); }}><Trash2 size={15}/></button></div>)}</div> : <div className="empty-child"><p>Todavía no hay módulos dentro de este curso.</p><button className="text-button" onClick={() => onAddSection(module.id)}>Crear el primero →</button></div>}
+          <footer><button className="text-button" onClick={() => downloadMarkdown(module.title, moduleMarkdown(module))}><Download size={15}/> Exportar resumen del curso</button><button className="icon-button danger" title="Eliminar curso" onClick={() => { if (window.confirm(`¿Eliminar el curso “${module.title}” y sus módulos?`)) setData((current) => ({ ...current, modules: current.modules.filter((item) => item.id !== module.id), sections: current.sections.filter((section) => section.moduleId !== module.id) })); }}><Trash2 size={15}/></button></footer>
+        </div> : null}
+      </article>;
+    })}</div> : <Empty text={query ? "No hay resultados para esa búsqueda." : "Tu ruta empieza creando un curso padre."} action={!query ? "Crear primer curso" : undefined} onAction={onAddCourse}/>}
+  </section>;
 }
 
 function Notebook({ modules, sections, search, onOpen }: { modules: StudyModule[]; sections: StudySection[]; search: string; onOpen: (section: StudySection) => void }) {
@@ -331,9 +364,10 @@ function CloudAccount({ user, state }: { user: User | null; state: "local" | "sy
 }
 
 function TimerBar({ seconds, running, onToggle, onReset, onFinish }: { seconds: number; running: boolean; onToggle: () => void; onReset: () => void; onFinish: () => void }) { const time = `${String(Math.floor(seconds / 3600)).padStart(2, "0")}:${String(Math.floor(seconds % 3600 / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`; return <div className="timer-bar"><div><TimerReset size={20}/><span>Sesión en vivo</span><strong>{time}</strong></div><div><button className="timer-button" onClick={onToggle}>{running ? <Pause size={18}/> : <Play size={18}/>} {running ? "Pausar" : seconds ? "Continuar" : "Iniciar"}</button>{seconds ? <><button className="icon-button" title="Descartar timer" onClick={onReset}><RotateCcw size={17}/></button><button className="btn small" onClick={onFinish}>Finalizar y guardar</button></> : null}</div></div>; }
-function SectionReader({ section, course, onEdit }: { section: StudySection; course?: StudyModule; onEdit: () => void }) {
+function SectionReader({ section, course, onEdit, onAppendNote }: { section: StudySection; course?: StudyModule; onEdit: () => void; onAppendNote: (answer: string) => void }) {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [tutorOpen, setTutorOpen] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
   const content = `${section.notes}\n${section.learnings}\n${section.questions}`.toLowerCase();
   const term = query.trim().toLowerCase();
@@ -362,15 +396,85 @@ function SectionReader({ section, course, onEdit }: { section: StudySection; cou
         </span> : null}
       </label>
       <button className="btn ghost" onClick={onEdit}><Edit3 size={16}/> Editar</button>
+      <button className="btn ghost" onClick={() => setTutorOpen((open) => !open)}><Bot size={16}/> Tutor IA</button>
       <button className="btn ghost" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, course))}><Download size={16}/> Descargar .md</button>
     </div>
     <div className="reader-meta"><span>{course?.platform ?? "Biblioteca personal"}</span><span>{course?.category ?? "Apuntes"}</span><span>{section.status}</span></div>
+    {tutorOpen ? <TutorPanel section={section} course={course} onAppendNote={onAppendNote}/> : null}
     <div ref={bodyRef}>
       {section.learnings.trim() ? <ReaderBlock title="Resumen — qué aprendí"><ReadableText text={section.learnings} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock> : null}
       <ReaderBlock title="Apuntes completos"><MarkdownText text={section.notes || "Todavía no agregaste apuntes a este módulo."} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock>
       {section.questions.trim() ? <ReaderBlock title="Dudas para practicar" tone="question"><ReadableText text={section.questions} query={query} counter={counter} activeIndex={activeIndex}/></ReaderBlock> : null}
     </div>
   </div>;
+}
+
+function TutorPanel({ section, course, onAppendNote }: { section: StudySection; course?: StudyModule; onAppendNote: (answer: string) => void }) {
+  const [messages, setMessages] = useState<TutorMessage[]>([]);
+  const [question, setQuestion] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [savedAnswer, setSavedAnswer] = useState<number | null>(null);
+  const quickActions = [
+    { label: "Explicación simple", icon: <Lightbulb size={15}/>, prompt: "Explicame la idea principal de este módulo en lenguaje sencillo, paso a paso y con una analogía cotidiana." },
+    { label: "Ejemplo práctico", icon: <Sparkles size={15}/>, prompt: "Dame un ejemplo práctico y seguro para aplicar los conceptos principales de este módulo en mi propia computadora o en un laboratorio autorizado. Explicá qué demuestra cada paso." },
+    { label: "Vista visual", icon: <Workflow size={15}/>, prompt: "Mostrame visualmente el tema principal de este módulo. Usá un diagrama ASCII dentro de un bloque de código, etiquetas claras y después explicá cómo leerlo. No generes una imagen decorativa." },
+    { label: "Examen guiado", icon: <GraduationCap size={15}/>, prompt: "Actuá como profesor y comenzá un examen guiado basado solamente en este módulo. Haceme una sola pregunta conceptual, sin mostrar la respuesta. Esperá mi respuesta y luego corregime explicando el motivo antes de continuar." },
+  ];
+
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    const cleanQuestion = question.trim();
+    if (!cleanQuestion || busy) return;
+
+    setBusy(true);
+    setError("");
+    setSavedAnswer(null);
+    try {
+      const result = await askTutor({
+        question: cleanQuestion,
+        moduleTitle: `${section.number} de ${section.total} — ${section.title}`,
+        moduleNotes: [section.notes, section.learnings, section.questions].filter(Boolean).join("\n\n"),
+        messages,
+      });
+      setMessages((current) => [...current, { role: "user", content: cleanQuestion }, { role: "assistant", content: result.answer }]);
+      setQuestion("");
+      setRemaining(result.remaining ?? null);
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "No se pudo consultar al tutor.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return <aside className="tutor-panel" aria-label="Tutor IA del módulo">
+    <div className="tutor-heading">
+      <div><span className="tutor-icon"><Bot size={20}/></span><div><h3>Tutor IA</h3><p>Consulta temporal · contexto: {course?.title ?? section.title}</p></div></div>
+      <small>{remaining === null ? "15 preguntas por día" : `${remaining} preguntas disponibles hoy`}</small>
+    </div>
+    <p className="tutor-privacy">Esta conversación vive solamente en esta ventana. Al cerrar el módulo o recargar la página, se elimina.</p>
+    <div className="tutor-tools" aria-label="Herramientas de estudio">
+      <span>Estudiar desde estos apuntes</span>
+      <div>{quickActions.map((action) => <button key={action.label} type="button" onClick={() => setQuestion(action.prompt)} disabled={busy}>{action.icon}{action.label}</button>)}</div>
+    </div>
+    <div className="tutor-messages" aria-live="polite">
+      {messages.length ? messages.map((message, index) => <div key={`${message.role}-${index}`} className={`tutor-message ${message.role}`}>
+        <strong>{message.role === "user" ? "Vos" : "Tutor"}</strong>
+        {message.role === "assistant" ? <MarkdownText text={message.content} query=""/> : <p>{message.content}</p>}
+        {message.role === "assistant" ? <div className="tutor-message-actions">
+          <button type="button" className="text-button" onClick={() => void navigator.clipboard.writeText(message.content)}><Copy size={14}/> Copiar</button>
+          <button type="button" className="text-button" onClick={() => { onAppendNote(message.content); setSavedAnswer(index); }}><CheckCheck size={14}/> {savedAnswer === index ? "Agregado al cuaderno" : "Agregar al cuaderno"}</button>
+        </div> : null}
+      </div>) : <div className="tutor-empty"><Bot size={28}/><p>Preguntame algo sobre este módulo. Por ejemplo: “Explicame la diferencia entre SSH y VPN con una analogía”.</p></div>}
+      {busy ? <div className="tutor-message assistant"><strong>Tutor</strong><p>Estoy preparando una explicación…</p></div> : null}
+    </div>
+    {error ? <p className="tutor-error">{error}</p> : null}
+    <form className="tutor-form" onSubmit={submit}>
+      <textarea value={question} onChange={(event) => setQuestion(event.target.value)} maxLength={1200} rows={3} placeholder="Escribí tu pregunta sobre este módulo…" disabled={busy}/>
+      <div><small>{question.length}/1200</small><button className="btn primary" type="submit" disabled={busy || !question.trim()}><Send size={16}/> Preguntar</button></div>
+    </form>
+  </aside>;
 }
 
 function ReaderBlock({ title, tone, children }: { title: string; tone?: "question"; children: React.ReactNode }) { return <section className={`reader-block ${tone ?? ""}`}><h3>{title}</h3><div className="reader-copy">{children}</div></section>; }

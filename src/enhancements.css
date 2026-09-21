@@ -21,7 +21,11 @@
 .course-head p { color: var(--muted); font-size: 11px; margin: 0; }
 .parent-label { font: 9px 'IBM Plex Mono'; letter-spacing: .12em; color: var(--green); }
 .course-actions { display: flex; gap: 8px; margin-left: auto; }
+.course-toggle { min-width: 150px; }
 .course-progress { display: flex; align-items: center; gap: 13px; margin: 18px 0; }
+.course-card.collapsed .course-progress { margin-bottom: 0; }
+.course-expandable { animation: course-reveal .16s ease-out; }
+@keyframes course-reveal { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 .course-progress .mini-track { flex: 1; }
 .course-progress b { font: 11px 'IBM Plex Mono'; color: var(--green); }
 .section-list { border-top: 1px solid var(--line); }
