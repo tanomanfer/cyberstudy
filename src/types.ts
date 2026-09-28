@@ -76,4 +76,6 @@ export interface CyberStudyData {
   sections: StudySection[];
   sessions: StudySession[];
   frozenDays: FreezeDay[];
+  /** IDs borrados; evita que la sincronización con la nube los resucite. */
+  deletedIds?: string[];
 }

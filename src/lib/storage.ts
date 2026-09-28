@@ -82,6 +82,7 @@ export function normalizeData(value: unknown): CyberStudyData | null {
     sections: candidate.sections,
     sessions: candidate.sessions,
     frozenDays: candidate.frozenDays,
+    deletedIds: Array.isArray((value as { deletedIds?: unknown }).deletedIds) ? (value as { deletedIds: string[] }).deletedIds : [],
   };
 }
 
