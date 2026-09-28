@@ -6,7 +6,7 @@ Esta carpeta es la fuente canónica del progreso de estudio de Tano. Su objetivo
 
 - `INDICE.md`: estado humano, orden de módulos y pendientes.
 - `modulos/`: un archivo Markdown por sección estudiada, y su JSON individual (ver regla principal abajo).
-- `cyberstudy-import.json`: respaldo completo (todos los módulos y secciones juntos) listo para importar desde el botón **Importar** de CyberStudy.
+- `cyberstudy-import.json`: respaldo completo v3 (certificaciones, cursos y secciones) listo para importar desde el botón **Importar** de CyberStudy.
 - `../respaldo/`: respaldos originales descargados desde la aplicación. Nunca se sobrescriben.
 
 ## Qué se importa en la app y qué queda como respaldo

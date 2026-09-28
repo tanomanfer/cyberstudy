@@ -7,7 +7,8 @@ Aplicación personal para registrar estudio técnico, con foco inicial en Hack T
 Aplicación local-first funcional (`v0.2.0`):
 
 - Dashboard con objetivo diario, resumen semanal, racha y módulos activos.
-- Tracker de módulos con plataforma, categoría, dificultad, estado y progreso.
+- Tracker jerárquico de certificaciones → cursos → secciones, con estado, progreso y orden oficial.
+- Cuaderno separado por curso para que los apuntes de Linux, Redes, Bash y futuros cursos no se mezclen.
 - Sesiones manuales con aprendizajes, dificultades, comprensión y tags.
 - Timer en vivo que convierte el tiempo medido en una sesión editable.
 - Congelamiento justificado de días para conservar la racha.
@@ -79,6 +80,7 @@ La Edge Function está en `supabase/functions/tutor/index.ts`. La cuota se aplic
 - [`docs/02-arquitectura-y-decisiones.md`](docs/02-arquitectura-y-decisiones.md): arquitectura actual y razones.
 - [`docs/03-guia-de-uso.md`](docs/03-guia-de-uso.md): uso cotidiano.
 - [`docs/04-proximos-pasos.md`](docs/04-proximos-pasos.md): trabajo pendiente y orden sugerido.
+- [`docs/06-ruta-certificacion-soc-blue-team.md`](docs/06-ruta-certificacion-soc-blue-team.md): ruta personal desde Linux Fundamentals hasta CJCA y CDSA.
 - [`ESTADO_PROYECTO.md`](ESTADO_PROYECTO.md): estado canónico para retomar el trabajo.
 - [`estudio/README_IA.md`](estudio/README_IA.md): procedimiento obligatorio para conservar cada resumen fuera del chat.
 - [`estudio/INDICE.md`](estudio/INDICE.md): progreso y cuadernos disponibles.
