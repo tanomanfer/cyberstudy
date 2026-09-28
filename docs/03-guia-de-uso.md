@@ -24,12 +24,13 @@ En cada módulo o sesión se puede elegir **Exportar a Obsidian**. El navegador 
 
 ## Leer y buscar apuntes
 
-1. Entrá en **Cuaderno** para ver todos los módulos guardados.
+1. Entrá en **Rutas** para ver las certificaciones y sus cursos en el orden oficial.
+2. Entrá en **Cuaderno** para desplegar un curso y ver únicamente sus secciones/cuadernos, ordenados por número.
 2. Pulsá **Abrir** en un módulo. Se mostrará una vista amplia pensada para leer, no para editar.
 3. Usá **Buscar dentro de este módulo** para encontrar un comando o concepto. La aplicación indica la cantidad de coincidencias y las resalta.
 4. Desde el lector podés elegir **Editar** o **Descargar .md**.
 
-El buscador superior sigue siendo global: busca en todos los cursos, módulos, apuntes, aprendizajes, dudas y sesiones.
+El buscador superior sigue siendo global: busca en certificaciones, cursos, secciones, apuntes, aprendizajes, dudas y sesiones.
 
 ## Editar y respaldar
 

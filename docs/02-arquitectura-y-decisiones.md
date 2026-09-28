@@ -35,6 +35,18 @@ No es una renuncia al stack previsto: es una implementación incremental orienta
 
 `modules` conserva los cursos principales por compatibilidad interna y se agrega `sections` para sus módulos hijos. La interfaz utiliza los nombres “Cursos” y “Módulos” para evitar la ambigüedad de HTB Academy.
 
+## Decisión 005 — Certificaciones, cursos y secciones
+
+**Fecha:** 2026-09-27
+
+La biblioteca pasa a tener tres niveles visibles:
+
+1. **Certificación / ruta**, por ejemplo Junior Cybersecurity Analyst (CJCA).
+2. **Curso**, por ejemplo Linux Fundamentals.
+3. **Sección / cuaderno**, por ejemplo 30 de 30 — Shortcuts.
+
+El estado local sube a la versión 3 y agrega `paths`. Se mantienen los nombres internos `modules` y `sections` para no romper los datos anteriores. La migración desde v2 es automática, conserva todos los cuadernos y ubica Linux Fundamentals en la posición 4 de la ruta CJCA. La pantalla Rutas muestra la certificación y sus cursos; el detalle de cuadernos vive en la pantalla Cuaderno, agrupado por curso y ordenado por número.
+
 La versión 2 del almacenamiento migra automáticamente registros antiguos cuyo título siga el patrón `N de TOTAL — título`. El registro antiguo queda intacto en la clave v1 y el nuevo modelo se guarda en una clave v2 con copia secundaria. De esta manera, el módulo 12 existente se convierte en hijo de Linux Fundamentals sin borrar sus notas, aprendizajes, dudas, estado ni progreso.
 
 ## Decisión 005 — Lectura separada de edición

@@ -15,6 +15,17 @@
 .global-search:focus-within { border-color: var(--green); }
 .global-search input { min-width: 0; width: 100%; border: 0; outline: 0; background: transparent; color: #e7f0ec; font-size: 12px; }
 .course-list { display: grid; gap: 18px; }
+.intro-actions { display: flex; gap: 10px; }
+.path-card { margin-bottom: 22px; padding: 24px; border: 1px solid #315440; background: linear-gradient(135deg, #10241a, var(--panel)); }
+.path-head { display: flex; align-items: center; gap: 14px; }
+.path-head h2 { margin: 4px 0; font-size: 21px; }
+.path-head p { margin: 0; color: var(--muted); font-size: 11px; }
+.path-icon { width: 46px; height: 46px; display: grid; place-items: center; flex: 0 0 46px; border: 1px solid #39845c; color: var(--green); background: #0c1b14; }
+.course-list.nested { padding: 18px 0 0 30px; border-left: 1px solid #315440; }
+.course-order { width: 30px; height: 30px; display: grid; place-items: center; flex: 0 0 30px; border-radius: 50%; background: var(--green); color: #06110c; font: 700 11px 'IBM Plex Mono'; }
+.course-summary-footer { border-top: 1px solid var(--line); margin-top: 14px; }
+.unassigned-courses { margin-top: 28px; }
+.unassigned-courses > h3 { color: var(--muted); font-size: 13px; }
 .course-card { background: var(--panel); border: 1px solid var(--line); padding: 22px; }
 .course-head { display: flex; align-items: center; gap: 14px; }
 .course-head h2 { font-size: 19px; margin: 4px 0; }
@@ -38,6 +49,15 @@
 .course-card footer { display: flex; justify-content: space-between; padding-top: 12px; }
 .empty-child { display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px dashed #294035; padding: 18px; color: var(--muted); font-size: 12px; }
 .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.notebook-courses { display: grid; gap: 16px; }
+.notebook-course { border: 1px solid var(--line); background: var(--panel); }
+.notebook-course-head { width: 100%; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 14px; padding: 18px 20px; border: 0; background: transparent; color: inherit; text-align: left; }
+.notebook-course-head > span:nth-child(2) > * { display: block; }
+.notebook-course-head small { color: var(--green); font: 9px 'IBM Plex Mono'; letter-spacing: .1em; }
+.notebook-course-head strong { margin-top: 5px; font-size: 16px; }
+.notebook-course-head p { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
+.notebook-course-head > svg { color: var(--green); }
+.notebook-grid { padding: 0 20px 20px; border-top: 1px solid var(--line); padding-top: 20px; }
 .knowledge-card, .question-card { background: var(--panel); border: 1px solid var(--line); padding: 20px; }
 .knowledge-card > span, .question-card span { font: 9px 'IBM Plex Mono'; color: var(--green); text-transform: uppercase; }
 .knowledge-card h3 { font-size: 15px; line-height: 1.4; margin: 12px 0; }

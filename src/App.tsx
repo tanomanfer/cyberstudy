@@ -9,15 +9,20 @@ import { downloadMarkdown, moduleMarkdown, sectionMarkdown, sessionMarkdown } fr
 import { exportData, importData, loadData, loadTimer, saveData, saveTimer } from "./lib/storage";
 import { isSupabaseConfigured, loadCloudData, mergeData, saveCloudData, supabase } from "./lib/supabase";
 import { askTutor, type TutorMessage } from "./lib/tutor";
-import type { CyberStudyData, ModuleStatus, StudyModule, StudySection, StudySession } from "./types";
+import type { CertificationPath, CyberStudyData, ModuleStatus, StudyModule, StudySection, StudySession } from "./types";
 
 type View = "dashboard" | "modules" | "notebook" | "questions" | "sessions" | "search";
-type ModalKind = "module" | "section" | "reader" | "session" | "freeze" | "cloud";
+type ModalKind = "path" | "module" | "section" | "reader" | "session" | "freeze" | "cloud";
+
+const pathDefaults = {
+  title: "", certification: "", platform: "Hack The Box Academy", status: "En progreso" as ModuleStatus,
+  progress: 0, totalCourses: 1, notes: "", url: "",
+};
 
 const moduleDefaults = {
   title: "", platform: "Hack The Box Academy", category: "Fundamentos", difficulty: "Tier 0",
   status: "En progreso" as ModuleStatus, progress: 0, startedAt: localDate(), completedAt: "",
-  url: "", notes: "", learnings: "", questions: "",
+  url: "", notes: "", learnings: "", questions: "", pathId: "", order: 1,
 };
 
 const sectionDefaults = {
@@ -36,11 +41,13 @@ export function App() {
   const [data, setData] = useState<CyberStudyData>(() => loadData());
   const [view, setView] = useState<View>("dashboard");
   const [modal, setModal] = useState<ModalKind | null>(null);
+  const [pathForm, setPathForm] = useState(pathDefaults);
   const [moduleForm, setModuleForm] = useState(moduleDefaults);
   const [sectionForm, setSectionForm] = useState(sectionDefaults);
   const [sessionForm, setSessionForm] = useState(sessionDefaults);
   const [freezeReason, setFreezeReason] = useState("");
   const [editingModuleId, setEditingModuleId] = useState<string | null>(null);
+  const [editingPathId, setEditingPathId] = useState<string | null>(null);
   const [editingSectionId, setEditingSectionId] = useState<string | null>(null);
   const [readingSectionId, setReadingSectionId] = useState<string | null>(null);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
@@ -100,6 +107,14 @@ export function App() {
   const streak = useMemo(() => calculateStreak(data), [data]);
   const progress = Math.min(100, Math.round((todayMinutes / data.dailyGoalMinutes) * 100));
 
+  function addPath(event: React.FormEvent) {
+    event.preventDefault();
+    if (!pathForm.title.trim()) return;
+    const item: CertificationPath = { ...pathForm, title: pathForm.title.trim(), certification: pathForm.certification.trim(), id: editingPathId ?? crypto.randomUUID(), createdAt: data.paths.find((path) => path.id === editingPathId)?.createdAt ?? new Date().toISOString() };
+    setData((current) => ({ ...current, paths: editingPathId ? current.paths.map((path) => path.id === editingPathId ? item : path) : [...current.paths, item] }));
+    setEditingPathId(null); setPathForm(pathDefaults); setModal(null);
+  }
+
   function addModule(event: React.FormEvent) {
     event.preventDefault();
     if (!moduleForm.title.trim()) return;
@@ -152,6 +167,7 @@ export function App() {
   function closeModal() {
     setModal(null);
     setEditingModuleId(null);
+    setEditingPathId(null);
     setEditingSectionId(null);
     setEditingSessionId(null);
     setReadingSectionId(null);
@@ -159,8 +175,14 @@ export function App() {
 
   function editModule(module: StudyModule) {
     setEditingModuleId(module.id);
-    setModuleForm({ title: module.title, platform: module.platform, category: module.category, difficulty: module.difficulty, status: module.status, progress: module.progress, startedAt: module.startedAt, completedAt: module.completedAt, url: module.url, notes: module.notes, learnings: module.learnings, questions: module.questions });
+    setModuleForm({ title: module.title, platform: module.platform, category: module.category, difficulty: module.difficulty, status: module.status, progress: module.progress, startedAt: module.startedAt, completedAt: module.completedAt, url: module.url, notes: module.notes, learnings: module.learnings, questions: module.questions, pathId: module.pathId ?? "", order: module.order ?? 1 });
     setModal("module");
+  }
+
+  function editPath(path: CertificationPath) {
+    setEditingPathId(path.id);
+    setPathForm({ title: path.title, certification: path.certification, platform: path.platform, status: path.status, progress: path.progress, totalCourses: path.totalCourses, notes: path.notes, url: path.url });
+    setModal("path");
   }
 
   function editSection(section: StudySection) {
@@ -196,7 +218,7 @@ export function App() {
         </button>
         <nav aria-label="Navegación principal">
           <NavButton active={view === "dashboard"} icon={<LayoutDashboard />} label="Panel" onClick={() => setView("dashboard")} />
-          <NavButton active={view === "modules"} icon={<FolderOpen />} label="Cursos" count={data.modules.length} onClick={() => setView("modules")} />
+          <NavButton active={view === "modules"} icon={<FolderOpen />} label="Rutas" count={data.paths.length} onClick={() => setView("modules")} />
           <NavButton active={view === "notebook"} icon={<BookMarked />} label="Cuaderno" count={data.sections.length} onClick={() => setView("notebook")} />
           <NavButton active={view === "questions"} icon={<CircleHelp />} label="Dudas" count={data.sections.filter((section) => section.questions.trim()).length} onClick={() => setView("questions")} />
           <NavButton active={view === "sessions"} icon={<Clock3 />} label="Sesiones" count={data.sessions.length} onClick={() => setView("sessions")} />
@@ -207,7 +229,7 @@ export function App() {
 
       <main>
         <header className="topbar">
-          <div><p className="eyebrow">{new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</p><h1>{view === "dashboard" ? "Buenas, Tano." : view === "modules" ? "Cursos y módulos" : view === "notebook" ? "Cuaderno global" : view === "questions" ? "Dudas para practicar" : view === "search" ? "Resultados de búsqueda" : "Sesiones de estudio"}</h1></div>
+          <div><p className="eyebrow">{new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</p><h1>{view === "dashboard" ? "Buenas, Tano." : view === "modules" ? "Certificaciones, cursos y secciones" : view === "notebook" ? "Cuaderno global" : view === "questions" ? "Dudas para practicar" : view === "search" ? "Resultados de búsqueda" : "Sesiones de estudio"}</h1></div>
           <div className="header-actions">
             <label className="global-search"><Search size={16}/><input value={search} onChange={(event) => { const value = event.target.value; setSearch(value); if (value.trim()) setView("search"); else if (view === "search") setView("dashboard"); }} placeholder="Buscar en todo…" aria-label="Buscar en todo" /></label>
             <button className="btn ghost" onClick={() => setModal("cloud")}><Cloud size={18} /> {user ? "Sincronizado" : "Nube"}</button>
@@ -215,14 +237,14 @@ export function App() {
             <button className="btn ghost" onClick={() => importInput.current?.click()}><Upload size={18} /> Importar</button>
             <input ref={importInput} className="visually-hidden" type="file" accept="application/json,.json" onChange={(e) => void restoreBackup(e.target.files?.[0])} />
             <button className="btn ghost" onClick={() => { setEditingSessionId(null); setSessionForm(sessionDefaults); setModal("session"); }}><Plus size={18} /> Sesión manual</button>
-            <button className="btn primary" onClick={() => { setEditingSectionId(null); setSectionForm({ ...sectionDefaults, moduleId: data.modules[0]?.id ?? "" }); setModal(data.modules.length ? "section" : "module"); }}><Plus size={18} /> {data.modules.length ? "Nuevo módulo" : "Nuevo curso"}</button>
+            <button className="btn primary" onClick={() => { setEditingSectionId(null); setSectionForm({ ...sectionDefaults, moduleId: data.modules[0]?.id ?? "" }); setModal(data.modules.length ? "section" : "module"); }}><Plus size={18} /> {data.modules.length ? "Nueva sección" : "Nuevo curso"}</button>
           </div>
         </header>
 
         {view === "dashboard" ? (
           <Dashboard data={data} todayMinutes={todayMinutes} weekMinutes={weekMinutes} progress={progress} streak={streak} latestSession={latestSession} inProgress={inProgress} setData={setData} onFreeze={() => setModal("freeze")} />
         ) : view === "modules" ? (
-          <Modules modules={data.modules} sections={data.sections} setData={setData} onAddCourse={() => { setEditingModuleId(null); setModuleForm(moduleDefaults); setModal("module"); }} onAddSection={(moduleId) => { setEditingSectionId(null); setSectionForm({ ...sectionDefaults, moduleId }); setModal("section"); }} onEditCourse={editModule} onEditSection={readSection} search={search} />
+          <Modules paths={data.paths} modules={data.modules} sections={data.sections} setData={setData} onAddPath={() => { setEditingPathId(null); setPathForm(pathDefaults); setModal("path"); }} onAddCourse={(pathId = "") => { setEditingModuleId(null); setModuleForm({ ...moduleDefaults, pathId, order: data.modules.filter((module) => module.pathId === pathId).length + 1 }); setModal("module"); }} onEditPath={editPath} onEditCourse={editModule} onOpenNotebook={() => setView("notebook")} search={search} />
         ) : view === "notebook" ? (
           <Notebook modules={data.modules} sections={data.sections} search={search} onOpen={readSection} />
         ) : view === "questions" ? (
@@ -236,8 +258,9 @@ export function App() {
         <TimerBar seconds={timerSeconds} running={timerRunning} onToggle={() => setTimerRunning((value) => !value)} onReset={() => { setTimerRunning(false); setTimerSeconds(0); }} onFinish={finishTimer} />
       </main>
 
-      {modal === "module" ? <Modal title={editingModuleId ? "Editar curso" : "Registrar curso padre"} subtitle="Ejemplo: Linux Fundamentals, Redes o Web" onClose={closeModal}><ModuleForm value={moduleForm} setValue={setModuleForm} onSubmit={addModule} /></Modal> : null}
-      {modal === "section" ? <Modal title={editingSectionId ? "Editar módulo" : "Registrar módulo hijo"} subtitle="Cada módulo queda ordenado dentro de su curso" onClose={closeModal}><SectionForm modules={data.modules} value={sectionForm} setValue={setSectionForm} onSubmit={addSection} /></Modal> : null}
+      {modal === "path" ? <Modal title={editingPathId ? "Editar certificación" : "Crear certificación"} subtitle="La ruta contiene sus cursos en el orden oficial" onClose={closeModal}><PathForm value={pathForm} setValue={setPathForm} onSubmit={addPath} /></Modal> : null}
+      {modal === "module" ? <Modal title={editingModuleId ? "Editar curso" : "Registrar curso"} subtitle="Ejemplo: Linux Fundamentals o Network Foundations" onClose={closeModal}><ModuleForm paths={data.paths} value={moduleForm} setValue={setModuleForm} onSubmit={addModule} /></Modal> : null}
+      {modal === "section" ? <Modal title={editingSectionId ? "Editar sección" : "Registrar sección"} subtitle="Cada sección queda numerada dentro de su curso" onClose={closeModal}><SectionForm modules={data.modules} value={sectionForm} setValue={setSectionForm} onSubmit={addSection} /></Modal> : null}
       {modal === "reader" && readingSectionId ? (() => { const section = data.sections.find((item) => item.id === readingSectionId); if (!section) return null; const course = data.modules.find((item) => item.id === section.moduleId); return <Modal title={`${section.number} de ${section.total} — ${section.title}`} subtitle={`${course?.title ?? "Sin curso"} · ${section.status} · ${section.progress}%`} onClose={closeModal} wide><SectionReader section={section} course={course} onEdit={() => editSection(section)} onAppendNote={(answer) => setData((current) => ({ ...current, sections: current.sections.map((item) => item.id === section.id ? { ...item, notes: `${item.notes.trim()}\n\n## Aporte del Tutor IA\n\n${answer}`.trim() } : item) }))} /></Modal>; })() : null}
       {modal === "session" ? <Modal title={editingSessionId ? "Editar sesión" : "Registrar sesión"} subtitle="Guardá lo que hiciste, no sólo cuánto tiempo" onClose={closeModal}><SessionForm value={sessionForm} setValue={setSessionForm} onSubmit={addSession} /></Modal> : null}
       {modal === "freeze" ? <Modal title="Congelar hoy" subtitle="Un descanso justificado no rompe tu constancia" onClose={() => setModal(null)}><form onSubmit={(event) => { event.preventDefault(); if (!freezeReason.trim()) return; setData((current) => ({ ...current, frozenDays: [...current.frozenDays.filter((d) => d.date !== today), { date: today, reason: freezeReason.trim() }] })); setFreezeReason(""); setModal(null); }}><Field label="Motivo"><input required value={freezeReason} onChange={(e) => setFreezeReason(e.target.value)} placeholder="Ej: descanso, trabajo, salud..." /></Field><button className="btn primary full" type="submit"><Snowflake size={18} /> Congelar día</button></form></Modal> : null}
@@ -267,48 +290,45 @@ function Dashboard({ data, todayMinutes, weekMinutes, progress, streak, latestSe
   </section>;
 }
 
-function Modules({ modules, sections, setData, onAddCourse, onAddSection, onEditCourse, onEditSection, search }: { modules: StudyModule[]; sections: StudySection[]; setData: React.Dispatch<React.SetStateAction<CyberStudyData>>; onAddCourse: () => void; onAddSection: (moduleId: string) => void; onEditCourse: (module: StudyModule) => void; onEditSection: (section: StudySection) => void; search: string }) {
-  const [expandedCourses, setExpandedCourses] = useState<Set<string>>(() => new Set());
+function Modules({ paths, modules, sections, setData, onAddPath, onAddCourse, onEditPath, onEditCourse, onOpenNotebook, search }: { paths: CertificationPath[]; modules: StudyModule[]; sections: StudySection[]; setData: React.Dispatch<React.SetStateAction<CyberStudyData>>; onAddPath: () => void; onAddCourse: (pathId?: string) => void; onEditPath: (path: CertificationPath) => void; onEditCourse: (module: StudyModule) => void; onOpenNotebook: () => void; search: string }) {
+  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => new Set(paths.map((path) => path.id)));
   const query = search.trim().toLowerCase();
   const visible = modules.filter((module) => !query || `${module.title} ${module.category} ${module.platform}`.toLowerCase().includes(query) || sections.some((section) => section.moduleId === module.id && sectionText(section).includes(query)));
-  function toggleCourse(moduleId: string) {
-    setExpandedCourses((current) => {
-      const next = new Set(current);
-      if (next.has(moduleId)) next.delete(moduleId);
-      else next.add(moduleId);
-      return next;
-    });
+  function renderCourse(module: StudyModule) {
+    const children = sections.filter((section) => section.moduleId === module.id && (!query || sectionText(section).includes(query)));
+    return <article className="course-card collapsed" key={module.id}>
+      <header className="course-head">
+        <span className="course-order">{module.order ?? "—"}</span>
+        <div className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0, 3).toUpperCase()}</div>
+        <div><span className="parent-label">CURSO</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {children.length} secciones guardadas</p></div>
+        <div className="course-actions">
+          <button className="text-button" onClick={() => onEditCourse(module)}><Edit3 size={15}/> Editar</button>
+          <button className="btn ghost small" onClick={onOpenNotebook}><BookMarked size={15}/> Ver cuadernos ({children.length})</button>
+        </div>
+      </header>
+      <div className="course-progress"><div className="mini-track"><span style={{ width: `${module.progress}%` }}/></div><b>{module.progress}%</b></div>
+      <footer className="course-summary-footer"><button className="text-button" onClick={() => downloadMarkdown(module.title, moduleMarkdown(module))}><Download size={15}/> Exportar resumen</button><button className="icon-button danger" title="Eliminar curso" onClick={() => { if (window.confirm(`¿Eliminar el curso “${module.title}” y sus secciones?`)) setData((current) => ({ ...current, modules: current.modules.filter((item) => item.id !== module.id), sections: current.sections.filter((section) => section.moduleId !== module.id) })); }}><Trash2 size={15}/></button></footer>
+    </article>;
   }
 
   return <section className="content">
-    <div className="section-intro"><p>Los cursos son carpetas principales; abrilos cuando quieras ver sus módulos.</p><button className="btn primary" onClick={onAddCourse}><Plus size={18}/> Agregar curso</button></div>
-    {visible.length ? <div className="course-list">{visible.map((module) => {
-      const children = sections.filter((section) => section.moduleId === module.id && (!query || sectionText(section).includes(query)));
-      const expanded = Boolean(query) || expandedCourses.has(module.id);
-      return <article className={`course-card ${expanded ? "expanded" : "collapsed"}`} key={module.id}>
-        <header className="course-head">
-          <div className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0, 3).toUpperCase()}</div>
-          <div><span className="parent-label">CURSO PADRE</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {children.length} módulos guardados</p></div>
-          <div className="course-actions">
-            <button className="text-button" onClick={() => onEditCourse(module)}><Edit3 size={15}/> Editar curso</button>
-            <button className="btn small" onClick={() => onAddSection(module.id)}><Plus size={15}/> Añadir módulo</button>
-            <button className="btn ghost small course-toggle" aria-expanded={expanded} aria-controls={`course-sections-${module.id}`} onClick={() => toggleCourse(module.id)}>{expanded ? <ChevronUp size={16}/> : <ChevronDown size={16}/>} {expanded ? "Ocultar módulos" : `Ver módulos (${children.length})`}</button>
-          </div>
-        </header>
-        <div className="course-progress"><div className="mini-track"><span style={{ width: `${module.progress}%` }}/></div><b>{module.progress}%</b></div>
-        {expanded ? <div id={`course-sections-${module.id}`} className="course-expandable">
-          {children.length ? <div className="section-list">{children.sort((a,b) => a.number-b.number).map((section) => <div className="section-item" key={section.id}><span className="section-number">{section.number}/{section.total}</span><div><strong>{section.title}</strong><small>{section.status} · {section.questions.trim() ? "Con dudas pendientes" : "Sin dudas"}</small></div><b>{section.progress}%</b><button className="text-button" onClick={() => onEditSection(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> MD</button><button className="icon-button danger" title="Eliminar módulo" onClick={() => { if (window.confirm(`¿Eliminar el módulo ${section.number} de ${section.total}?`)) setData((current) => { const nextSections = current.sections.filter((item) => item.id !== section.id); return { ...current, sections: nextSections, modules: updateCourseProgress(current.modules, nextSections, module.id) }; }); }}><Trash2 size={15}/></button></div>)}</div> : <div className="empty-child"><p>Todavía no hay módulos dentro de este curso.</p><button className="text-button" onClick={() => onAddSection(module.id)}>Crear el primero →</button></div>}
-          <footer><button className="text-button" onClick={() => downloadMarkdown(module.title, moduleMarkdown(module))}><Download size={15}/> Exportar resumen del curso</button><button className="icon-button danger" title="Eliminar curso" onClick={() => { if (window.confirm(`¿Eliminar el curso “${module.title}” y sus módulos?`)) setData((current) => ({ ...current, modules: current.modules.filter((item) => item.id !== module.id), sections: current.sections.filter((section) => section.moduleId !== module.id) })); }}><Trash2 size={15}/></button></footer>
-        </div> : null}
-      </article>;
-    })}</div> : <Empty text={query ? "No hay resultados para esa búsqueda." : "Tu ruta empieza creando un curso padre."} action={!query ? "Crear primer curso" : undefined} onAction={onAddCourse}/>}
+    <div className="section-intro"><p>Una certificación contiene cursos; cada curso contiene sus secciones numeradas.</p><div className="intro-actions"><button className="btn ghost" onClick={() => onAddCourse()}><Plus size={18}/> Agregar curso</button><button className="btn primary" onClick={onAddPath}><Plus size={18}/> Nueva certificación</button></div></div>
+    {paths.map((path) => { const pathCourses = visible.filter((module) => module.pathId === path.id).sort((a,b) => (a.order ?? 999) - (b.order ?? 999)); const expanded = Boolean(query) || expandedPaths.has(path.id); return <article className="path-card" key={path.id}>
+      <header className="path-head"><div className="path-icon"><GraduationCap/></div><div><span className="parent-label">RUTA DE CERTIFICACIÓN</span><h2>{path.title}</h2><p>{path.platform} · Certificación {path.certification || "sin definir"} · {pathCourses.length}/{path.totalCourses} cursos cargados</p></div><div className="course-actions"><button className="text-button" onClick={() => onEditPath(path)}><Edit3 size={15}/> Editar</button><button className="btn small" onClick={() => onAddCourse(path.id)}><Plus size={15}/> Añadir curso</button><button className="btn ghost small" onClick={() => setExpandedPaths((current) => { const next = new Set(current); next.has(path.id) ? next.delete(path.id) : next.add(path.id); return next; })}>{expanded ? <ChevronUp size={16}/> : <ChevronDown size={16}/>} {expanded ? "Ocultar cursos" : "Ver cursos"}</button></div></header>
+      <div className="course-progress"><div className="mini-track"><span style={{ width: `${path.progress}%` }}/></div><b>{path.progress}%</b></div>
+      {expanded ? <div className="course-list nested">{pathCourses.length ? pathCourses.map(renderCourse) : <div className="empty-child"><p>Todavía no agregaste cursos a esta certificación.</p><button className="text-button" onClick={() => onAddCourse(path.id)}>Agregar el primero →</button></div>}</div> : null}
+    </article>; })}
+    {visible.filter((module) => !module.pathId || !paths.some((path) => path.id === module.pathId)).length ? <div className="unassigned-courses"><h3>Cursos sin certificación</h3><div className="course-list">{visible.filter((module) => !module.pathId || !paths.some((path) => path.id === module.pathId)).sort((a,b) => (a.order ?? 999) - (b.order ?? 999)).map(renderCourse)}</div></div> : null}
+    {!paths.length && !visible.length ? <Empty text="Tu camino empieza creando una certificación." action="Crear certificación" onAction={onAddPath}/> : null}
   </section>;
 }
 
 function Notebook({ modules, sections, search, onOpen }: { modules: StudyModule[]; sections: StudySection[]; search: string; onOpen: (section: StudySection) => void }) {
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const query = search.trim().toLowerCase();
   const visible = sections.filter((section) => !query || sectionText(section).includes(query) || modules.find((module) => module.id === section.moduleId)?.title.toLowerCase().includes(query));
-  return <section className="content"><div className="section-intro"><p>Todo lo aprendido, agrupado por curso pero disponible desde una búsqueda global.</p></div>{visible.length ? <div className="knowledge-grid">{visible.map((section) => { const module = modules.find((item) => item.id === section.moduleId); return <article className="knowledge-card" key={section.id}><span>{module?.title ?? "Sin curso"}</span><h3>{section.number} de {section.total} — {section.title}</h3><p>{section.learnings || section.notes || "Todavía no agregaste contenido."}</p><div className="card-actions"><button className="text-button" onClick={() => onOpen(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> Markdown</button></div></article>; })}</div> : <Empty text={query ? "No encontramos ese concepto." : "Cuando guardes módulos, aparecerán juntos en tu cuaderno."}/>}</section>;
+  const courses = modules.filter((module) => visible.some((section) => section.moduleId === module.id)).sort((a,b) => (a.order ?? 999) - (b.order ?? 999));
+  return <section className="content"><div className="section-intro"><p>Los cuadernos están separados por curso y sus secciones aparecen en orden.</p></div>{visible.length ? <div className="notebook-courses">{courses.map((module) => { const children = visible.filter((section) => section.moduleId === module.id).sort((a,b) => a.number-b.number); const open = Boolean(query) || expanded.has(module.id); return <article className="notebook-course" key={module.id}><button className="notebook-course-head" onClick={() => setExpanded((current) => { const next = new Set(current); next.has(module.id) ? next.delete(module.id) : next.add(module.id); return next; })}><span className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0,3).toUpperCase()}</span><span><small>CURSO</small><strong>{module.title}</strong><p>{children.length} cuadernos · {module.progress}% completado</p></span>{open ? <ChevronUp/> : <ChevronDown/>}</button>{open ? <div className="knowledge-grid notebook-grid">{children.map((section) => <article className="knowledge-card" key={section.id}><span>SECCIÓN {section.number} DE {section.total}</span><h3>{section.title}</h3><p>{section.learnings || section.notes || "Todavía no agregaste contenido."}</p><div className="card-actions"><button className="text-button" onClick={() => onOpen(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> Markdown</button></div></article>)}</div> : null}</article>; })}</div> : <Empty text={query ? "No encontramos ese concepto." : "Cuando guardes secciones, aparecerán agrupadas por curso."}/>}</section>;
 }
 
 function Questions({ modules, sections, search, onOpen }: { modules: StudyModule[]; sections: StudySection[]; search: string; onOpen: (section: StudySection) => void }) {
@@ -330,14 +350,18 @@ function Sessions({ sessions, setData, onAdd, onEdit }: { sessions: StudySession
   return <section className="content"><div className="section-intro"><p>Un historial concreto de tiempo, aprendizajes y dificultades.</p><button className="btn primary" onClick={onAdd}><Plus size={18} /> Cargar sesión</button></div>{sessions.length ? <div className="session-list">{sessions.map((session) => <article className="session-row" key={session.id}><div className="date-block"><strong>{session.date.slice(8)}</strong><span>{new Intl.DateTimeFormat("es-AR", { month: "short" }).format(new Date(`${session.date}T12:00:00`))}</span></div><div className="session-info"><h3>{session.topic}</h3><p>{session.platform} · {session.category}</p>{session.learned ? <small>{session.learned}</small> : null}</div><div className="session-score"><strong>{formatMinutes(session.durationMinutes)}</strong><span>Comprensión {session.comprehension}/5</span><div className="session-actions"><button className="icon-button" title="Editar sesión" onClick={() => onEdit(session)}><Edit3 size={17} /></button><button className="icon-button" title="Exportar Markdown" onClick={() => downloadMarkdown(session.topic, sessionMarkdown(session))}><Download size={17} /></button><button className="icon-button danger" title="Eliminar sesión" onClick={() => { if (window.confirm(`¿Eliminar la sesión “${session.topic}”?`)) setData((current) => ({ ...current, sessions: current.sessions.filter((item) => item.id !== session.id) })); }}><Trash2 size={17} /></button></div></div></article>)}</div> : <Empty text="Todavía no registraste sesiones de estudio." action="Registrar primera sesión" onAction={onAdd} />}</section>;
 }
 
-function ModuleForm({ value, setValue, onSubmit }: { value: typeof moduleDefaults; setValue: React.Dispatch<React.SetStateAction<typeof moduleDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
-  return <form onSubmit={onSubmit}><Field label="Nombre del curso padre"><input required maxLength={140} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Linux Fundamentals" autoFocus /></Field><div className="form-grid"><Field label="Plataforma"><input list="platforms" value={value.platform} onChange={(e) => setValue({ ...value, platform: e.target.value })} /><datalist id="platforms"><option value="Hack The Box Academy"/><option value="TryHackMe"/><option value="PortSwigger Academy"/><option value="Curso propio"/></datalist></Field><Field label="Área"><input value={value.category} onChange={(e) => setValue({ ...value, category: e.target.value })} placeholder="Linux, Redes, Web…" /></Field><Field label="Nivel"><input value={value.difficulty} onChange={(e) => setValue({ ...value, difficulty: e.target.value })} /></Field><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field></div><button className="btn primary full" type="submit"><Check size={18} /> Guardar curso</button></form>;
+function PathForm({ value, setValue, onSubmit }: { value: typeof pathDefaults; setValue: React.Dispatch<React.SetStateAction<typeof pathDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
+  return <form onSubmit={onSubmit}><Field label="Nombre de la ruta"><input required value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Junior Cybersecurity Analyst" autoFocus/></Field><div className="form-grid"><Field label="Certificación"><input value={value.certification} onChange={(e) => setValue({ ...value, certification: e.target.value })} placeholder="Ej: CJCA"/></Field><Field label="Cantidad de cursos"><input type="number" min="1" value={value.totalCourses} onChange={(e) => setValue({ ...value, totalCourses: Number(e.target.value) })}/></Field><Field label="Plataforma"><input value={value.platform} onChange={(e) => setValue({ ...value, platform: e.target.value })}/></Field><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field></div><Field label={`Progreso oficial: ${value.progress}%`}><input type="range" min="0" max="100" step=".1" value={value.progress} onChange={(e) => setValue({ ...value, progress: Number(e.target.value) })}/></Field><button className="btn primary full" type="submit"><Check size={18}/> Guardar certificación</button></form>;
+}
+
+function ModuleForm({ paths, value, setValue, onSubmit }: { paths: CertificationPath[]; value: typeof moduleDefaults; setValue: React.Dispatch<React.SetStateAction<typeof moduleDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
+  return <form onSubmit={onSubmit}><Field label="Nombre del curso"><input required maxLength={140} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Linux Fundamentals" autoFocus /></Field><div className="form-grid"><Field label="Certificación / ruta"><select value={value.pathId} onChange={(e) => setValue({ ...value, pathId: e.target.value })}><option value="">Sin certificación</option>{paths.map((path) => <option key={path.id} value={path.id}>{path.title}</option>)}</select></Field><Field label="Posición en la ruta"><input type="number" min="1" value={value.order} onChange={(e) => setValue({ ...value, order: Number(e.target.value) })}/></Field><Field label="Plataforma"><input list="platforms" value={value.platform} onChange={(e) => setValue({ ...value, platform: e.target.value })} /><datalist id="platforms"><option value="Hack The Box Academy"/><option value="TryHackMe"/><option value="PortSwigger Academy"/><option value="Curso propio"/></datalist></Field><Field label="Área"><input value={value.category} onChange={(e) => setValue({ ...value, category: e.target.value })} placeholder="Linux, Redes, Web…" /></Field><Field label="Nivel"><input value={value.difficulty} onChange={(e) => setValue({ ...value, difficulty: e.target.value })} /></Field><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field></div><button className="btn primary full" type="submit"><Check size={18} /> Guardar curso</button></form>;
 }
 
 function SectionForm({ modules, value, setValue, onSubmit }: { modules: StudyModule[]; value: typeof sectionDefaults; setValue: React.Dispatch<React.SetStateAction<typeof sectionDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
   const mdInput = useRef<HTMLInputElement>(null);
   async function loadMarkdown(file?: File) { if (!file) return; const text = await file.text(); setValue({ ...value, notes: text }); }
-  return <form onSubmit={onSubmit}><Field label="Curso padre"><select required value={value.moduleId} onChange={(e) => setValue({ ...value, moduleId: e.target.value })}><option value="">Seleccionar curso…</option>{modules.map((module) => <option key={module.id} value={module.id}>{module.title}</option>)}</select></Field><div className="form-grid"><Field label="Número del módulo"><input type="number" min="1" max="999" required value={value.number} onChange={(e) => setValue({ ...value, number: Number(e.target.value) })}/></Field><Field label="Total del curso"><input type="number" min="1" max="999" required value={value.total} onChange={(e) => setValue({ ...value, total: Number(e.target.value) })}/></Field></div><Field label="Nombre del módulo"><input required maxLength={160} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Filtrado de contenido en Linux" autoFocus/></Field><div className="form-grid"><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus, progress: e.target.value === "Completado" ? 100 : value.progress })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field><Field label={`Progreso: ${value.progress}%`}><input type="range" min="0" max="100" step="5" value={value.progress} onChange={(e) => setValue({ ...value, progress: Number(e.target.value), status: Number(e.target.value) === 100 ? "Completado" : value.status })}/></Field></div><div className="import-md-row"><span>Notas en Markdown</span><button type="button" className="btn ghost small" onClick={() => mdInput.current?.click()}><Upload size={15}/> Importar .md</button><input ref={mdInput} className="visually-hidden" type="file" accept="text/markdown,.md" onChange={(e) => void loadMarkdown(e.target.files?.[0])}/></div><Field label=""><textarea rows={7} value={value.notes} onChange={(e) => setValue({ ...value, notes: e.target.value })} placeholder="Comandos, conceptos y contexto…"/></Field><Field label="Qué aprendí"><textarea rows={3} value={value.learnings} onChange={(e) => setValue({ ...value, learnings: e.target.value })}/></Field><Field label="Dudas pendientes"><textarea rows={3} value={value.questions} onChange={(e) => setValue({ ...value, questions: e.target.value })} placeholder="Una duda por línea…"/></Field><button className="btn primary full" type="submit"><Check size={18}/> Guardar módulo</button></form>;
+  return <form onSubmit={onSubmit}><Field label="Curso"><select required value={value.moduleId} onChange={(e) => setValue({ ...value, moduleId: e.target.value })}><option value="">Seleccionar curso…</option>{modules.map((module) => <option key={module.id} value={module.id}>{module.title}</option>)}</select></Field><div className="form-grid"><Field label="Número de sección"><input type="number" min="1" max="999" required value={value.number} onChange={(e) => setValue({ ...value, number: Number(e.target.value) })}/></Field><Field label="Total de secciones"><input type="number" min="1" max="999" required value={value.total} onChange={(e) => setValue({ ...value, total: Number(e.target.value) })}/></Field></div><Field label="Nombre de la sección"><input required maxLength={160} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Filtrado de contenido en Linux" autoFocus/></Field><div className="form-grid"><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus, progress: e.target.value === "Completado" ? 100 : value.progress })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field><Field label={`Progreso: ${value.progress}%`}><input type="range" min="0" max="100" step="5" value={value.progress} onChange={(e) => setValue({ ...value, progress: Number(e.target.value), status: Number(e.target.value) === 100 ? "Completado" : value.status })}/></Field></div><div className="import-md-row"><span>Notas en Markdown</span><button type="button" className="btn ghost small" onClick={() => mdInput.current?.click()}><Upload size={15}/> Importar .md</button><input ref={mdInput} className="visually-hidden" type="file" accept="text/markdown,.md" onChange={(e) => void loadMarkdown(e.target.files?.[0])}/></div><Field label=""><textarea rows={7} value={value.notes} onChange={(e) => setValue({ ...value, notes: e.target.value })} placeholder="Comandos, conceptos y contexto…"/></Field><Field label="Qué aprendí"><textarea rows={3} value={value.learnings} onChange={(e) => setValue({ ...value, learnings: e.target.value })}/></Field><Field label="Dudas pendientes"><textarea rows={3} value={value.questions} onChange={(e) => setValue({ ...value, questions: e.target.value })} placeholder="Una duda por línea…"/></Field><button className="btn primary full" type="submit"><Check size={18}/> Guardar sección</button></form>;
 }
 
 function SessionForm({ value, setValue, onSubmit }: { value: typeof sessionDefaults; setValue: React.Dispatch<React.SetStateAction<typeof sessionDefaults>>; onSubmit: (e: React.FormEvent) => void }) {

@@ -24,5 +24,5 @@ export async function saveCloudData(userId: string, data: CyberStudyData) {
 export function mergeData(local: CyberStudyData, cloud: CyberStudyData): CyberStudyData {
   const unique = <T extends { id: string }>(first: T[], second: T[]) => [...new Map([...first, ...second].map((item) => [item.id, item])).values()];
   const frozen = [...new Map([...cloud.frozenDays, ...local.frozenDays].map((day) => [day.date, day])).values()];
-  return { version: 2, dailyGoalMinutes: local.dailyGoalMinutes || cloud.dailyGoalMinutes, modules: unique(cloud.modules, local.modules), sections: unique(cloud.sections, local.sections), sessions: unique(cloud.sessions, local.sessions), frozenDays: frozen };
+  return { version: 3, dailyGoalMinutes: local.dailyGoalMinutes || cloud.dailyGoalMinutes, paths: unique(cloud.paths, local.paths), modules: unique(cloud.modules, local.modules), sections: unique(cloud.sections, local.sections), sessions: unique(cloud.sessions, local.sessions), frozenDays: frozen };
 }

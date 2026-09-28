@@ -1,13 +1,28 @@
-import type { CyberStudyData, StudyModule, StudySection } from "../types";
+import type { CertificationPath, CyberStudyData, StudyModule, StudySection } from "../types";
 
-const STORAGE_KEY = "cyberstudy:data:v2";
-const BACKUP_KEY = "cyberstudy:data:v2:backup";
+const STORAGE_KEY = "cyberstudy:data:v3";
+const BACKUP_KEY = "cyberstudy:data:v3:backup";
+const V2_KEY = "cyberstudy:data:v2";
 const LEGACY_KEY = "cyberstudy:data:v1";
 const TIMER_KEY = "cyberstudy:timer:v1";
 
+const juniorPath: CertificationPath = {
+  id: "htb-junior-cybersecurity-analyst",
+  title: "Junior Cybersecurity Analyst",
+  certification: "CJCA",
+  platform: "Hack The Box Academy",
+  status: "En progreso",
+  progress: 9.7,
+  totalCourses: 20,
+  notes: "Ruta de rol profesional de HTB Academy. Los cursos se ordenan como aparecen en la ruta oficial.",
+  url: "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+  createdAt: "2026-09-27T12:00:00.000Z",
+};
+
 export const emptyData: CyberStudyData = {
-  version: 2,
+  version: 3,
   dailyGoalMinutes: 120,
+  paths: [],
   modules: [],
   sections: [],
   sessions: [],
@@ -15,7 +30,7 @@ export const emptyData: CyberStudyData = {
 };
 
 export function loadData(): CyberStudyData {
-  for (const key of [STORAGE_KEY, BACKUP_KEY, LEGACY_KEY, `${LEGACY_KEY}:backup`]) {
+  for (const key of [STORAGE_KEY, BACKUP_KEY, V2_KEY, `${V2_KEY}:backup`, LEGACY_KEY, `${LEGACY_KEY}:backup`]) {
     try {
       const raw = localStorage.getItem(key);
       if (!raw) continue;
@@ -54,13 +69,15 @@ export async function importData(file: File): Promise<CyberStudyData> {
 
 export function normalizeData(value: unknown): CyberStudyData | null {
   if (!value || typeof value !== "object") return null;
-  const candidate = value as { version?: number; dailyGoalMinutes?: number; modules?: StudyModule[]; sections?: StudySection[]; sessions?: CyberStudyData["sessions"]; frozenDays?: CyberStudyData["frozenDays"] };
+  const candidate = value as { version?: number; dailyGoalMinutes?: number; paths?: CertificationPath[]; modules?: StudyModule[]; sections?: StudySection[]; sessions?: CyberStudyData["sessions"]; frozenDays?: CyberStudyData["frozenDays"] };
   if (!Array.isArray(candidate.modules) || !Array.isArray(candidate.sessions) || !Array.isArray(candidate.frozenDays)) return null;
   if (candidate.version === 1) return migrateV1(candidate as { dailyGoalMinutes?: number; modules: StudyModule[]; sessions: CyberStudyData["sessions"]; frozenDays: CyberStudyData["frozenDays"] });
-  if (candidate.version !== 2 || !Array.isArray(candidate.sections)) return null;
+  if (candidate.version === 2 && Array.isArray(candidate.sections)) return migrateV2(candidate as { dailyGoalMinutes?: number; modules: StudyModule[]; sections: StudySection[]; sessions: CyberStudyData["sessions"]; frozenDays: CyberStudyData["frozenDays"] });
+  if (candidate.version !== 3 || !Array.isArray(candidate.sections) || !Array.isArray(candidate.paths)) return null;
   return {
-    version: 2,
+    version: 3,
     dailyGoalMinutes: Number(candidate.dailyGoalMinutes) || 120,
+    paths: candidate.paths,
     modules: candidate.modules,
     sections: candidate.sections,
     sessions: candidate.sessions,
@@ -103,7 +120,21 @@ function migrateV1(old: { dailyGoalMinutes?: number; modules: StudyModule[]; ses
       createdAt: item.createdAt,
     });
   }
-  return { version: 2, dailyGoalMinutes: Number(old.dailyGoalMinutes) || 120, modules, sections, sessions: old.sessions, frozenDays: old.frozenDays };
+  return migrateV2({ dailyGoalMinutes: old.dailyGoalMinutes, modules, sections, sessions: old.sessions, frozenDays: old.frozenDays });
+}
+
+function migrateV2(old: { dailyGoalMinutes?: number; modules: StudyModule[]; sections: StudySection[]; sessions: CyberStudyData["sessions"]; frozenDays: CyberStudyData["frozenDays"] }): CyberStudyData {
+  const hasLinuxFundamentals = old.modules.some((module) => module.title.trim().toLowerCase() === "linux fundamentals");
+  const modules = old.modules.map((module) => module.title.trim().toLowerCase() === "linux fundamentals" ? { ...module, pathId: juniorPath.id, order: 4 } : module);
+  return {
+    version: 3,
+    dailyGoalMinutes: Number(old.dailyGoalMinutes) || 120,
+    paths: hasLinuxFundamentals ? [juniorPath] : [],
+    modules,
+    sections: old.sections,
+    sessions: old.sessions,
+    frozenDays: old.frozenDays,
+  };
 }
 
 export function loadTimer() {

@@ -1,5 +1,18 @@
 export type ModuleStatus = "Pendiente" | "En progreso" | "Completado" | "Repasar";
 
+export interface CertificationPath {
+  id: string;
+  title: string;
+  certification: string;
+  platform: string;
+  status: ModuleStatus;
+  progress: number;
+  totalCourses: number;
+  notes: string;
+  url: string;
+  createdAt: string;
+}
+
 export interface StudyModule {
   id: string;
   title: string;
@@ -15,6 +28,8 @@ export interface StudyModule {
   learnings: string;
   questions: string;
   createdAt: string;
+  pathId?: string;
+  order?: number;
 }
 
 export interface StudySection {
@@ -54,8 +69,9 @@ export interface FreezeDay {
 }
 
 export interface CyberStudyData {
-  version: 2;
+  version: 3;
   dailyGoalMinutes: number;
+  paths: CertificationPath[];
   modules: StudyModule[];
   sections: StudySection[];
   sessions: StudySession[];
