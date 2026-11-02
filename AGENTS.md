@@ -1,42 +1,28 @@
-# Continuidad de trabajo — CyberStudy
+# CyberStudy
 
-Estas reglas se aplican a cualquier persona o asistente que trabaje en este proyecto.
+> Reglas del proyecto. Las leen Codex y Claude Code (Claude vía `CLAUDE.md` → `@AGENTS.md`).
+> Reglas generales de Tano: `~/.codex/AGENTS.md`. Estado y traspaso: `ESTADO_PROYECTO.md`.
+> Historial viejo: `docs/historial.md`. Decisiones de arquitectura: `docs/02-arquitectura-y-decisiones.md`.
+> Leé `README.md` o `docs/` **solo si la tarea lo necesita**, no por defecto.
 
-## Antes de modificar o documentar
+## Qué es
+App personal para trackear la reconversión de Tano a ciberseguridad (SOC Analyst / Blue Team): rutas/certificaciones → cursos HTB Academy → secciones/cuaderno, sesiones con timer, dashboard con racha, exportación Markdown/Obsidian, tutor IA.
 
-1. Leer completo `ESTADO_PROYECTO.md`; es la fuente canónica del estado real.
-2. Leer `README.md` y todos los documentos de `docs/` relevantes. Ante una tarea de documentación o continuidad, leerlos todos.
-3. Comparar la documentación con el código y no presentar como activado o probado algo que sólo esté preparado.
-4. Si existe una decisión técnica o de producto con alternativas importantes, explicarlas en español simple y consultar a Fernando antes de construir.
-5. Para acompañamiento de estudio o resúmenes de módulos, leer `estudio/README_IA.md` y `estudio/INDICE.md` antes de trabajar.
+## Stack
+React 19 + Vite + TypeScript puro (sin TanStack ni shadcn, a propósito: Decisión 003). Supabase (Postgres + Auth + RLS) para sincronizar; `localStorage` como base local (formato v3 con migración automática).
+Producción: `https://cyberstudy-iota.vercel.app` (deploy automático con cada push a `main`).
 
-## Después de cada cambio
+## Comandos
+- `npm run dev` · `npm run build` · `npm run preview` (puerto 4173)
 
-1. Verificar el cambio en proporción a su riesgo.
-2. Actualizar `ESTADO_PROYECTO.md` con la fecha, resultado real, pruebas y bloqueos.
-3. Actualizar `README.md` si cambia el uso, instalación, persistencia o estado general.
-4. Actualizar el documento específico de `docs/` cuando cambie arquitectura, funcionamiento, guía de uso o próximos pasos.
-5. No crear documentos duplicados si el tema ya tiene un archivo canónico.
+## Módulos de estudio (cuando Tano termina una sección)
+1. No dejar el resumen solo en la conversación: crear/actualizar el `.md` en `estudio/modulos/`.
+2. Actualizar `estudio/INDICE.md` y `estudio/cyberstudy-import.json` (para el botón **Importar**). Validar el JSON.
+3. Formato y reglas detalladas: `estudio/README_IA.md` (leerlo solo para estas tareas).
 
-## Al terminar un módulo de estudio
-
-1. No dejar el resumen únicamente en la conversación.
-2. Crear o actualizar el Markdown correspondiente dentro de `estudio/modulos/`.
-3. Actualizar `estudio/INDICE.md`.
-4. Actualizar `estudio/cyberstudy-import.json`, listo para usar con el botón **Importar** de la aplicación.
-5. Validar el JSON antes de dar la tarea por terminada.
-6. Seguir el formato y las reglas detalladas en `estudio/README_IA.md`.
-
-## Seguridad y control del usuario
-
-- No guardar ni publicar secretos, tokens, variables `.env`, configuraciones VPN, flags ni soluciones protegidas de HTB.
-- Mantener `ovpn/`, `*.ovpn` y archivos de entorno fuera de Git.
-- No automatizar scraping de HTB Academy.
-- No ejecutar `git init`, `git commit`, `git push`, despliegues ni publicaciones sin permiso explícito de Fernando.
-- Supabase `service_role` nunca puede incorporarse al frontend.
-
-## Comunicación
-
-- Usar español claro, preferentemente argentino.
-- Explicar las decisiones sin asumir conocimientos avanzados de desarrollo.
-- Registrar hechos comprobados y diferenciar claramente: implementado, configurado, probado y publicado.
+## Reglas críticas
+- Nada de secretos en el repo: `.env*`, `ovpn/`, `*.ovpn` fuera de git. `service_role` de Supabase nunca en el frontend.
+- No automatizar scraping de HTB Academy. No guardar flags ni soluciones protegidas.
+- El lector Markdown no inyecta HTML (se arma con componentes React).
+- Diferenciar siempre: implementado / configurado / probado / publicado.
+- Decisión técnica con alternativas importantes → explicarlas simple y preguntar antes de construir.

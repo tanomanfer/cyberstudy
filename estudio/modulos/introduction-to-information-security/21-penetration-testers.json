@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-10-02",
+      "completedAt": "2026-11-02",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-21-penetration-testers",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 21,
+      "total": 24,
+      "title": "Penetration Testers",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 21 de 24 — Penetration Testers\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUn **Penetration Tester**, también llamado **Ethical Hacker**, simula ataques contra sistemas, redes o aplicaciones para descubrir vulnerabilidades antes que un atacante real. Puede usar técnicas ofensivas similares, pero trabaja con autorización, un alcance definido y una finalidad defensiva.\n\nEl objetivo no es entrar por entrar: debe comprobar el riesgo real, evitar daños innecesarios, documentar los hallazgos y ayudar a corregirlos.\n\n## Conceptos importantes\n\n### Autorización y alcance\n\nAntes de probar un sistema debe existir permiso explícito, reglas de trabajo y una lista clara de activos autorizados. Probar algo fuera del alcance puede causar daño y convertirse en una actividad ilegal aunque la intención original fuera aprender o ayudar.\n\n### Identificación y validación\n\nEl pentester busca software desactualizado, configuraciones inseguras, controles de acceso débiles, servicios expuestos y fallas en aplicaciones. Las herramientas automáticas muestran indicios; el profesional debe validarlos, eliminar falsos positivos y determinar si pueden explotarse.\n\n### Evaluación del riesgo\n\nUna vulnerabilidad es una debilidad. El riesgo agrega contexto: facilidad de explotación, acceso requerido, sistemas afectados, probabilidad e impacto. Dos fallas parecidas pueden tener prioridades diferentes según el entorno.\n\n### Prueba de controles\n\nTambién comprueba si firewalls, permisos, detecciones y segmentación funcionan como fueron diseñados. Un control existente no sirve de mucho si está mal configurado o puede evadirse con facilidad.\n\n### Informe y colaboración\n\nEl informe debe explicar el hallazgo, ubicación, evidencia, impacto y recomendaciones. Tiene que ser comprensible tanto para equipos técnicos como para responsables no técnicos. Desarrolladores, administradores, ingenieros y seguridad colaboran luego en la corrección.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. En una prueba real, las herramientas y técnicas dependen del alcance autorizado y de las reglas acordadas.\n\n## Diferencias que hay que recordar\n\n- **Pentester vs atacante malicioso:** pueden usar técnicas similares; la autorización y el propósito defensivo cambian completamente la actividad.\n- **Escáner vs pentest:** el escáner detecta posibles fallas; el pentester analiza, valida y mide su impacto.\n- **Vulnerabilidad vs riesgo:** la vulnerabilidad es una debilidad; el riesgo considera contexto, probabilidad e impacto.\n- **Pentester vs CISO:** el pentester realiza evaluaciones técnicas; el CISO dirige estrategia y riesgo general.\n- **Prueba puntual vs seguridad continua:** un pentest refleja un alcance y momento determinados, no garantiza seguridad permanente.\n\n## Ejemplos prácticos\n\n- Un escáner informa un servicio vulnerable; el pentester verifica la versión, las condiciones necesarias y el impacto real antes de reportarlo.\n- Una segmentación debería impedir avanzar entre redes; la prueba comprueba si ese límite funciona.\n- Una falla crítica se documenta con evidencia mínima y segura, sin extraer más datos de los necesarios.\n- El informe explica el detalle técnico al administrador y el impacto comercial a la dirección.\n\n## Errores y precauciones\n\n- Nunca probar sistemas sin autorización explícita.\n- No salir del alcance aunque aparezca un objetivo interesante.\n- No confiar ciegamente en resultados automáticos.\n- No causar daño ni conservar información sensible innecesariamente.\n- No considerar terminado el trabajo sin un informe útil y recomendaciones.\n- No presentar un pentest como garantía contra ataques futuros.\n\n## Inglés técnico del módulo\n\n- `penetration tester` / `pentester` → profesional que realiza pruebas de penetración autorizadas.\n- `ethical hacking` → uso autorizado de técnicas ofensivas con propósito defensivo.\n- `scope` → activos, límites y actividades autorizadas.\n- `rules of engagement` → reglas que definen cómo puede ejecutarse la prueba.\n- `finding` → hallazgo documentado.\n- `false positive` → resultado que parece una vulnerabilidad pero no lo es.\n- `risk assessment` → evaluación de probabilidad, impacto y contexto.\n- `remediation` → corrección o mitigación de una vulnerabilidad.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. Conviene conservar la diferencia entre encontrar una señal con un escáner y validar técnicamente su riesgo dentro de un alcance autorizado.\n\n## Qué aprendí\n\nEntendí que un pentester combina conocimiento técnico, análisis, creatividad y comunicación. Su trabajo necesita autorización y alcance, valida vulnerabilidades, evalúa el riesgo y entrega información útil para corregirlas.\n\n## Para repasar o practicar\n\n- Diferenciar escaneo automático de prueba de penetración.\n- Explicar por qué autorización y alcance son obligatorios.\n- Practicar cómo describir evidencia, impacto y recomendación.\n- Comparar vulnerabilidad, explotación y riesgo.\n- Recordar que un pentest es una evaluación puntual.\n\n## Cuestionario de repaso\n\n1. ¿Qué diferencia principalmente a un pentester de un atacante malicioso? — **Respuesta:** Actúa con autorización y finalidad defensiva.\n2. ¿Por qué no alcanza con ejecutar un escáner automático? — **Respuesta:** Hay que validar los hallazgos y evaluar su riesgo real.\n3. ¿Qué debería contener un informe de pentest? — **Respuesta:** Hallazgos, evidencia, impacto y recomendaciones.\n4. ¿Por qué es importante la comunicación? — **Respuesta:** Permite explicar los hallazgos a públicos técnicos y no técnicos.\n5. ¿Quiénes suelen colaborar para corregir los hallazgos? — **Respuesta:** Desarrollo, administración, ingeniería y seguridad.\n6. ¿Qué describe mejor una prueba de penetración? — **Respuesta:** Una evaluación autorizada con momento y alcance definidos.\n",
+      "learnings": "Entendí que un pentester autorizado valida vulnerabilidades, evalúa su riesgo y comunica evidencia y recomendaciones para que puedan corregirse.",
+      "questions": "Cuestionario aprobado 6/6. Recordar autorización, alcance, validación manual y que un pentest es una evaluación puntual.",
+      "createdAt": "2026-11-02T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

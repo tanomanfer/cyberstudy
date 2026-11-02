@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 13,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-03-network-security",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 3,
+      "total": 24,
+      "title": "Network Security",
+      "status": "Repasar",
+      "progress": 0,
+      "notes": "# 3 de 24 — Network Security\n\n**Estado:** Repasar\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nLa seguridad de red protege los dispositivos, servicios y datos conectados a una red, tanto frente a atacantes externos como ante amenazas internas. No depende de una sola herramienta: combina filtrado, monitoreo, cifrado y controles de acceso para mantener la **confidencialidad, integridad y disponibilidad** de la información mientras circula o permanece almacenada.\n\n## Conceptos importantes\n\n| Elemento | Función |\n|---|---|\n| **Firewall** | Separa redes confiables y no confiables, y permite o bloquea tráfico según reglas predefinidas. |\n| **IDS** | Inspecciona el tráfico, detecta actividad sospechosa y genera alertas. |\n| **IPS** | Detecta actividad sospechosa y puede bloquearla automáticamente. |\n| **VPN** | Crea una conexión cifrada sobre una red pública para proteger la privacidad e integridad de los datos. |\n| **Control de acceso** | Combina autenticación y autorización para limitar el acceso a los recursos. |\n| **Cifrado** | Vuelve ilegibles los datos para quien no posee la clave adecuada, tanto en tránsito como en reposo. |\n\nLa analogía del correo ayuda a entender cómo trabajan juntas estas defensas: la credencial del cartero representa la autenticación; la bolsa cerrada, el firewall; la vigilancia de paquetes sospechosos, el IDS/IPS; un servicio de mensajería segura, la VPN; y los sellos contra manipulaciones, el cifrado.\n\nLa superficie de ataque creció con la nube, los dispositivos IoT y el trabajo remoto. Una brecha puede provocar pérdidas económicas, interrupciones operativas, daño reputacional y consecuencias legales. Por eso la protección debe revisarse y probarse de manera continua.\n\n### Responsabilidades\n\n- El **CISO** define la estrategia general y verifica que esté alineada con los objetivos y el riesgo aceptable de la empresa.\n- El **CIO** y la dirección de IT asignan recursos e integran la seguridad con la infraestructura tecnológica.\n- El **Network Security Manager** dirige al equipo especializado en seguridad de red.\n- Los **administradores de red** y **analistas de seguridad** configuran, mantienen y monitorean las defensas diariamente.\n- Los **pentesters** o hackers éticos simulan ataques autorizados para encontrar debilidades.\n- Cumplimiento y gestión de riesgos controlan regulaciones y ayudan a priorizar inversiones.\n\n## Comandos y opciones\n\nEsta sección es teórica y no presenta comandos. La configuración real de firewalls, VPN, IDS o IPS depende del producto y debe hacerse en un entorno autorizado y controlado.\n\n## Diferencias que hay que recordar\n\n- **Firewall vs IDS/IPS:** el firewall filtra conexiones usando reglas; el IDS observa y alerta sobre comportamiento sospechoso; el IPS también puede bloquearlo.\n- **Autenticación vs autorización:** autenticación responde **“¿quién sos?”**; autorización responde **“¿qué tenés permitido hacer?”**.\n- **VPN vs firewall:** una VPN protege el canal de comunicación mediante cifrado; un firewall decide qué tráfico puede atravesar un límite de red.\n- **Datos en tránsito vs en reposo:** en tránsito están viajando por la red; en reposo están guardados en un disco, servidor o nube. Ambos necesitan protección.\n- **Estrategia vs operación diaria:** el CISO marca la dirección general; administradores y analistas aplican y monitorean los controles cada día.\n\n## Ejemplos prácticos\n\n- Un empleado trabaja desde una cafetería y usa una VPN para conectarse a recursos internos. La VPN cifra el trayecto sobre la red pública, pero no reemplaza la autenticación ni los permisos.\n- Un firewall permite conexiones web al servidor, mientras el IDS detecta un patrón sospechoso y alerta al analista. Si se utiliza un IPS, este podría bloquear el tráfico automáticamente según su configuración.\n- Un usuario presenta su contraseña y segundo factor: eso verifica su identidad (**autenticación**). Después, el sistema comprueba si puede abrir un archivo concreto (**autorización**).\n- Un pentester, con permiso explícito, simula un ataque y entrega sus hallazgos para que la organización priorice mejoras.\n\n## Errores y precauciones\n\n- Un firewall es una primera barrera, no una defensa completa: puede haber reglas incorrectas, tráfico permitido que transporte un ataque, amenazas internas o técnicas que evadan los controles.\n- Una VPN cifra la comunicación, pero no vuelve confiable automáticamente al dispositivo ni otorga acceso ilimitado.\n- Un IPS puede bloquear tráfico legítimo por error; sus reglas deben probarse y supervisarse.\n- Las pruebas de penetración requieren autorización explícita y un alcance definido.\n- No confundir que una herramienta esté instalada con que la red esté protegida: necesita configuración, monitoreo y mantenimiento continuos.\n\n## Inglés técnico del módulo\n\n- `network security` → seguridad de red.\n- `trusted / untrusted network` → red confiable / no confiable.\n- `firewall` → barrera que filtra tráfico según reglas.\n- `IDS (Intrusion Detection System)` → sistema de detección de intrusiones.\n- `IPS (Intrusion Prevention System)` → sistema de prevención de intrusiones.\n- `VPN (Virtual Private Network)` → red privada virtual con un canal cifrado.\n- `authentication` → verificación de identidad.\n- `authorization` → permisos concedidos después de identificar al usuario.\n- `data in transit / at rest` → datos en tránsito / en reposo.\n- `attack surface` → conjunto de puntos que podrían ser atacados.\n- `security posture` → estado general de seguridad de una organización.\n- `business continuity` → capacidad de seguir operando durante o después de un incidente.\n\n## Lo que más costó\n\nCostó explicar por qué un firewall no alcanza por sí solo. La clave es recordar que únicamente filtra según sus reglas: no cubre todos los ataques, los errores de configuración ni las amenazas internas. También hubo que ordenar los roles: el CISO define la estrategia; el CIO y la dirección de IT asignan recursos; los administradores y analistas realizan la operación y el monitoreo diarios.\n\n## Qué aprendí\n\nEntendí que la seguridad de red protege dispositivos, servicios y datos mediante varias capas. Puedo diferenciar el filtrado del firewall, la detección del IDS, el bloqueo del IPS, el canal cifrado de una VPN y la diferencia entre autenticar una identidad y autorizar acciones.\n\n## Para repasar o practicar\n\n- Explicar con un ejemplo por qué un firewall no brinda protección total.\n- Recordar la diferencia exacta entre IDS e IPS.\n- Distinguir autenticación de autorización sin depender de una analogía.\n- Ordenar las responsabilidades del CISO, CIO, Network Security Manager, administradores y analistas.\n- Relacionar cada control con confidencialidad, integridad o disponibilidad.\n\n## Cuestionario de repaso\n\n1. ¿Qué protege la seguridad de red y por qué forma parte de Information Security? — **Respuesta:** Protege dispositivos, servicios y datos conectados o transmitidos por una red. Forma parte de InfoSec porque ayuda a mantener la confidencialidad, integridad y disponibilidad de la información.\n2. ¿Cuál es la diferencia entre un firewall y un IDS/IPS? — **Respuesta:** El firewall filtra tráfico según reglas; el IDS detecta actividad sospechosa y alerta; el IPS además puede bloquearla automáticamente.\n3. ¿Para qué sirve una VPN cuando un empleado trabaja de forma remota? — **Respuesta:** Crea un canal cifrado sobre una red pública para proteger la privacidad e integridad de la comunicación con los recursos internos.\n4. ¿Qué diferencia hay entre autenticación y autorización? — **Respuesta:** La autenticación verifica quién es el usuario; la autorización determina qué recursos o acciones tiene permitidos.\n5. ¿Por qué un firewall solo no alcanza para proteger completamente una red? — **Respuesta:** Porque solo aplica reglas de filtrado y puede haber configuraciones incorrectas, ataques dentro de tráfico permitido, amenazas internas o técnicas de evasión. Se necesitan varias capas de defensa.\n6. ¿Quién define la estrategia general y quién realiza el monitoreo diario de la red? — **Respuesta:** El CISO define la estrategia general; los administradores de red y analistas de seguridad realizan la operación y el monitoreo cotidianos. El CIO y la dirección de IT asignan recursos e integran la seguridad con la infraestructura.\n",
+      "learnings": "Entendí que la seguridad de red usa varias capas: firewall, IDS/IPS, VPN, cifrado y control de acceso. Puedo diferenciar autenticación de autorización y estrategia general de operación diaria.",
+      "questions": "Repasar por qué un firewall no alcanza por sí solo y ordenar las responsabilidades del CISO, CIO, Network Security Manager, administradores y analistas.",
+      "createdAt": "2026-10-08T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

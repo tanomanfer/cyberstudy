@@ -59,6 +59,7 @@
 .notebook-course-head > svg { color: var(--green); }
 .notebook-grid { padding: 0 20px 20px; border-top: 1px solid var(--line); padding-top: 20px; }
 .knowledge-card, .question-card { background: var(--panel); border: 1px solid var(--line); padding: 20px; }
+.module-summary-card { border-color: color-mix(in srgb, var(--green) 55%, var(--line)); background: color-mix(in srgb, var(--green) 5%, var(--panel)); }
 .knowledge-card > span, .question-card span { font: 9px 'IBM Plex Mono'; color: var(--green); text-transform: uppercase; }
 .knowledge-card h3 { font-size: 15px; line-height: 1.4; margin: 12px 0; }
 .knowledge-card > p, .question-card p { color: var(--muted); font-size: 12px; line-height: 1.65; white-space: pre-wrap; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }

@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 83,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-20-chief-information-security-officer",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 20,
+      "total": 24,
+      "title": "Chief Information Security Officer",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 20 de 24 — Chief Information Security Officer\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nEl **Chief Information Security Officer (CISO)** es el ejecutivo que dirige la estrategia y el programa de seguridad de la información. Protege los activos digitales alineando controles, riesgos y objetivos del negocio. No ejecuta personalmente todas las tareas técnicas: establece dirección, coordina equipos, comunica riesgos y asegura que la organización tome decisiones informadas.\n\nLa analogía del texto lo presenta como quien protege una ciudad: los empleados son ciudadanos, las tecnologías son edificios y los datos son tesoros. Debe anticipar amenazas, fortalecer defensas y coordinarse con otros líderes para que la ciudad funcione sin quedar expuesta.\n\n## Conceptos importantes\n\n### Estrategia de seguridad\n\nEl CISO define la visión, las prioridades y los programas de seguridad. Determina qué activos son críticos, qué riesgos requieren atención, qué controles necesitan inversión y cómo medir la eficacia del programa.\n\nTambién impulsa políticas, estándares y procedimientos para redes, sistemas, datos y empleados. Los equipos técnicos implementan y operan muchos controles; el CISO los organiza dentro de una estrategia coherente.\n\n### Gestión de riesgos\n\nGestionar riesgo implica:\n\n1. Identificar amenazas, vulnerabilidades y activos afectados.\n2. Estimar probabilidad e impacto.\n3. Seleccionar medidas de mitigación.\n4. Evaluar el riesgo residual que permanece.\n5. Comunicarlo a quienes deben tomar decisiones.\n\nNo es posible eliminar todo riesgo. La organización debe decidir qué nivel puede aceptar según sus objetivos y tolerancia. El CISO aporta información y recomendaciones; las decisiones críticas de negocio pueden corresponder a otros ejecutivos o responsables del riesgo.\n\n### Confidencialidad, integridad y disponibilidad\n\nLa estrategia busca proteger la tríada CIA:\n\n- **Confidencialidad:** solo personas autorizadas acceden a la información.\n- **Integridad:** los datos se mantienen correctos y no se modifican indebidamente.\n- **Disponibilidad:** sistemas e información están accesibles cuando se necesitan.\n\nEsto alcanza datos de clientes, registros financieros, propiedad intelectual y otros activos importantes.\n\n### Cumplimiento\n\nEl CISO coordina el cumplimiento de leyes, regulaciones y requisitos aplicables a la protección de información. Cumplir normas no garantiza seguridad completa, pero el incumplimiento puede generar sanciones, demandas y pérdida de confianza.\n\n### Coordinación de incidentes\n\nAnte un incidente, el CISO supervisa la respuesta estratégica: moviliza equipos, ayuda a priorizar decisiones, informa a dirección y coordina con legales, comunicaciones y otras áreas. Los Incident Responders realizan la investigación y contención técnica.\n\nEl objetivo es reducir el daño, restaurar operaciones, comprender la causa y aplicar mejoras que eviten nuevos incidentes.\n\n### Alineación con el negocio\n\nEl CISO trabaja con otros ejecutivos para que la seguridad apoye nuevos productos, mercados y operaciones. No debe bloquear automáticamente toda iniciativa: debe explicar riesgos y proponer controles que permitan avanzar de forma segura dentro de niveles aceptables.\n\n### Cultura de seguridad\n\nLa seguridad es responsabilidad compartida. El CISO lidera el programa, pero todos los empleados utilizan sistemas o manejan información. Por eso impulsa capacitación, concientización y responsabilidades claras.\n\n### Actividad diaria\n\nPuede revisar informes e incidentes, reunirse con dirección, evaluar riesgos de proyectos, supervisar análisis de vulnerabilidades, coordinar incidentes, investigar tecnologías y desarrollar las capacidades del equipo. El rol combina seguridad, liderazgo, comunicación, riesgo y conocimiento del negocio.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. El CISO dirige políticas, procesos y decisiones; las herramientas concretas dependen de los equipos técnicos y del entorno de la organización.\n\n## Diferencias que hay que recordar\n\n- **CISO vs Security Analyst:** el CISO dirige estrategia y riesgo; el analista monitorea e investiga actividad.\n- **CISO vs Incident Responder:** el CISO coordina la respuesta; el responder ejecuta tareas técnicas de investigación y contención.\n- **Responsabilidad del CISO vs responsabilidad compartida:** el CISO lidera el programa, pero toda la organización participa.\n- **Riesgo cero vs riesgo aceptable:** eliminar todo riesgo es imposible; se reduce y gestiona dentro de límites conocidos.\n- **Cumplimiento vs seguridad:** cumplir normas es necesario, pero no reemplaza una defensa basada en riesgos.\n- **Seguridad vs bloqueo:** la seguridad debe permitir objetivos del negocio con controles adecuados.\n\n## Ejemplos prácticos\n\n- Antes de lanzar un producto, el CISO coordina la evaluación de riesgos y propone controles.\n- Durante un incidente, los responders aíslan equipos mientras el CISO coordina decisiones y comunicación ejecutiva.\n- Si una vulnerabilidad tiene bajo impacto pero corregirla detendría un servicio crítico, se analiza el riesgo y se planifica su tratamiento.\n- Una política exige autenticación fuerte y los engineers implementan la tecnología necesaria.\n- Tras un phishing exitoso, el CISO impulsa mejoras en correo, respuesta y capacitación.\n\n## Errores y precauciones\n\n- No atribuir al CISO todas las tareas técnicas ni toda la responsabilidad humana.\n- No confundir cumplimiento documental con seguridad efectiva.\n- No ocultar riesgos a la dirección por temor a bloquear proyectos.\n- No intentar eliminar todo riesgo sin considerar costos y objetivos.\n- No imponer controles desconectados de las operaciones reales.\n- No limitar la cultura de seguridad al equipo de ciberseguridad.\n\n## Inglés técnico del módulo\n\n- `Chief Information Security Officer (CISO)` → ejecutivo responsable de dirigir la seguridad de la información.\n- `information assets` → datos, sistemas y recursos de información con valor.\n- `risk management` → identificación, evaluación y tratamiento de riesgos.\n- `risk tolerance` → nivel de riesgo que una organización está dispuesta a aceptar.\n- `residual risk` → riesgo que permanece después de aplicar controles.\n- `security strategy` → dirección y prioridades generales del programa de seguridad.\n- `security policy` → regla formal que establece requisitos de protección.\n- `compliance` → cumplimiento de leyes, normas y obligaciones.\n- `security-conscious culture` → cultura donde las personas incorporan la seguridad en sus decisiones.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. El punto a conservar es que el CISO coordina y dirige, mientras los equipos especializados ejecutan tareas técnicas y toda la organización comparte responsabilidad.\n\n## Qué aprendí\n\nEntendí que el CISO lidera la estrategia de seguridad, gestiona riesgos, coordina incidentes y alinea protección con objetivos del negocio. Puedo diferenciar su función de la de analistas y responders y explicar por qué no existe el riesgo cero.\n\n## Para repasar o practicar\n\n- Explicar la tríada CIA con ejemplos.\n- Diferenciar dirección estratégica de ejecución técnica.\n- Practicar el proceso de identificación y tratamiento de riesgos.\n- Comparar cumplimiento normativo con seguridad efectiva.\n- Pensar cómo permitir un proyecto nuevo sin ignorar sus riesgos.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la función principal del CISO? — **Respuesta:** Dirigir la estrategia y el programa de seguridad de la organización.\n2. ¿Qué significa gestionar riesgos? — **Respuesta:** Identificarlos, evaluarlos y decidir cómo tratarlos o aceptarlos.\n3. ¿Qué protege la tríada CIA? — **Respuesta:** Confidencialidad, integridad y disponibilidad.\n4. Durante un incidente, ¿qué función cumple normalmente el CISO? — **Respuesta:** Coordina la respuesta estratégica entre equipos y áreas.\n5. ¿Por qué debe colaborar con otros ejecutivos? — **Respuesta:** Para alinear seguridad y objetivos del negocio.\n6. ¿Quién debe participar en la seguridad de la organización? — **Respuesta:** Toda la organización, con el CISO liderando el programa.\n",
+      "learnings": "Entendí que el CISO dirige estrategia, riesgo y coordinación, mientras equipos especializados ejecutan tareas técnicas y toda la organización comparte responsabilidad.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que el CISO lidera el programa y alinea seguridad con negocio, pero no reemplaza a analistas ni responders.",
+      "createdAt": "2026-10-30T14:20:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

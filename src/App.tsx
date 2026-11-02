@@ -261,7 +261,7 @@ export function App() {
       {modal === "path" ? <Modal title={editingPathId ? "Editar certificación" : "Crear certificación"} subtitle="La ruta contiene sus cursos en el orden oficial" onClose={closeModal}><PathForm value={pathForm} setValue={setPathForm} onSubmit={addPath} /></Modal> : null}
       {modal === "module" ? <Modal title={editingModuleId ? "Editar curso" : "Registrar curso"} subtitle="Ejemplo: Linux Fundamentals o Network Foundations" onClose={closeModal}><ModuleForm paths={data.paths} value={moduleForm} setValue={setModuleForm} onSubmit={addModule} /></Modal> : null}
       {modal === "section" ? <Modal title={editingSectionId ? "Editar sección" : "Registrar sección"} subtitle="Cada sección queda numerada dentro de su curso" onClose={closeModal}><SectionForm modules={data.modules} value={sectionForm} setValue={setSectionForm} onSubmit={addSection} /></Modal> : null}
-      {modal === "reader" && readingSectionId ? (() => { const section = data.sections.find((item) => item.id === readingSectionId); if (!section) return null; const course = data.modules.find((item) => item.id === section.moduleId); return <Modal title={`${section.number} de ${section.total} — ${section.title}`} subtitle={`${course?.title ?? "Sin curso"} · ${section.status} · ${section.progress}%`} onClose={closeModal} wide><SectionReader section={section} course={course} onEdit={() => editSection(section)} onAppendNote={(answer) => setData((current) => ({ ...current, sections: current.sections.map((item) => item.id === section.id ? { ...item, notes: `${item.notes.trim()}\n\n## Aporte del Tutor IA\n\n${answer}`.trim() } : item) }))} /></Modal>; })() : null}
+      {modal === "reader" && readingSectionId ? (() => { const section = data.sections.find((item) => item.id === readingSectionId); if (!section) return null; const course = data.modules.find((item) => item.id === section.moduleId); const summary = isModuleSummary(section); return <Modal title={summary ? section.title : `${section.number} de ${section.total} — ${section.title}`} subtitle={`${course?.title ?? "Sin curso"} · ${summary ? "Resumen del módulo" : `${section.status} · ${section.progress}%`}`} onClose={closeModal} wide><SectionReader section={section} course={course} onEdit={summary ? undefined : () => editSection(section)} onAppendNote={(answer) => setData((current) => ({ ...current, sections: current.sections.map((item) => item.id === section.id ? { ...item, notes: `${item.notes.trim()}\n\n## Aporte del Tutor IA\n\n${answer}`.trim() } : item) }))} /></Modal>; })() : null}
       {modal === "session" ? <Modal title={editingSessionId ? "Editar sesión" : "Registrar sesión"} subtitle="Guardá lo que hiciste, no sólo cuánto tiempo" onClose={closeModal}><SessionForm value={sessionForm} setValue={setSessionForm} onSubmit={addSession} /></Modal> : null}
       {modal === "freeze" ? <Modal title="Congelar hoy" subtitle="Un descanso justificado no rompe tu constancia" onClose={() => setModal(null)}><form onSubmit={(event) => { event.preventDefault(); if (!freezeReason.trim()) return; setData((current) => ({ ...current, frozenDays: [...current.frozenDays.filter((d) => d.date !== today), { date: today, reason: freezeReason.trim() }] })); setFreezeReason(""); setModal(null); }}><Field label="Motivo"><input required value={freezeReason} onChange={(e) => setFreezeReason(e.target.value)} placeholder="Ej: descanso, trabajo, salud..." /></Field><button className="btn primary full" type="submit"><Snowflake size={18} /> Congelar día</button></form></Modal> : null}
       {modal === "cloud" ? <Modal title="Sincronización segura" subtitle={isSupabaseConfigured ? "Tus datos locales se conservan y se combinan con la nube." : "Primero configurá las variables de Supabase."} onClose={() => setModal(null)}><CloudAccount user={user} state={cloudState} /></Modal> : null}
@@ -296,11 +296,13 @@ function Modules({ paths, modules, sections, setData, onAddPath, onAddCourse, on
   const visible = modules.filter((module) => !query || `${module.title} ${module.category} ${module.platform}`.toLowerCase().includes(query) || sections.some((section) => section.moduleId === module.id && sectionText(section).includes(query)));
   function renderCourse(module: StudyModule) {
     const children = sections.filter((section) => section.moduleId === module.id && (!query || sectionText(section).includes(query)));
+    const numberedSections = children.filter((section) => !isModuleSummary(section));
+    const summaries = children.length - numberedSections.length;
     return <article className="course-card collapsed" key={module.id}>
       <header className="course-head">
         <span className="course-order">{module.order ?? "—"}</span>
         <div className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0, 3).toUpperCase()}</div>
-        <div><span className="parent-label">CURSO</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {children.length} secciones guardadas</p></div>
+        <div><span className="parent-label">CURSO</span><h2>{module.title}</h2><p>{module.category} · {module.difficulty} · {numberedSections.length} secciones{summaries ? ` · ${summaries} resumen` : ""}</p></div>
         <div className="course-actions">
           <button className="text-button" onClick={() => onEditCourse(module)}><Edit3 size={15}/> Editar</button>
           <button className="btn ghost small" onClick={onOpenNotebook}><BookMarked size={15}/> Ver cuadernos ({children.length})</button>
@@ -328,7 +330,7 @@ function Notebook({ modules, sections, search, onOpen }: { modules: StudyModule[
   const query = search.trim().toLowerCase();
   const visible = sections.filter((section) => !query || sectionText(section).includes(query) || modules.find((module) => module.id === section.moduleId)?.title.toLowerCase().includes(query));
   const courses = modules.filter((module) => visible.some((section) => section.moduleId === module.id)).sort((a,b) => (a.order ?? 999) - (b.order ?? 999));
-  return <section className="content"><div className="section-intro"><p>Los cuadernos están separados por curso y sus secciones aparecen en orden.</p></div>{visible.length ? <div className="notebook-courses">{courses.map((module) => { const children = visible.filter((section) => section.moduleId === module.id).sort((a,b) => a.number-b.number); const open = Boolean(query) || expanded.has(module.id); return <article className="notebook-course" key={module.id}><button className="notebook-course-head" onClick={() => setExpanded((current) => { const next = new Set(current); next.has(module.id) ? next.delete(module.id) : next.add(module.id); return next; })}><span className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0,3).toUpperCase()}</span><span><small>CURSO</small><strong>{module.title}</strong><p>{children.length} cuadernos · {module.progress}% completado</p></span>{open ? <ChevronUp/> : <ChevronDown/>}</button>{open ? <div className="knowledge-grid notebook-grid">{children.map((section) => <article className="knowledge-card" key={section.id}><span>SECCIÓN {section.number} DE {section.total}</span><h3>{section.title}</h3><p>{section.learnings || section.notes || "Todavía no agregaste contenido."}</p><div className="card-actions"><button className="text-button" onClick={() => onOpen(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> Markdown</button></div></article>)}</div> : null}</article>; })}</div> : <Empty text={query ? "No encontramos ese concepto." : "Cuando guardes secciones, aparecerán agrupadas por curso."}/>}</section>;
+  return <section className="content"><div className="section-intro"><p>Los cuadernos están separados por curso: primero sus secciones y al final el resumen general.</p></div>{visible.length ? <div className="notebook-courses">{courses.map((module) => { const children = visible.filter((section) => section.moduleId === module.id).sort((a,b) => Number(isModuleSummary(a)) - Number(isModuleSummary(b)) || a.number-b.number); const sectionCount = children.filter((section) => !isModuleSummary(section)).length; const summaryCount = children.length - sectionCount; const open = Boolean(query) || expanded.has(module.id); return <article className="notebook-course" key={module.id}><button className="notebook-course-head" onClick={() => setExpanded((current) => { const next = new Set(current); next.has(module.id) ? next.delete(module.id) : next.add(module.id); return next; })}><span className="platform-badge">{module.platform.includes("Hack") ? "HTB" : module.platform.slice(0,3).toUpperCase()}</span><span><small>CURSO</small><strong>{module.title}</strong><p>{sectionCount} secciones{summaryCount ? ` · ${summaryCount} resumen` : ""} · {module.progress}% completado</p></span>{open ? <ChevronUp/> : <ChevronDown/>}</button>{open ? <div className="knowledge-grid notebook-grid">{children.map((section) => { const summary = isModuleSummary(section); return <article className={`knowledge-card${summary ? " module-summary-card" : ""}`} key={section.id}><span>{summary ? "RESUMEN DEL MÓDULO" : `SECCIÓN ${section.number} DE ${section.total}`}</span><h3>{section.title}</h3><p>{section.learnings || section.notes || "Todavía no agregaste contenido."}</p><div className="card-actions"><button className="text-button" onClick={() => onOpen(section)}><Edit3 size={15}/> Abrir</button><button className="text-button" onClick={() => downloadMarkdown(summary ? `resumen-${module.title}` : `${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, module))}><Download size={15}/> Markdown</button></div></article>; })}</div> : null}</article>; })}</div> : <Empty text={query ? "No encontramos ese concepto." : "Cuando guardes secciones, aparecerán agrupadas por curso."}/>}</section>;
 }
 
 function Questions({ modules, sections, search, onOpen }: { modules: StudyModule[]; sections: StudySection[]; search: string; onOpen: (section: StudySection) => void }) {
@@ -388,7 +390,7 @@ function CloudAccount({ user, state }: { user: User | null; state: "local" | "sy
 }
 
 function TimerBar({ seconds, running, onToggle, onReset, onFinish }: { seconds: number; running: boolean; onToggle: () => void; onReset: () => void; onFinish: () => void }) { const time = `${String(Math.floor(seconds / 3600)).padStart(2, "0")}:${String(Math.floor(seconds % 3600 / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`; return <div className="timer-bar"><div><TimerReset size={20}/><span>Sesión en vivo</span><strong>{time}</strong></div><div><button className="timer-button" onClick={onToggle}>{running ? <Pause size={18}/> : <Play size={18}/>} {running ? "Pausar" : seconds ? "Continuar" : "Iniciar"}</button>{seconds ? <><button className="icon-button" title="Descartar timer" onClick={onReset}><RotateCcw size={17}/></button><button className="btn small" onClick={onFinish}>Finalizar y guardar</button></> : null}</div></div>; }
-function SectionReader({ section, course, onEdit, onAppendNote }: { section: StudySection; course?: StudyModule; onEdit: () => void; onAppendNote: (answer: string) => void }) {
+function SectionReader({ section, course, onEdit, onAppendNote }: { section: StudySection; course?: StudyModule; onEdit?: () => void; onAppendNote: (answer: string) => void }) {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [tutorOpen, setTutorOpen] = useState(false);
@@ -419,9 +421,9 @@ function SectionReader({ section, course, onEdit, onAppendNote }: { section: Stu
           <button type="button" className="icon-button" title="Siguiente (Enter)" disabled={!matches} onClick={() => goTo(1)}><ChevronDown size={16}/></button>
         </span> : null}
       </label>
-      <button className="btn ghost" onClick={onEdit}><Edit3 size={16}/> Editar</button>
+      {onEdit ? <button className="btn ghost" onClick={onEdit}><Edit3 size={16}/> Editar</button> : null}
       <button className="btn ghost" onClick={() => setTutorOpen((open) => !open)}><Bot size={16}/> Tutor IA</button>
-      <button className="btn ghost" onClick={() => downloadMarkdown(`${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, course))}><Download size={16}/> Descargar .md</button>
+      <button className="btn ghost" onClick={() => downloadMarkdown(isModuleSummary(section) ? `resumen-${course?.title ?? section.title}` : `${section.number}-de-${section.total}-${section.title}`, sectionMarkdown(section, course))}><Download size={16}/> Descargar .md</button>
     </div>
     <div className="reader-meta"><span>{course?.platform ?? "Biblioteca personal"}</span><span>{course?.category ?? "Apuntes"}</span><span>{section.status}</span></div>
     {tutorOpen ? <TutorPanel section={section} course={course} onAppendNote={onAppendNote}/> : null}
@@ -458,7 +460,7 @@ function TutorPanel({ section, course, onAppendNote }: { section: StudySection; 
     try {
       const result = await askTutor({
         question: cleanQuestion,
-        moduleTitle: `${section.number} de ${section.total} — ${section.title}`,
+        moduleTitle: isModuleSummary(section) ? section.title : `${section.number} de ${section.total} — ${section.title}`,
         moduleNotes: [section.notes, section.learnings, section.questions].filter(Boolean).join("\n\n"),
         messages,
       });
@@ -545,11 +547,15 @@ function PanelTitle({ title, meta }: { title: string; meta: string }) { return <
 function Empty({ text, action, onAction }: { text: string; action?: string; onAction?: () => void }) { return <div className="empty"><BookOpen size={34}/><p>{text}</p>{action ? <button className="btn ghost" onClick={onAction}>{action}</button> : null}</div>; }
 
 function sectionText(section: StudySection) {
-  return `${section.number} ${section.total} ${section.title} ${section.notes} ${section.learnings} ${section.questions}`.toLowerCase();
+  return `${isModuleSummary(section) ? "resumen del módulo" : `${section.number} ${section.total}`} ${section.title} ${section.notes} ${section.learnings} ${section.questions}`.toLowerCase();
+}
+
+function isModuleSummary(section: StudySection) {
+  return section.kind === "module-summary";
 }
 
 function updateCourseProgress(modules: StudyModule[], sections: StudySection[], moduleId: string) {
-  const children = sections.filter((section) => section.moduleId === moduleId);
+  const children = sections.filter((section) => section.moduleId === moduleId && !isModuleSummary(section));
   const total = children[0]?.total ?? 0;
   const completed = children.filter((section) => section.status === "Completado" || section.progress === 100).length;
   const progress = total ? Math.min(100, Math.round(completed / total * 100)) : 0;

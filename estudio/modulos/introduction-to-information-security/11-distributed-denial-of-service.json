@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 46,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-11-distributed-denial-of-service",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 11,
+      "total": 24,
+      "title": "Distributed Denial of Service",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 11 de 24 — Distributed Denial of Service\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUn ataque **Distributed Denial of Service (DDoS)** intenta interrumpir el funcionamiento normal de un sitio, servidor, red o servicio en línea mediante una cantidad de tráfico superior a la que puede procesar. Los usuarios legítimos encuentran lentitud, errores o una interrupción completa.\n\nLa diferencia central frente a un ataque **Denial of Service (DoS)** es el origen: un DoS proviene principalmente de una sola fuente, mientras que un DDoS utiliza numerosas fuentes distribuidas. Esto aumenta la capacidad del ataque y dificulta bloquearlo sin afectar tráfico legítimo.\n\n## Conceptos importantes\n\n### Componentes del ataque\n\nUn DDoS incluye tres participantes principales:\n\n- **Atacante:** persona o grupo que coordina el ataque y selecciona el objetivo.\n- **Botnet:** red de computadoras, servidores o dispositivos IoT comprometidos y controlados sin permiso de sus propietarios.\n- **Víctima:** servidor, red o servicio que recibe el tráfico y se intenta dejar inaccesible.\n\nEl atacante ordena a los dispositivos de la botnet enviar solicitudes simultáneas. El volumen acumulado consume ancho de banda, capacidad de procesamiento, memoria o conexiones disponibles hasta degradar o detener el servicio.\n\n### Disponibilidad\n\nEl objetivo principal se relaciona con la **disponibilidad** de la tríada CIA: aunque los datos no sean robados ni modificados, los usuarios autorizados no pueden utilizar el recurso cuando lo necesitan.\n\n### Botnet y amplificación\n\nUna **botnet** genera tráfico mediante dispositivos comprometidos. Una **red o técnica de amplificación** aprovecha servicios de terceros para obtener respuestas mucho mayores que las solicitudes originales. Pueden combinarse en un ataque, pero no son sinónimos.\n\n### IoT y Mirai\n\nLos dispositivos IoT con contraseñas débiles, configuraciones inseguras o software sin actualizar pueden ser incorporados a botnets. En 2016, **Mirai** utilizó cámaras, routers y otros dispositivos comprometidos para atacar a Dyn. Como muchos servicios dependían de su infraestructura, el impacto se extendió a numerosos sitios y usuarios.\n\n### Impacto y distracción\n\nUn DDoS puede provocar pérdida de ventas, interrupciones operativas, costos de mitigación y daño a la confianza de los clientes. También puede actuar como **smokescreen**: mientras el equipo se concentra en recuperar la disponibilidad, el atacante intenta ingresar a otros sistemas, robar información o instalar malware.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. La detección y mitigación dependen de la infraestructura, el proveedor de red y las herramientas defensivas de cada organización.\n\n## Diferencias que hay que recordar\n\n- **DoS vs DDoS:** DoS parte de una fuente; DDoS distribuye el tráfico entre muchas fuentes.\n- **Botnet vs víctima:** la botnet genera el tráfico; la víctima lo recibe y sufre la saturación.\n- **Botnet vs amplificación:** la botnet usa dispositivos comprometidos; la amplificación aumenta el volumen aprovechando respuestas de terceros.\n- **DDoS vs robo de datos:** el efecto principal es la indisponibilidad, aunque el ataque pueda ocultar otras acciones.\n- **Tráfico alto legítimo vs ataque:** una gran cantidad de visitas reales no implica por sí sola intención maliciosa; se debe analizar el patrón y el contexto.\n\n## Ejemplos prácticos\n\n- Miles de dispositivos comprometidos solicitan una página al mismo tiempo hasta agotar las conexiones disponibles.\n- Una tienda en línea queda inaccesible durante una campaña y pierde ventas aunque su base de datos no haya sido modificada.\n- Una cámara IoT vulnerable es incorporada a una botnet sin que su propietario lo note.\n- El equipo responde a una saturación mientras el atacante intenta aprovechar otra vulnerabilidad: el DDoS funciona como distracción.\n- Un proveedor compartido es atacado y varios servicios dependientes quedan afectados indirectamente.\n\n## Errores y precauciones\n\n- No asumir que bloquear una sola dirección IP detendrá un DDoS distribuido.\n- No bloquear tráfico masivamente sin evaluar el impacto sobre usuarios legítimos.\n- No confundir una botnet con el objetivo del ataque: los dispositivos comprometidos también son víctimas del atacante.\n- No concentrarse únicamente en recuperar el servicio; se deben vigilar posibles ataques paralelos.\n- Las pruebas de carga o de resistencia requieren autorización, límites claros y coordinación para no causar una interrupción real.\n\n## Inglés técnico del módulo\n\n- `Denial of Service (DoS)` → denegación de servicio desde una fuente principal.\n- `Distributed Denial of Service (DDoS)` → denegación de servicio distribuida.\n- `botnet` → red de dispositivos comprometidos controlados por un atacante.\n- `victim` → sistema o servicio atacado.\n- `bandwidth` → capacidad disponible para transmitir datos.\n- `processing capacity` → recursos disponibles para procesar solicitudes.\n- `traffic flood` → inundación o volumen masivo de tráfico.\n- `amplification` → técnica que genera respuestas mayores que las solicitudes.\n- `downtime` → período durante el cual el servicio no está disponible.\n- `smokescreen` → distracción utilizada para ocultar otra actividad maliciosa.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. Conviene recordar que el DDoS afecta principalmente la disponibilidad, pero también puede utilizarse como distracción para intentar comprometer la confidencialidad o la integridad por otra vía.\n\n## Qué aprendí\n\nEntendí que un DDoS utiliza múltiples fuentes, normalmente una botnet, para saturar los recursos de una víctima. Puedo diferenciar DoS de DDoS, reconocer el papel de los dispositivos IoT y explicar tanto el impacto sobre la disponibilidad como el posible uso del ataque como distracción.\n\n## Para repasar o practicar\n\n- Explicar con un ejemplo la diferencia entre DoS y DDoS.\n- Identificar atacante, botnet y víctima en distintos escenarios.\n- Diferenciar una botnet de una técnica de amplificación.\n- Relacionar el ataque con la disponibilidad de la tríada CIA.\n- Recordar que durante un DDoS se deben investigar posibles actividades paralelas.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la diferencia principal entre DoS y DDoS? — **Respuesta:** DoS proviene de una fuente principal; DDoS utiliza múltiples fuentes distribuidas.\n2. ¿Qué es una botnet? — **Respuesta:** Una red de dispositivos comprometidos controlados por un atacante.\n3. ¿Quién es la víctima en un DDoS? — **Respuesta:** El servidor, la red o el servicio que se intenta saturar.\n4. ¿Qué propiedad de la tríada CIA resulta afectada principalmente? — **Respuesta:** La disponibilidad.\n5. ¿Por qué los dispositivos IoT pueden utilizarse en un DDoS? — **Respuesta:** Porque pueden ser comprometidos e incorporados a una botnet.\n6. ¿Por qué un DDoS puede utilizarse como distracción? — **Respuesta:** Para ocupar al equipo defensor mientras se intenta otro ataque.",
+      "learnings": "Entendí que un DDoS utiliza múltiples fuentes, normalmente una botnet, para saturar una víctima. Puedo diferenciar DoS de DDoS y explicar su impacto sobre la disponibilidad y su posible uso como distracción.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que el objetivo principal es la disponibilidad, pero el ataque también puede ocultar otras actividades maliciosas.",
+      "createdAt": "2026-10-29T12:20:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

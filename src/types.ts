@@ -35,6 +35,8 @@ export interface StudyModule {
 export interface StudySection {
   id: string;
   moduleId: string;
+  /** Entrada especial del Cuaderno que resume el curso completo y no cuenta para el progreso. */
+  kind?: "module-summary";
   number: number;
   total: number;
   title: string;

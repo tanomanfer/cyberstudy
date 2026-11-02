@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 83,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-19-purple-team",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 19,
+      "total": 24,
+      "title": "Purple Team",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 19 de 24 — Purple Team\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nEl **Purple Teaming** es un enfoque colaborativo que integra la experiencia ofensiva del Red Team con la experiencia defensiva del Blue Team. Red explica cómo atacó; Blue muestra qué detectó y cómo respondió; ambos ajustan técnicas y controles, repiten las pruebas y comprueban si la seguridad realmente mejoró.\n\nLa analogía medieval presenta al Blue Team como los caballeros que protegen el castillo y al Red Team como atacantes autorizados que simulan invasiones. Purple Teaming aparece cuando ambos comparten conocimientos para mejorar continuamente las estrategias ofensivas y defensivas.\n\n## Conceptos importantes\n\n### Composición\n\nParticipan integrantes de ambos equipos:\n\n- **Penetration Testers y Ethical Hackers:** reproducen técnicas de adversarios y explican cómo identificaron y explotaron las vulnerabilidades.\n- **Security Analysts e Incident Responders:** observan las señales, detectan la actividad, contienen el incidente y explican qué controles funcionaron o fallaron.\n\nPurple Team no siempre es un tercer equipo permanente. Puede ser una forma de trabajo entre Red y Blue, facilitada para garantizar comunicación, objetivos compartidos y seguimiento de las mejoras.\n\n### Ciclo colaborativo\n\n1. Red ejecuta una técnica específica.\n2. Blue intenta detectarla y responder.\n3. Ambos comparan lo ocurrido con lo esperado.\n4. Red explica los detalles de la técnica y Blue identifica puntos ciegos.\n5. Se ajustan reglas, registros, herramientas o procedimientos.\n6. Red repite la técnica para verificar la mejora.\n\nLa repetición es esencial: una recomendación escrita no demuestra que el nuevo control funcione. La segunda prueba aporta evidencia.\n\n### Propósitos\n\n- **Mejorar defensas:** Red aporta conocimiento sobre técnicas reales para que Blue cree mejores controles.\n- **Mejorar detección y respuesta:** Blue explica las señales observadas y ayuda a que las simulaciones sean útiles y medibles.\n- **Compartir conocimiento:** ambos equipos entienden mejor los métodos, herramientas y limitaciones del otro.\n- **Adaptarse continuamente:** se actualizan frente a nuevas amenazas, vulnerabilidades y mecanismos defensivos.\n- **Responder mejor:** la práctica conjunta mejora coordinación, velocidad y priorización durante incidentes reales.\n\n### Pruebas colaborativas\n\nEn un ejercicio Purple Team, Red puede ejecutar ataques mientras Blue observa y defiende en tiempo real. La comunicación directa permite detectar rápidamente por qué una técnica no produjo alertas o por qué una respuesta fue ineficaz.\n\nEsto contrasta con un ejercicio Red Team completamente encubierto, donde se evalúa la respuesta sin aviso. Ambos enfoques son útiles, pero persiguen dinámicas diferentes.\n\n### Uso eficiente de recursos\n\nAl compartir resultados, los equipos concentran tiempo y presupuesto en debilidades comprobadas. Pueden priorizar vulnerabilidades críticas y dejar en segundo plano hallazgos con poco impacto real.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. Las simulaciones ofensivas requieren autorización, alcance definido y reglas de enfrentamiento, incluso cuando Red y Blue trabajan de manera abierta.\n\n## Diferencias que hay que recordar\n\n- **Red Team:** reproduce técnicas del adversario y busca vías de explotación.\n- **Blue Team:** previene, monitorea, detecta, contiene y responde.\n- **Purple Team:** conecta ambos conocimientos en un ciclo de prueba y mejora.\n- **Equipo permanente vs enfoque:** Purple puede ser un grupo formal o una modalidad de colaboración.\n- **Ejercicio encubierto vs Purple Teaming:** el encubierto busca una reacción sin aviso; Purple prioriza comunicación, enseñanza y repetición inmediata.\n- **Recomendación vs validación:** sugerir un control no basta; repetir el ataque demuestra si funciona.\n\n## Ejemplos prácticos\n\nRed ejecuta movimiento lateral y Blue no genera una alerta. Ambos revisan qué registros existían, qué datos no llegaron al SIEM y qué regla faltaba. Blue configura la detección y Red repite exactamente la técnica. Si aparece una alerta útil y el equipo responde correctamente, la mejora queda validada.\n\nOtro ejemplo es un phishing simulado: Red explica qué elementos hicieron creíble el mensaje; Blue revisa controles de correo, alertas y respuesta; luego se actualizan filtros y capacitación y se realiza una nueva simulación.\n\n## Errores y precauciones\n\n- No convertir el ejercicio en una competencia entre equipos.\n- No ocultar a Blue los detalles necesarios una vez iniciada la fase colaborativa.\n- No confundir comunicación con falta de realismo: se pueden probar técnicas reales de forma controlada.\n- No cerrar un hallazgo sin volver a probarlo.\n- No realizar técnicas ofensivas fuera del alcance autorizado.\n- Documentar tanto la técnica como la detección y la mejora aplicada.\n\n## Inglés técnico del módulo\n\n- `Purple Teaming` → colaboración estructurada entre capacidades ofensivas y defensivas.\n- `Penetration Tester` → profesional autorizado que intenta explotar vulnerabilidades.\n- `Ethical Hacker` → especialista que utiliza técnicas ofensivas con autorización.\n- `collaborative security testing` → pruebas de seguridad realizadas conjuntamente.\n- `knowledge sharing` → intercambio de conocimientos entre equipos.\n- `detection gap` → actividad maliciosa que los controles no detectan.\n- `feedback loop` → ciclo de ejecución, análisis, ajuste y nueva prueba.\n- `real-time defense` → defensa y observación durante la ejecución de la técnica.\n- `continuous improvement` → mejora continua basada en aprendizaje y verificación.\n\n## Lo que más costó\n\nLas seis respuestas fueron correctas. Tano señaló que la pregunta 3 era ambigua porque “qué deberían hacer” no indicaba claramente quiénes. Se reformuló para preguntar por el siguiente paso conjunto de Red y Blue dentro de un ejercicio Purple Team.\n\n## Qué aprendí\n\nEntendí que Purple Teaming no busca un ganador entre Red y Blue. Su valor está en compartir técnicas, detectar puntos ciegos, ajustar defensas y repetir las pruebas para demostrar la mejora.\n\n## Para repasar o practicar\n\n- Explicar el ciclo completo desde el ataque hasta la repetición.\n- Diferenciar un Red Team encubierto de Purple Teaming.\n- Identificar qué aporta cada equipo.\n- Pensar cómo comprobar una nueva regla de detección.\n- Recordar que Purple Team puede ser un enfoque y no necesariamente un equipo permanente.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es el propósito principal del enfoque Purple Team? — **Respuesta:** Integrar conocimientos ofensivos y defensivos para mejorar la seguridad.\n2. ¿Quiénes suelen participar en Purple Teaming? — **Respuesta:** Integrantes de Red Team y Blue Team.\n3. Red ejecuta una técnica que Blue no detecta. Dentro de un ejercicio Purple Team, ¿cuál debería ser el siguiente paso conjunto? — **Respuesta:** Analizar por qué falló la detección, mejorar los controles y repetir la prueba.\n4. ¿Qué aporta principalmente el Red Team durante la colaboración? — **Respuesta:** Conocimiento sobre técnicas de ataque y explotación.\n5. ¿Qué aporta principalmente el Blue Team? — **Respuesta:** Experiencia en monitoreo, detección y respuesta.\n6. ¿Qué diferencia a Purple Teaming de un ejercicio Red Team completamente encubierto? — **Respuesta:** Favorece la comunicación, el aprendizaje conjunto y la repetición de pruebas.\n",
+      "learnings": "Entendí que Purple Teaming conecta Red y Blue en ciclos de ataque, detección, ajuste y repetición para validar mejoras reales.",
+      "questions": "Cuestionario aprobado 6/6. La pregunta 3 fue reformulada para aclarar que Red y Blue deben analizar juntos la falla, mejorar la detección y repetir la prueba.",
+      "createdAt": "2026-10-30T14:10:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 58,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-13-social-engineering",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 13,
+      "total": 24,
+      "title": "Social Engineering",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 13 de 24 — Social Engineering\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nLa **ingeniería social** consiste en manipular psicológicamente a una persona para que revele información confidencial, entregue acceso o realice una acción insegura. En lugar de vulnerar directamente una defensa técnica, el atacante explota comportamientos humanos como la confianza, la amabilidad, la curiosidad, la urgencia o el deseo de recibir un beneficio.\n\nEsto permite saltar controles muy sólidos: si una persona autorizada entrega su contraseña o abre una puerta, el atacante puede actuar con permisos que no conseguiría atacando el sistema desde afuera.\n\n## Conceptos importantes\n\n### Phishing\n\nEl atacante envía un correo o mensaje que aparenta provenir de una entidad legítima. Suele crear urgencia y dirigir a una página falsa para robar usuarios, contraseñas o datos financieros. El engaño está en el mensaje y en la identidad simulada.\n\n### Pretexting\n\nEl atacante inventa una historia o identidad creíble, llamada **pretexto**, para conseguir información o lograr una acción. Por ejemplo, puede llamar fingiendo ser del área de soporte y afirmar que necesita la contraseña para resolver un problema.\n\n### Baiting\n\nSe utiliza un señuelo atractivo para despertar curiosidad o interés. Un pendrive llamado “Sueldos 2026” puede contener malware: la propia víctima activa la trampa al conectarlo.\n\n### Tailgating\n\nEl atacante entra a un área restringida siguiendo a una persona autorizada. Puede aprovechar la cortesía, por ejemplo cargando una caja para que alguien le sostenga una puerta controlada por tarjeta.\n\n### Quid pro quo\n\nEl atacante ofrece un supuesto beneficio a cambio de información o acceso. Un ejemplo es prometer una actualización gratuita a cambio de las credenciales. La expresión significa “algo por algo”.\n\n### Impacto\n\nLa ingeniería social puede causar filtraciones de datos, fraude, pérdidas económicas, interrupciones operativas y daño reputacional. Es difícil crear una defensa completamente efectiva porque incluso una persona capacitada puede ser engañada por un atacante hábil y porque las técnicas evolucionan con las tecnologías y las costumbres sociales.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. La defensa depende de verificar identidades y solicitudes por canales oficiales, aplicar mínimo privilegio, capacitar al personal y reportar intentos sospechosos.\n\n## Diferencias que hay que recordar\n\n- **Phishing vs pretexting:** phishing suele usar un mensaje falso y masivo o dirigido; pretexting se apoya en una historia e identidad fabricadas para sostener la interacción.\n- **Baiting vs quid pro quo:** baiting deja un señuelo tentador para que la víctima actúe; quid pro quo propone explícitamente un intercambio.\n- **Tailgating vs ataques digitales:** tailgating busca acceso físico aprovechando a una persona autorizada.\n- **Ataque técnico vs ingeniería social:** el primero explota fallas de sistemas; la segunda explota decisiones y emociones humanas. Pueden combinarse en un mismo incidente.\n\n## Ejemplos prácticos\n\n- Un correo que imita al banco exige verificar la cuenta mediante un enlace falso: phishing.\n- Una persona llama fingiendo ser de soporte y pide la contraseña: pretexting.\n- Un pendrive atractivo dejado en un estacionamiento instala malware al conectarlo: baiting.\n- Alguien sin tarjeta logra que un empleado le sostenga una puerta: tailgating.\n- Un falso técnico ofrece una mejora de software a cambio del usuario y la contraseña: quid pro quo.\n\n## Errores y precauciones\n\n- No entregar contraseñas: un soporte legítimo no debería necesitarlas.\n- No confiar solamente en uniformes, documentos, nombres conocidos o números telefónicos visibles.\n- No actuar por urgencia sin verificar la solicitud mediante un canal oficial independiente.\n- No conectar dispositivos USB encontrados o de origen desconocido.\n- No permitir el ingreso de otra persona a una zona restringida sin que valide sus propias credenciales.\n- Reportar el intento aunque no haya producido daño; puede formar parte de una campaña contra más personas.\n\n## Inglés técnico del módulo\n\n- `social engineering` → manipulación de personas para obtener información, acceso o acciones.\n- `phishing` → mensaje engañoso que suplanta una fuente legítima.\n- `pretexting` → uso de una identidad o situación inventada.\n- `baiting` → uso de un señuelo atractivo para provocar una acción.\n- `tailgating` → ingreso físico siguiendo a una persona autorizada.\n- `quid pro quo` → ofrecimiento de un beneficio a cambio de información o acceso.\n- `sensitive information` → información sensible que requiere protección.\n- `unauthorized access` → acceso realizado sin autorización.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. Conviene seguir practicando la diferencia entre baiting y quid pro quo, porque ambos usan un incentivo, pero solamente el segundo presenta un intercambio explícito.\n\n## Qué aprendí\n\nEntendí que la ingeniería social evita o complementa las defensas técnicas manipulando a personas autorizadas. Puedo reconocer phishing, pretexting, baiting, tailgating y quid pro quo, y explicar por qué verificar la identidad y el contexto es más seguro que confiar en la apariencia o la urgencia.\n\n## Para repasar o practicar\n\n- Clasificar ejemplos nuevos según las cinco técnicas.\n- Practicar cómo verificar una solicitud urgente por otro canal.\n- Recordar que nunca se deben compartir contraseñas con soporte.\n- Diferenciar un señuelo de un intercambio ofrecido explícitamente.\n- Relacionar cada técnica con controles humanos, físicos y técnicos.\n\n## Cuestionario de repaso\n\n1. ¿Qué diferencia principalmente a la ingeniería social de un ataque técnico? — **Respuesta:** Manipula personas en lugar de vulnerar directamente los sistemas.\n2. Un correo que imita al banco y pide ingresar urgentemente mediante un enlace, ¿qué técnica utiliza? — **Respuesta:** Phishing.\n3. Alguien llama fingiendo ser de soporte e inventa un problema para pedir una contraseña, ¿qué técnica utiliza? — **Respuesta:** Pretexting.\n4. Un pendrive llamado “Sueldos 2026” dejado para despertar curiosidad, ¿qué técnica representa? — **Respuesta:** Baiting.\n5. Una persona entra detrás de un empleado que le sostiene una puerta restringida, ¿qué técnica utiliza? — **Respuesta:** Tailgating.\n6. Alguien ofrece una actualización gratuita a cambio de credenciales, ¿qué técnica utiliza? — **Respuesta:** Quid pro quo.\n",
+      "learnings": "Entendí que la ingeniería social manipula a personas para evitar o complementar defensas técnicas. Puedo distinguir phishing, pretexting, baiting, tailgating y quid pro quo.",
+      "questions": "Cuestionario aprobado 6/6. Repasar especialmente la diferencia entre baiting, que usa un señuelo, y quid pro quo, que ofrece un intercambio explícito.",
+      "createdAt": "2026-10-30T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

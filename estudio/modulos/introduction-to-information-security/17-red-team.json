@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 71,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-17-red-team",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 17,
+      "total": 24,
+      "title": "Red Team",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 17 de 24 — Red Team\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUn **Red Team** es un grupo autorizado de profesionales que simula ataques reales contra los sistemas, redes, personas e instalaciones de una organización. Su finalidad no es causar daño, sino descubrir debilidades antes de que las aproveche un adversario verdadero y comprobar si la organización puede detectar, detener y responder a una campaña sofisticada.\n\nLa analogía del castillo ayuda a entenderlo: el rey contrata especialistas para que se disfracen de invasores, busquen caminos ocultos y traten de engañar a los guardias. Aunque imitan al enemigo, su misión es revelar fallas para reforzar el castillo.\n\n## Conceptos importantes\n\n### Enfoque integral\n\nUna prueba técnica común puede concentrarse en vulnerabilidades de software o red. Un Red Team combina varios vectores:\n\n- Ataques técnicos contra sistemas, aplicaciones y redes.\n- Phishing y otras formas de ingeniería social.\n- Pruebas de controles físicos, puertas, vigilancia y procedimientos.\n- Evaluación de detección, respuesta y comunicación interna.\n- Revisión de políticas, capacitación y concientización.\n- Riesgos de proveedores y cadena de suministro.\n- Exposición de información en sitios web, perfiles y redes sociales.\n\nEsta combinación permite descubrir cadenas de fallas que por separado parecerían menores. Por ejemplo, información pública sobre un empleado puede permitir un phishing creíble; la cuenta obtenida puede abrir un sistema; y ese sistema puede conducir a información más sensible.\n\n### Composición del equipo\n\nEl equipo reúne especialistas técnicos, ingenieros sociales y expertos en seguridad física. Un integrante puede buscar vulnerabilidades; otro enviar correos convincentes; otro intentar ingresar a un área restringida. La coordinación reproduce la forma en que un atacante real adapta sus técnicas y cambia de vector cuando encuentra resistencia.\n\n### Desarrollo de un ejercicio\n\nLos ejercicios suelen durar semanas o meses:\n\n1. **Reconocimiento:** estudian sitios, perfiles, empleados, tecnologías e información pública.\n2. **Planificación:** eligen objetivos y vías de entrada dentro del alcance autorizado.\n3. **Ejecución encubierta:** simulan ataques técnicos, humanos o físicos.\n4. **Evaluación defensiva:** observan si la organización detecta, comunica, contiene y responde.\n5. **Documentación:** registran cada intento, qué funcionó, qué falló y por qué.\n6. **Informe y mejora:** presentan hallazgos, impacto posible y recomendaciones.\n\nLa mayoría de los empleados puede desconocer el ejercicio para que la reacción sea auténtica. Esto no significa ausencia de permiso: la dirección responsable autorizó previamente la operación, definió límites y conoce cómo detenerla si fuera necesario.\n\n### Preguntas que busca responder\n\n- ¿Es posible ingresar a los sistemas o instalaciones?\n- ¿Cuánto tarda la organización en detectar una intrusión?\n- ¿Puede contenerla antes de que alcance información sensible?\n- ¿Los empleados reconocen phishing y manipulación?\n- ¿Los controles físicos y las políticas funcionan en la práctica?\n- ¿Los proveedores o la presencia pública crean nuevas vías de entrada?\n\n### Informe final\n\nEl Red Team documenta cómo ingresó, qué sistemas o datos pudo alcanzar, qué controles funcionaron y cuáles fallaron. También propone mejoras. El informe suele llegar al CISO y a la dirección para priorizar capacitación, tecnología, procedimientos, controles físicos o seguridad de terceros según el riesgo demostrado.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. Las técnicas de Red Team solo deben ejecutarse con autorización escrita, alcance definido, reglas de enfrentamiento y canales de emergencia.\n\n## Diferencias que hay que recordar\n\n- **Threat actor vs Red Team:** ambos pueden usar técnicas similares, pero el actor real actúa maliciosamente; el Red Team tiene autorización y finalidad defensiva.\n- **Red Team vs Blue Team:** el Red Team simula al adversario; el Blue Team monitorea, detecta, contiene y responde.\n- **Prueba puntual vs Red Team:** una prueba puntual busca fallas concretas; el Red Team simula una campaña coordinada de varios vectores.\n- **Secreto vs falta de autorización:** los empleados pueden desconocer el ejercicio, pero las autoridades responsables sí lo aprobaron.\n- **Hallazgo vs mejora:** encontrar una falla no es el resultado final; debe documentarse, priorizarse y corregirse.\n\n## Ejemplos prácticos\n\n- Recopilar información pública sobre empleados para preparar un phishing personalizado.\n- Probar una vulnerabilidad de red dentro del alcance acordado.\n- Intentar persuadir a un guardia o probar un control de acceso físico autorizado.\n- Combinar una cuenta obtenida en phishing con una mala configuración para llegar a datos sensibles.\n- Medir cuánto tarda el Blue Team en detectar y contener la actividad.\n- Recomendar capacitación si el problema principal fue humano o mejorar controles si fue técnico o físico.\n\n## Errores y precauciones\n\n- Nunca realizar una simulación ofensiva sin autorización y alcance claros.\n- Respetar las reglas de enfrentamiento y evitar daños innecesarios.\n- No conservar ni reutilizar credenciales o datos obtenidos durante la prueba.\n- Registrar también los intentos fallidos, porque muestran controles que funcionaron.\n- No convertir el informe en una lista de culpas personales; debe orientar mejoras del sistema.\n- Proteger el informe final, ya que describe debilidades reales de la organización.\n\n## Inglés técnico del módulo\n\n- `Red Team` → equipo que simula al adversario de manera autorizada.\n- `Blue Team` → equipo que defiende, detecta y responde.\n- `engagement` → ejercicio o trabajo autorizado con alcance y duración definidos.\n- `scope` → sistemas, personas y acciones incluidos en la autorización.\n- `rules of engagement` → límites, procedimientos y condiciones de la simulación.\n- `covert operation` → operación realizada de forma encubierta.\n- `attack vector` → vía utilizada para intentar comprometer el objetivo.\n- `security posture` → capacidad general de una organización para prevenir y responder.\n- `digital footprint` → información y rastros públicos asociados a la organización.\n- `findings` → hallazgos documentados durante la evaluación.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. El punto importante es no confundir el carácter encubierto con una actividad ilegal: el ejercicio cuenta con autorización, aunque la mayoría de los empleados no conozca su existencia.\n\n## Qué aprendí\n\nEntendí que un Red Team realiza una simulación autorizada, realista e integral. Puedo explicar sus etapas, diferenciarlo de un threat actor, un Blue Team y una prueba técnica puntual, y describir cómo sus hallazgos orientan inversiones y mejoras.\n\n## Para repasar o practicar\n\n- Explicar por qué un Red Team evalúa tecnología, personas y seguridad física.\n- Diferenciar autorización general de conocimiento de todos los empleados.\n- Ordenar las etapas de un engagement.\n- Identificar qué información debe incluir el informe final.\n- Relacionar cada hallazgo con una mejora concreta.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la finalidad principal de un Red Team? — **Respuesta:** Simular ataques autorizados para encontrar debilidades y mejorar las defensas.\n2. ¿Qué diferencia una evaluación Red Team de una prueba técnica limitada? — **Respuesta:** Evalúa en conjunto tecnología, personas y seguridad física.\n3. ¿Por qué la mayoría de los empleados puede desconocer el ejercicio? — **Respuesta:** Para observar una respuesta auténtica y no condicionada.\n4. ¿Qué debe documentar el Red Team durante la operación? — **Respuesta:** Lo que intentó, qué funcionó, qué falló y por qué.\n5. ¿Qué contiene el informe final? — **Respuesta:** Las vías utilizadas, el alcance conseguido, los hallazgos y recomendaciones.\n6. ¿Cuál es una diferencia correcta entre Red Team y Blue Team? — **Respuesta:** Red Team simula al atacante; Blue Team detecta y responde.\n",
+      "learnings": "Entendí que un Red Team simula ataques autorizados y combina vectores técnicos, humanos y físicos para evaluar detección, respuesta y controles de una organización.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que el ejercicio puede ser secreto para empleados, pero siempre requiere autorización y alcance definidos.",
+      "createdAt": "2026-10-30T13:20:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

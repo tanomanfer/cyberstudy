@@ -2,6 +2,16 @@
 
 Esta carpeta es la fuente canónica del progreso de estudio de Tano. Su objetivo es que Codex local, Code Cloud u otra IA puedan retomar CyberStudy sin depender del historial de una conversación ni del `localStorage` de un navegador.
 
+## Terminología: ruta, curso, módulo y sección
+
+Para no confundir la estructura entre distintos cursos de HTB, se usan estos términos de forma fija:
+
+- **Ruta (Job Role Path):** el camino largo con varios cursos adentro, ej. **Junior Cybersecurity Analyst Job Role Path**, que tiene **20 módulos** (cursos) + 5 assessments.
+- **Módulo = curso individual dentro de la ruta:** cada uno de esos 20 módulos es en sí mismo un curso completo con sus propias secciones, ej. **Introduction to Information Security** (módulo 1 de 20) o **Linux Fundamentals** (ya completado, con 30 secciones propias).
+- **Sección:** cada unidad de contenido dentro de un módulo/curso, ej. "Section 1/24 — Structure of InfoSec" dentro de Introduction to Information Security.
+
+En la práctica, cada **módulo/curso** tiene su propia carpeta dentro de `modulos/` (ej. `modulos/introduction-to-information-security/`, `modulos/linux-fundamentals/`), y cada **sección** de ese módulo genera su propio archivo `<numero>-<nombre>.md` + `.json` adentro de esa carpeta, siguiendo la "Regla principal" más abajo. No confundir "módulo" (= curso completo de la ruta) con "sección" (= cada apunte individual que se guarda como archivo).
+
 ## Archivos canónicos
 
 - `INDICE.md`: estado humano, orden de módulos y pendientes.
@@ -64,6 +74,17 @@ Cuando Tano pida el resumen de un módulo, la IA debe realizar todo esto en la m
 6. Validar todos los JSON tocados con `jq empty` y ejecutar `npm run build` si se modificó código.
 7. Informar a Tano que debe importar `estudio/cyberstudy-import.json`; no indicar el JSON individual mientras el importador siga reemplazando todo el estado.
 
+## Resumen total obligatorio al cerrar un curso
+
+Cuando se completa la última sección de un curso, crear además una entrada especial del Cuaderno llamada `Resumen del módulo: <nombre oficial>`.
+
+- No es una sección adicional y no lleva número visible.
+- En los datos usa `kind: "module-summary"`; queda excluida del cálculo de progreso.
+- Debe aparecer al final de las secciones del curso en el Cuaderno.
+- Debe reunir los conceptos, diferencias, vocabulario, ejemplos, precauciones y puntos de repaso más importantes de todo el curso.
+- Crear su Markdown sin prefijo numérico (`resumen-del-modulo-<curso>.md`), su JSON individual hermano y agregar la misma entrada al consolidado.
+- Aplicar esta regla a todos los cursos futuros cuando queden completados.
+
 No alcanza con entregar el resumen solamente en el chat. El trabajo no está terminado hasta que el `.md`, el JSON individual, el índice y el `cyberstudy-import.json` estén actualizados.
 
 ## Calidad mínima obligatoria del resumen
@@ -85,6 +106,15 @@ Cada Markdown y el campo `notes` correspondiente del JSON deben contener:
 El JSON importable debe llevar la explicación completa en `notes`. No debe reducirse a una ficha de dos o tres oraciones. `learnings` funciona como síntesis y `questions` conserva las dificultades, pero ninguno reemplaza los apuntes completos.
 
 El nombre no puede depender solamente del título de la tarjeta o del nombre del archivo: debe estar escrito dentro del cuerpo de los apuntes. Así, si el texto se copia, exporta o recupera por separado, siempre se sabe a qué módulo pertenece.
+
+## Cuestionario de repaso (obligatorio en cada sección)
+
+Cada sección estudiada debe cerrar con un **cuestionario de 6 preguntas** escrito por la IA, basado en los conceptos más importantes de esa sección puntual (no de todo el módulo/curso). Reglas:
+
+- Las preguntas se le hacen a Tano en el chat primero, como parte de la dinámica de estudio: él las responde ahí, la IA corrige y explica lo que haga falta.
+- Una vez que Tano terminó de responder (bien o mal, no hace falta que acierte todo), el cuestionario completo —con sus 6 preguntas y la respuesta correcta de cada una— se agrega como sección final del apunte, tanto en el `.md` como en el campo `notes` del `.json` del módulo.
+- Las preguntas deben cubrir los puntos que más importa recordar de la sección (no trivia suelta), variando el tipo: alguna de definición, alguna de diferencia entre conceptos parecidos, alguna aplicada/práctica si corresponde.
+- No reemplaza ninguna otra parte obligatoria de la plantilla; se agrega al final, después de "Para repasar o practicar".
 
 ## Cómo trabajar durante cada módulo
 
@@ -162,6 +192,15 @@ Síntesis en primera persona.
 ## Para repasar o practicar
 
 Lista concreta de conocimientos o ejercicios pendientes.
+
+## Cuestionario de repaso
+
+1. Pregunta sobre un concepto clave — **Respuesta:** ...
+2. Pregunta sobre otro concepto clave — **Respuesta:** ...
+3. Pregunta de diferencia entre dos términos parecidos — **Respuesta:** ...
+4. Pregunta sobre un ejemplo o caso aplicado — **Respuesta:** ...
+5. Pregunta sobre un detalle que costó entender — **Respuesta:** ...
+6. Pregunta de repaso general de la sección — **Respuesta:** ...
 ````
 
 La plantilla puede adaptarse cuando una sección no contiene comandos, pero nunca deben faltar el nombre del módulo, la explicación desarrollada, los ejemplos, lo que costó, qué aprendí y qué conviene repasar.
@@ -172,6 +211,7 @@ La plantilla puede adaptarse cuando una sección no contiene comandos, pero nunc
 - [ ] El resumen permite estudiar sin consultar otra fuente.
 - [ ] Los comandos tienen explicación y ejemplos.
 - [ ] Se conservaron las dificultades reales de Tano.
+- [ ] El cuestionario de 6 preguntas está completo, con sus respuestas, y refleja lo más importante de la sección.
 - [ ] Markdown, índice y JSON contienen el mismo módulo y estado.
 - [ ] El JSON conserva todos los módulos anteriores y pasa la validación con `jq`.
 - [ ] No se incluyeron flags, soluciones protegidas ni secretos.

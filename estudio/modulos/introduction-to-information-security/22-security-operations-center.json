@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-10-02",
+      "completedAt": "2026-11-02",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-22-security-operations-center",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 22,
+      "total": 24,
+      "title": "Security Operations Center",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 22 de 24 — Security Operations Center\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUn **Security Operations Center (SOC)** es la unidad central que monitorea, detecta, analiza y responde continuamente a amenazas e incidentes. Convierte registros y alertas en investigaciones y decisiones para contener ataques antes de que causen un daño mayor.\n\nEl SOC combina personas, procesos y tecnología. No es solamente una sala con pantallas ni un conjunto de herramientas automáticas.\n\n## Conceptos importantes\n\n### Ciclo operativo\n\nEl equipo monitorea sistemas y redes, detecta actividad sospechosa, analiza si representa una amenaza real, responde para contenerla y aprende del incidente para mejorar las defensas.\n\n### Niveles de analistas\n\n- **Tier 1:** realiza el triage inicial, descarta falsos positivos evidentes, reúne información y escala lo necesario.\n- **Tier 2:** investiga incidentes complejos, relaciona evidencias y guía a analistas junior.\n- **Tier 3:** trata casos críticos, realiza análisis avanzado y suele cumplir funciones de respuesta a incidentes.\n\nUna alerta sencilla puede resolverse en Tier 1; no todo caso debe recorrer obligatoriamente los tres niveles.\n\n### Roles complementarios\n\nEl **SOC Manager** dirige la operación diaria y administra el equipo. Los **Incident Responders** contienen, erradican y ayudan a recuperar sistemas. Los **Threat Hunters** buscan amenazas ocultas que no generaron alertas. Los **Security Engineers y Architects** mantienen y mejoran la infraestructura y las herramientas.\n\n### Reactivo y proactivo\n\nResponder a una alerta es un trabajo reactivo. Buscar patrones anómalos sin una alarma previa es proactivo. El SOC necesita ambos enfoques: las detecciones automáticas no encuentran todas las amenazas.\n\n### Colaboración\n\nEl SOC trabaja con IT para aplicar parches, corregir configuraciones, aislar equipos y recuperar servicios. También informa riesgos e incidentes a la dirección. El SOC Manager coordina la operación diaria; el CISO dirige la estrategia general.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. En un SOC real se consultan logs, SIEM, EDR y otras fuentes, pero cada entorno utiliza herramientas y procedimientos propios.\n\n## Diferencias que hay que recordar\n\n- **Alerta vs incidente:** una alerta es una señal a investigar; un incidente es un evento confirmado que amenaza o afecta la seguridad.\n- **Tier 1 vs Tier 2:** Tier 1 clasifica inicialmente; Tier 2 profundiza la investigación.\n- **SOC Analyst vs Threat Hunter:** el analista suele responder a alertas; el hunter busca amenazas ocultas de manera proactiva.\n- **SOC Manager vs CISO:** el manager dirige la operación diaria; el CISO dirige la estrategia general.\n- **Detección vs respuesta:** detectar descubre la amenaza; responder la contiene y reduce su impacto.\n\n## Ejemplos prácticos\n\n- Un EDR genera una alerta: Tier 1 revisa contexto y decide si es falso positivo o debe escalarse.\n- Tier 2 relaciona autenticaciones, procesos y conexiones de varios equipos para reconstruir un incidente.\n- Un Threat Hunter busca conexiones inusuales que todavía no activaron reglas automáticas.\n- IT aplica un parche y el SOC verifica si cesó la actividad relacionada.\n\n## Errores y precauciones\n\n- No tratar todas las alertas como ataques confirmados.\n- No cerrar alertas sin reunir contexto suficiente.\n- No depender solamente de herramientas automáticas.\n- No confundir el escalamiento con transferir toda responsabilidad.\n- No aislar al SOC: la respuesta necesita colaboración con IT, dirección y otras áreas.\n- No medir el rendimiento solamente por cantidad de alertas cerradas.\n\n## Inglés técnico del módulo\n\n- `Security Operations Center (SOC)` → centro de operaciones de seguridad.\n- `triage` → clasificación y evaluación inicial de una alerta.\n- `alert` → señal que requiere análisis.\n- `incident` → evento de seguridad confirmado.\n- `escalation` → transferencia de un caso a un nivel con más experiencia o autoridad.\n- `threat hunting` → búsqueda proactiva de amenazas ocultas.\n- `containment` → acciones para limitar el alcance de un incidente.\n- `security posture` → nivel general de preparación y protección de una organización.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. El punto central para conservar es que una alerta todavía necesita análisis; no equivale automáticamente a un incidente confirmado.\n\n## Qué aprendí\n\nEntendí cómo un SOC monitorea, investiga y responde continuamente, cómo se dividen los niveles de analistas y por qué la detección reactiva debe complementarse con threat hunting y colaboración con otras áreas.\n\n## Para repasar o practicar\n\n- Diferenciar alerta, evento e incidente.\n- Explicar el trabajo de Tier 1, Tier 2 y Tier 3.\n- Comparar respuesta reactiva con threat hunting proactivo.\n- Recordar las funciones del SOC Manager y del CISO.\n- Practicar un flujo simple desde alerta hasta contención.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la función principal de un SOC? — **Respuesta:** Monitorear, detectar, analizar y responder a amenazas.\n2. ¿Qué hace normalmente un analista Tier 1? — **Respuesta:** Realiza el triage inicial y escala los casos necesarios.\n3. ¿Cuál es la diferencia principal entre un SOC Analyst y un Threat Hunter? — **Respuesta:** El Threat Hunter busca amenazas ocultas de manera proactiva.\n4. ¿Quién coordina las operaciones diarias del SOC? — **Respuesta:** El SOC Manager.\n5. ¿Una alerta confirma automáticamente un incidente? — **Respuesta:** No; debe analizarse para determinar si es real y cuál es su impacto.\n6. ¿Por qué colabora el SOC con IT? — **Respuesta:** Para aplicar parches, corregir configuraciones y recuperar sistemas.\n",
+      "learnings": "Entendí cómo un SOC monitorea, investiga y responde, cómo se dividen los tiers y por qué combina alertas reactivas con threat hunting.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que una alerta debe analizarse antes de considerarla un incidente confirmado.",
+      "createdAt": "2026-11-02T13:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

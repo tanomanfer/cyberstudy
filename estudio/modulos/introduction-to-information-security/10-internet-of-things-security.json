@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 42,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-10-internet-of-things-security",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 10,
+      "total": 24,
+      "title": "Internet of Things Security",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 10 de 24 — Internet of Things Security\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nEl **Internet of Things (IoT)** reúne objetos conectados a Internet capaces de enviar y recibir datos: termostatos, cámaras, cerraduras, relojes, sensores industriales y vehículos. **IoT Security** protege esos dispositivos, la información que procesan y las redes por las que se comunican frente a accesos no autorizados, robo de datos y otros ataques.\n\nUn dispositivo pequeño puede convertirse en una puerta de entrada hacia toda la red. En ambientes industriales, comprometer sensores o controles también puede interrumpir procesos o causar daños físicos.\n\n## Conceptos importantes\n\n### Limitaciones de los dispositivos\n\nMuchos equipos IoT tienen poca memoria y capacidad de procesamiento. Esto dificulta incorporar controles avanzados sin afectar su rendimiento. Además, suelen desplegarse en grandes cantidades y en lugares muy diferentes, lo que complica inventariarlos, actualizarlos y monitorearlos.\n\n### Riesgo para el resto de la red\n\nUn atacante que compromete un termostato o una cámara puede intentar usar ese punto inicial para alcanzar computadoras, servidores u otros datos. El impacto real no depende solamente de la función visible del dispositivo, sino también de su conexión y de los permisos que posee.\n\n### Responsabilidad compartida\n\n- El **CISO** o responsable de IoT coordina la estrategia y la gestión general.\n- Los **fabricantes** aplican diseño seguro, eliminan funciones innecesarias y publican actualizaciones oportunas.\n- Los **administradores de red** segmentan las redes, monitorean el tráfico e implementan sistemas de detección de intrusiones.\n- Los **desarrolladores** protegen las aplicaciones mediante autenticación, cifrado y prácticas de desarrollo seguro.\n- La **organización y los usuarios** deben configurar correctamente los equipos, cambiar credenciales predeterminadas e instalar actualizaciones.\n\n### Segmentación de red\n\nLa **network segmentation** coloca los dispositivos IoT en una red o zona separada de los sistemas sensibles. Si una cámara o un termostato resulta comprometido, la segmentación limita su comunicación y dificulta que el atacante avance hacia computadoras o servidores importantes.\n\n### Caso del sistema HVAC\n\nUn sistema inteligente de calefacción, ventilación y aire acondicionado puede parecer ajeno a los datos comerciales. Sin embargo, si está conectado a la red sin controles adecuados, una vulnerabilidad puede dar acceso inicial a un atacante y terminar afectando sistemas con información de clientes.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. La implementación depende del fabricante, el sistema de administración y la tecnología de red utilizada.\n\n## Diferencias que hay que recordar\n\n- **Función física vs riesgo digital:** un termostato controla temperatura, pero su conexión puede abrir una ruta hacia otros sistemas.\n- **Seguridad del dispositivo vs seguridad de red:** el fabricante debe proteger el equipo; la organización también debe controlar dónde se conecta y con qué sistemas puede comunicarse.\n- **Segmentación vs protección absoluta:** segmentar limita el movimiento del atacante, pero no corrige una contraseña débil ni reemplaza las actualizaciones.\n- **Autenticación vs cifrado:** la autenticación verifica quién accede; el cifrado protege la confidencialidad de los datos.\n\n## Ejemplos prácticos\n\n- Las cámaras se colocan en una red separada sin acceso directo a las computadoras administrativas.\n- Se cambia la contraseña predeterminada de una cerradura inteligente antes de conectarla.\n- Un administrador inventaría los dispositivos y revisa si siguen recibiendo actualizaciones.\n- Un sistema de detección alerta sobre tráfico extraño originado por un sensor industrial.\n- Una organización reemplaza un dispositivo cuyo fabricante dejó de publicar parches.\n\n## Errores y precauciones\n\n- No conservar usuarios o contraseñas predeterminados.\n- No conectar dispositivos IoT directamente a redes sensibles sin segmentación.\n- No asumir que un dispositivo es inofensivo por tener una función sencilla.\n- No ignorar equipos antiguos que ya no reciben actualizaciones.\n- No habilitar servicios o funciones que no sean necesarios.\n- En sistemas industriales, cualquier prueba requiere autorización y medidas que eviten daños físicos o interrupciones.\n\n## Inglés técnico del módulo\n\n- `Internet of Things (IoT)` → Internet de las cosas.\n- `connected device` → dispositivo conectado.\n- `secure design` → diseño que incorpora seguridad desde el comienzo.\n- `network segmentation` → división de la red en zonas separadas.\n- `intrusion detection system` → sistema que detecta actividad sospechosa.\n- `default credentials` → credenciales configuradas de fábrica.\n- `security update` → actualización que corrige vulnerabilidades.\n- `attack surface` → conjunto de puntos que podrían ser atacados.\n- `HVAC` → calefacción, ventilación y aire acondicionado.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. El punto que conviene mantener presente es que segmentar contiene un ataque, pero debe combinarse con actualizaciones, autenticación segura y una configuración mínima.\n\n## Qué aprendí\n\nEntendí que un dispositivo IoT vulnerable puede servir como entrada hacia otros sistemas. Puedo explicar las limitaciones de estos equipos, la importancia de segmentar la red y las responsabilidades de fabricantes, administradores, desarrolladores y organizaciones.\n\n## Para repasar o practicar\n\n- Identificar dispositivos IoT presentes en una red doméstica o empresarial.\n- Pensar qué comunicaciones necesita realmente cada dispositivo.\n- Explicar cómo la segmentación reduce el movimiento lateral.\n- Revisar credenciales predeterminadas, actualizaciones y funciones innecesarias.\n- Diferenciar las responsabilidades del fabricante y de la organización.\n\n## Cuestionario de repaso\n\n1. ¿Qué es un dispositivo IoT? — **Respuesta:** Un objeto conectado que puede enviar o recibir datos.\n2. ¿Por qué muchos dispositivos IoT tienen controles limitados? — **Respuesta:** Porque suelen tener poca memoria y capacidad de procesamiento.\n3. ¿Qué riesgo presenta comprometer un termostato inteligente? — **Respuesta:** Puede servir como punto de entrada hacia otros sistemas de la red.\n4. ¿Quién debe diseñar el dispositivo de forma segura y publicar actualizaciones? — **Respuesta:** El fabricante.\n5. ¿Para qué sirve la segmentación de red? — **Respuesta:** Para aislar dispositivos y limitar el avance de un atacante.\n6. ¿Quién es responsable de IoT Security? — **Respuesta:** Es una responsabilidad compartida entre fabricantes, administradores, desarrolladores y la organización.",
+      "learnings": "Entendí que un dispositivo IoT vulnerable puede servir como entrada hacia otros sistemas. Puedo explicar sus limitaciones, la segmentación de red y la responsabilidad compartida.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que la segmentación limita el movimiento del atacante, pero no reemplaza actualizaciones, autenticación segura ni configuración mínima.",
+      "createdAt": "2026-10-29T12:10:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

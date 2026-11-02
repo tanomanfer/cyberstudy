@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 58,
+      "startedAt": "2026-10-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-14-insider-threats",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 14,
+      "total": 24,
+      "title": "Insider Threats",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 14 de 24 — Insider Threats\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUna **amenaza interna** proviene de una persona o cuenta que posee acceso legítimo a los sistemas, datos o instalaciones de una organización. El daño puede ser intencional, accidental o provocado por un atacante externo que robó las credenciales de alguien autorizado.\n\nEstas amenazas son especialmente peligrosas porque se mezclan con la actividad normal. Un interno conoce los procesos, la ubicación de la información valiosa y los controles existentes, por lo que puede evitar alertas que sí detectarían a un intruso externo.\n\n## Conceptos importantes\n\n### Interno malicioso\n\nActúa con intención de causar daño. Puede robar datos, sabotear sistemas o cometer fraude por dinero, venganza, beneficio personal o para ayudar a otra organización.\n\n### Interno negligente\n\nNo desea causar daño, pero lo provoca por descuido o falta de conocimiento. Ejemplos: enviar información confidencial a un destinatario incorrecto, usar prácticas inseguras o caer en phishing.\n\n### Interno comprometido\n\nUn atacante externo obtiene las credenciales de una persona autorizada mediante hacking o ingeniería social. Después opera con esa identidad dentro de los sistemas, por lo que sus acciones pueden parecer legítimas.\n\n### Cadena de amenaza interna\n\n1. **Motivación:** surge una razón para actuar, como un conflicto personal, dinero o coerción externa.\n2. **Planificación:** el interno evalúa sus privilegios y localiza activos valiosos.\n3. **Preparación:** reúne herramientas o información y aprende cómo evitar controles.\n4. **Ejecución:** realiza el robo, sabotaje o divulgación no autorizada.\n5. **Ocultamiento:** intenta borrar registros, usar cuentas ajenas o disfrazar la actividad como trabajo rutinario.\n\n### Impacto\n\nUna amenaza interna puede producir pérdidas económicas, filtraciones, interrupciones, robo de propiedad intelectual, pérdida de ventaja competitiva y daño reputacional. También puede deteriorar la confianza entre empleados y provocar multas, demandas, auditorías o sanciones por incumplimiento de leyes y estándares aplicables.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no incluye comandos. En un entorno real, la detección utiliza registros y herramientas autorizadas, pero debe combinarse con mínimo privilegio, separación de funciones, revisiones de acceso y procedimientos claros de alta, cambio y baja de personal.\n\n## Diferencias que hay que recordar\n\n- **Malicioso vs negligente:** el malicioso tiene intención de dañar; el negligente causa el daño sin buscarlo.\n- **Negligente vs comprometido:** el negligente comete el error personalmente; en el comprometido, un tercero utiliza sus credenciales o sesión.\n- **Acceso legítimo vs acción legítima:** poseer permiso para entrar a un sistema no autoriza cualquier uso de sus datos.\n- **Preparación vs ejecución:** preparar es reunir medios o estudiar controles; ejecutar es realizar efectivamente el robo, sabotaje o divulgación.\n- **Ejecución vs ocultamiento:** la primera produce el daño; el segundo intenta evitar que se descubra.\n\n## Ejemplos prácticos\n\n- Un empleado copia recetas comerciales y las vende a un competidor: interno malicioso.\n- Una persona envía por error datos confidenciales al correo equivocado: interno negligente.\n- Un atacante roba una contraseña mediante phishing y usa la cuenta corporativa: interno comprometido.\n- Alguien analiza qué carpetas puede abrir y reúne archivos antes de extraerlos: planificación y preparación.\n- Después del robo, elimina registros o usa las credenciales de un compañero: ocultamiento.\n\n## Errores y precauciones\n\n- No asumir que todo acceso autenticado es seguro o legítimo.\n- No otorgar permisos mayores que los necesarios para cada función.\n- No ignorar comportamientos anómalos por tratarse de una persona conocida.\n- No confundir vigilancia generalizada con prevención: los controles deben ser proporcionales, autorizados y respetar la privacidad y las normas aplicables.\n- Revisar y retirar rápidamente accesos cuando una persona cambia de rol o deja la organización.\n- Investigar sin destruir evidencia y siguiendo el procedimiento autorizado de respuesta a incidentes.\n\n## Inglés técnico del módulo\n\n- `insider threat` → amenaza originada desde una persona o cuenta con acceso interno legítimo.\n- `malicious insider` → interno que causa daño deliberadamente.\n- `negligent insider` → interno que causa daño por descuido.\n- `compromised insider` → persona cuya cuenta o credenciales controla un atacante externo.\n- `access privileges` → permisos concedidos a una identidad.\n- `intellectual property` → propiedad intelectual, como diseños, fórmulas o secretos comerciales.\n- `concealment` → ocultamiento de acciones o evidencias.\n- `regulatory compliance` → cumplimiento de leyes, reglamentos y estándares aplicables.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. Conviene recordar que “interno comprometido” describe una identidad interna usada por un atacante externo; no implica necesariamente mala intención ni negligencia de la persona propietaria de la cuenta.\n\n## Qué aprendí\n\nEntendí que una amenaza interna puede ser maliciosa, negligente o comprometida. Puedo reconocer las cinco etapas de su cadena, explicar por qué el acceso legítimo dificulta la detección y relacionar estos incidentes con consecuencias operativas, económicas, legales y reputacionales.\n\n## Para repasar o practicar\n\n- Clasificar casos nuevos como maliciosos, negligentes o comprometidos.\n- Ordenar las cinco etapas de la cadena de amenaza interna.\n- Diferenciar preparación, ejecución y ocultamiento.\n- Pensar controles preventivos y detectivos sin vulnerar la privacidad.\n- Relacionar mínimo privilegio y revisión de accesos con la reducción del riesgo.\n\n## Cuestionario de repaso\n\n1. Un empleado roba información deliberadamente para venderla, ¿qué tipo de amenaza es? — **Respuesta:** Interno malicioso.\n2. Una empleada envía accidentalmente información confidencial al destinatario equivocado, ¿qué tipo es? — **Respuesta:** Interno negligente.\n3. Un atacante roba la contraseña de un empleado y utiliza su cuenta, ¿cómo se clasifica esa identidad interna? — **Respuesta:** Interno comprometido.\n4. ¿Por qué las amenazas internas son difíciles de detectar? — **Respuesta:** Porque poseen acceso legítimo y sus acciones pueden parecer normales.\n5. ¿En qué etapa se realiza el robo o sabotaje? — **Respuesta:** Ejecución.\n6. Borrar registros para evitar ser descubierto, ¿a qué etapa pertenece? — **Respuesta:** Ocultamiento.\n",
+      "learnings": "Entendí los internos maliciosos, negligentes y comprometidos, las cinco etapas de la cadena de amenaza interna y por qué el acceso legítimo dificulta detectar el abuso.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que una identidad comprometida puede ser controlada por un atacante externo sin intención maliciosa de su propietario.",
+      "createdAt": "2026-10-30T12:10:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

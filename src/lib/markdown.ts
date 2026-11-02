@@ -32,16 +32,18 @@ ${module.questions || "Sin dudas pendientes."}
 }
 
 export function sectionMarkdown(section: StudySection, module?: StudyModule) {
+  const isSummary = section.kind === "module-summary";
+  const displayTitle = isSummary ? section.title : `${section.number} de ${section.total} — ${section.title}`;
   return `---
-title: ${safeYaml(`${section.number} de ${section.total} — ${section.title}`)}
-tipo: seccion-de-curso
+title: ${safeYaml(displayTitle)}
+tipo: ${isSummary ? "resumen-de-modulo" : "seccion-de-curso"}
 curso: ${safeYaml(module?.title ?? "Sin curso")}
 plataforma: ${safeYaml(module?.platform ?? "")}
 estado: ${safeYaml(section.status)}
 progreso: ${section.progress}
 ---
 
-# ${section.number} de ${section.total} — ${section.title}
+# ${displayTitle}
 
 ## Notas
 

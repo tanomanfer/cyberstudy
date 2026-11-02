@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-10-02",
+      "completedAt": "2026-11-02",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-23-bug-bounty-hunter",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 23,
+      "total": 24,
+      "title": "Bug Bounty Hunter",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 23 de 24 — Bug Bounty Hunter\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUn **Bug Bounty Hunter** es un investigador independiente que busca vulnerabilidades en activos expresamente autorizados por una organización. Reporta las fallas mediante el canal establecido para que puedan corregirse antes de que las aprovechen atacantes maliciosos.\n\nLa autorización nunca es general: está limitada por el alcance y las reglas de cada programa.\n\n## Conceptos importantes\n\n### Programas de bug bounty\n\nUna organización invita a investigadores externos a revisar sitios, aplicaciones, APIs u otros activos. A cambio de reportes válidos puede ofrecer reconocimiento o dinero. Los programas pueden ser públicos o privados por invitación.\n\n### Alcance\n\nEl **scope** distingue los activos autorizados de los excluidos. Que un sistema sea accesible desde Internet o pertenezca a la misma empresa no lo vuelve automáticamente válido. Probar activos fuera del alcance puede invalidar el reporte y generar consecuencias legales.\n\n### Rules of Engagement\n\nLas reglas describen técnicas permitidas y prohibidas. Pueden excluir denegación de servicio, ingeniería social, modificación de datos, afectación de usuarios o divulgación pública anticipada.\n\n### Reporte responsable\n\nUn buen informe identifica el activo, describe la vulnerabilidad, ofrece pasos reproducibles y evidencia mínima, explica el impacto y evita exponer información sensible. La organización valida si el hallazgo es real, reproducible, original y está dentro del alcance.\n\n### Recompensas\n\nLa recompensa depende de la gravedad, el impacto y las condiciones del programa. No todo reporte recibe dinero: puede ser duplicado, estar fuera del alcance, describir un comportamiento esperado o carecer de impacto demostrable.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. Las técnicas concretas siempre deben ajustarse al alcance y a las reglas del programa; una herramienta no otorga autorización.\n\n## Diferencias que hay que recordar\n\n- **Bug bounty vs ataque malicioso:** el hunter trabaja con autorización, reglas y divulgación responsable.\n- **Bug bounty vs pentest:** el pentest suele contratarse por un período y alcance; el bounty puede quedar abierto y recompensa hallazgos válidos.\n- **Hallazgo vs reporte válido:** observar algo extraño no alcanza; hay que demostrar impacto y cumplir las reglas.\n- **Público vs privado:** cambia quién puede participar, no la obligación de respetar el alcance.\n- **Divulgación responsable vs publicación inmediata:** primero se reporta por el canal autorizado y se permite investigar y corregir.\n\n## Ejemplos prácticos\n\n- El programa autoriza `app.ejemplo.com` pero excluye otros subdominios: solamente el activo indicado está permitido.\n- Dos investigadores reportan la misma falla; el segundo informe puede clasificarse como duplicado.\n- Una vulnerabilidad que permite comprometer cuentas recibe mayor prioridad que un detalle sin impacto práctico.\n- El investigador demuestra acceso con la evidencia mínima y se detiene antes de consultar datos reales innecesarios.\n\n## Errores y precauciones\n\n- Leer el alcance y las reglas antes de comenzar.\n- No interpretar “programa público” como permiso para probar toda la empresa.\n- No usar denegación de servicio o ingeniería social si están prohibidas.\n- No acceder, modificar ni conservar más datos de los necesarios.\n- No publicar una falla antes del proceso de divulgación acordado.\n- No asumir que todo reporte válido tendrá recompensa.\n\n## Inglés técnico del módulo\n\n- `bug bounty hunter` → investigador que busca fallas mediante programas autorizados.\n- `scope` → activos y límites autorizados.\n- `in scope` / `out of scope` → dentro o fuera del alcance.\n- `rules of engagement` → condiciones y técnicas permitidas.\n- `responsible disclosure` → comunicación controlada de una vulnerabilidad para facilitar su corrección.\n- `duplicate` → vulnerabilidad ya reportada previamente.\n- `severity` → gravedad técnica del hallazgo.\n- `reward structure` → reglas que determinan reconocimiento o pago.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. La regla esencial es que la autorización siempre se limita a los activos y acciones expresamente definidos por el programa.\n\n## Qué aprendí\n\nEntendí cómo funciona un programa de bug bounty, por qué debo respetar alcance y reglas, qué necesita un reporte reproducible y por qué un hallazgo puede no recibir recompensa aunque parezca interesante.\n\n## Para repasar o practicar\n\n- Leer un scope e identificar activos permitidos y excluidos.\n- Diferenciar severidad técnica de impacto real.\n- Practicar la estructura de un reporte reproducible.\n- Comparar bug bounty y pentest.\n- Recordar las condiciones que producen duplicados o reportes inválidos.\n\n## Cuestionario de repaso\n\n1. ¿Qué autoriza a un Bug Bounty Hunter a probar sistemas? — **Respuesta:** El alcance y las reglas definidos por el programa.\n2. ¿Qué significa que un activo esté fuera del alcance? — **Respuesta:** No está autorizado probarlo bajo ese programa.\n3. ¿Qué debería incluir un buen reporte? — **Respuesta:** Pasos reproducibles, evidencia, activo afectado e impacto.\n4. ¿Por qué un reporte válido podría no recibir una recompensa nueva? — **Respuesta:** Puede ser un duplicado ya informado.\n5. ¿Cuál es una diferencia habitual entre bug bounty y pentest? — **Respuesta:** El pentest suele contratarse por un período y alcance; el bounty recompensa hallazgos válidos según el programa.\n6. ¿Qué es la divulgación responsable? — **Respuesta:** Reportar por el canal autorizado, minimizar el daño y permitir la corrección.\n",
+      "learnings": "Entendí cómo funcionan alcance, reglas, divulgación responsable, validación y recompensas dentro de un programa de bug bounty.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que la autorización se limita a los activos y acciones definidos por el programa.",
+      "createdAt": "2026-11-02T14:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

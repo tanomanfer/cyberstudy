@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 9.7,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Introduction to Information Security",
+      "platform": "Hack The Box Academy",
+      "category": "Security",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-10-02",
+      "completedAt": "2026-11-02",
+      "url": "",
+      "notes": "Primer módulo de la ruta Junior Cybersecurity Analyst. Contenido puramente teórico, sin ejercicios prácticos.",
+      "learnings": "",
+      "questions": "",
+      "id": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "createdAt": "2026-10-03T01:55:01.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "infosec-24-recommendations",
+      "moduleId": "b4cb410f-67d7-453f-9aa6-416379fd9bac",
+      "number": 24,
+      "total": 24,
+      "title": "Recommendations",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 24 de 24 — Recommendations\n\n**Estado:** Completado\n**Curso:** Introduction to Information Security (módulo 1 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nNo existe una única entrada correcta a ciberseguridad. Lo importante es elegir una dirección que genere interés, comenzar a estudiar y ajustar el camino con la experiencia. Blue Team y Red Team se complementan, y el conocimiento adquirido sigue siendo útil aunque más adelante cambie la especialidad.\n\nTambién es necesario definir para qué se estudia. Un motivo claro permite sostener el esfuerzo, reconocer el progreso y saber cuándo se alcanzó un objetivo.\n\n## Conceptos importantes\n\n### Elegir una dirección\n\nLa primera elección no tiene que ser perfecta. Conviene orientarse hacia aquello que despierte curiosidad y permita practicar con entusiasmo, no solamente hacia lo que otras personas exijan o consideren de moda.\n\nSi una rama no resulta adecuada, cambiar no significa empezar de cero. Los fundamentos de redes, sistemas, riesgo, ataque y defensa se transfieren entre especialidades.\n\n### Blue, Red y Purple Team\n\nPara defender mejor ayuda comprender cómo se ataca. Para realizar pruebas ofensivas ayuda conocer los controles defensivos que deben detectarse o evadirse. La experiencia en ambos lados mejora la colaboración Purple Team.\n\n### Definir el motivo\n\nEl motivo puede ser el salario, un cambio profesional, una habilidad, un título o un desafío personal. Ninguno es incorrecto. Lo importante es convertir una intención amplia en un objetivo reconocible y medible.\n\nEn el caso de Tano, la ruta elegida es comenzar como **Security Analyst / SOC** y avanzar a futuro hacia **Penetration Tester**. La base defensiva ayuda a comprender después cómo se detectan y frenan las técnicas ofensivas.\n\n### Reconocer el progreso\n\nEl progreso puede observarse en cursos terminados, conceptos que ahora se pueden explicar, laboratorios resueltos, herramientas aprendidas y mayor autonomía. Compararse solamente con todo lo que falta oculta lo que ya se consiguió.\n\n### Atención y proceso de aprendizaje\n\nAprender requiere cantidad y calidad de atención: comprensión activa, práctica, corrección de errores, relación entre conceptos y constancia. Acumular horas o cursos sin aplicar lo visto no garantiza aprendizaje.\n\n## Comandos y opciones\n\nEsta sección es de orientación y no presenta comandos. Recomienda complementar la ruta técnica con el módulo **Learning Process** para mejorar organización, retención y práctica.\n\n## Diferencias que hay que recordar\n\n- **Dirección inicial vs destino permanente:** comenzar por un área no obliga a permanecer siempre en ella.\n- **Blue Team vs Red Team:** uno prioriza defensa y respuesta; el otro evalúa defensas con técnicas ofensivas; ambos conocimientos se complementan.\n- **Interés propio vs presión externa:** la motivación sostenible debe relacionarse con objetivos personales.\n- **Horas acumuladas vs atención de calidad:** el tiempo ayuda cuando existe comprensión, práctica y corrección.\n- **Intención vs objetivo:** “aprender ciberseguridad” es amplio; “conseguir un primer puesto junior en SOC” puede medirse.\n\n## Ejemplos prácticos\n\n- Estudiar detección en SOC ayuda después a comprender qué rastros deja una técnica ofensiva.\n- Un laboratorio que antes requería ayuda y ahora puede resolverse de forma autónoma demuestra progreso.\n- Descubrir que una especialidad no gusta permite cambiar de dirección conservando los fundamentos aprendidos.\n- Registrar cursos, cuestionarios y temas para repasar hace visible el avance que de otro modo podría olvidarse.\n\n## Errores y precauciones\n\n- No esperar a encontrar una ruta perfecta antes de comenzar.\n- No elegir exclusivamente por presión o moda.\n- No confundir cambiar de especialidad con haber perdido el tiempo.\n- No medir el aprendizaje solamente por horas o certificados.\n- No ignorar la práctica ni la corrección de errores.\n- No usar la comparación con especialistas avanzados para negar el propio progreso.\n\n## Inglés técnico del módulo\n\n- `learning path` → recorrido organizado de aprendizaje.\n- `Blue Team` → equipos orientados a defensa, detección y respuesta.\n- `Red Team` → equipos que prueban defensas mediante técnicas ofensivas autorizadas.\n- `Purple Team` → colaboración e intercambio entre capacidades ofensivas y defensivas.\n- `gut feeling` → intuición o sensación personal que orienta una elección.\n- `learning process` → métodos usados para comprender, practicar y retener conocimientos.\n- `skill set` → conjunto de habilidades de una persona.\n- `progress` → avance observable hacia un objetivo.\n\n## Lo que más costó\n\nNo hubo errores en el cuestionario: las seis respuestas fueron correctas. El punto a conservar es que no hace falta acertar una especialidad definitiva desde el principio; se elige una dirección útil, se practica y se ajusta con experiencia.\n\n## Qué aprendí\n\nEntendí que puedo comenzar por el área que más me interese, que Blue y Red se complementan y que definir mi motivo permite medir el progreso. Mi ruta actual prioriza Security Analyst / SOC y mantiene Penetration Tester como objetivo futuro.\n\n## Para repasar o practicar\n\n- Escribir el motivo personal para estudiar ciberseguridad.\n- Convertirlo en un objetivo concreto y medible.\n- Revisar periódicamente avances y temas pendientes.\n- Relacionar lo aprendido en defensa con conceptos ofensivos.\n- Considerar el módulo Learning Process para mejorar el método de estudio.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es el mejor punto para comenzar? — **Respuesta:** Un área que genere interés y permita comenzar a aprender.\n2. ¿Por qué Blue Team y Red Team se complementan? — **Respuesta:** Comprender ataques ayuda a defender y conocer defensas ayuda a probarlas.\n3. ¿Qué debería influir principalmente en la elección de una especialidad? — **Respuesta:** El interés personal y los objetivos propios.\n4. ¿Por qué es importante definir para qué estudiamos? — **Respuesta:** Permite medir el progreso y reconocer cuándo alcanzamos el objetivo.\n5. Si un área no resulta adecuada, ¿qué conviene hacer? — **Respuesta:** Probar otra dirección y aprovechar lo aprendido.\n6. ¿Qué mejora el aprendizaje? — **Respuesta:** Combinar atención de calidad, constancia, práctica y un buen proceso de aprendizaje.\n",
+      "learnings": "Entendí que puedo elegir una dirección por interés, ajustar la ruta con experiencia y medir el progreso según un objetivo personal concreto.",
+      "questions": "Cuestionario aprobado 6/6. Mantener Security Analyst / SOC como objetivo inmediato y Penetration Tester como meta futura.",
+      "createdAt": "2026-11-02T15:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}
