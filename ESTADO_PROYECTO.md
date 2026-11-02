@@ -6,9 +6,9 @@
 - **Fecha / IA:** 2026-11-02 · Codex
 - **Hice:** implementé entradas `module-summary` sin número ni impacto en progreso; creé y sincronicé el resumen total de *Introduction to Information Security*.
 - **Estado:** curso 24/24 (100%); build y validaciones JSON/notas/diff correctas. La regla quedó documentada para todos los cursos futuros.
-- **Quedó a medias:** importar otra vez `estudio/cyberstudy-import.json` para que el nuevo resumen aparezca en CyberStudy.
-- **Próximo paso:** verificar la tarjeta `Resumen del módulo: Introduction to Information Security`; después comenzar *Network Foundations*.
-- **Git:** se autorizó un commit único con todos los cambios actuales; no hacer push sin una nueva confirmación.
+- **Quedó a medias:** importar otra vez `estudio/cyberstudy-import.json` para que el nuevo resumen aparezca en CyberStudy. Se recibió la sección 1/12 de *Network Foundations — Introduction to Networks*, todavía sin estudiar ni guardar.
+- **Próximo paso:** después de cerrar Git, explicar la sección 1 y hacer su cuestionario.
+- **Git:** commit `074a155` creado; Tano autorizó publicar todos los commits pendientes en `origin/main`.
 - **Archivos tocados:** `src/App.tsx`, `src/types.ts`, `src/lib/markdown.ts`, `src/enhancements.css`, `estudio/README_IA.md`, `estudio/INDICE.md`, consolidado y par `resumen-del-modulo-introduction-to-information-security.*`.
 
 ## Cómo está hoy
