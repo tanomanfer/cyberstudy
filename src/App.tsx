@@ -362,8 +362,22 @@ function ModuleForm({ paths, value, setValue, onSubmit }: { paths: Certification
 
 function SectionForm({ modules, value, setValue, onSubmit }: { modules: StudyModule[]; value: typeof sectionDefaults; setValue: React.Dispatch<React.SetStateAction<typeof sectionDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
   const mdInput = useRef<HTMLInputElement>(null);
+  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageError, setImageError] = useState("");
   async function loadMarkdown(file?: File) { if (!file) return; const text = await file.text(); setValue({ ...value, notes: text }); }
-  return <form onSubmit={onSubmit}><Field label="Curso"><select required value={value.moduleId} onChange={(e) => setValue({ ...value, moduleId: e.target.value })}><option value="">Seleccionar curso…</option>{modules.map((module) => <option key={module.id} value={module.id}>{module.title}</option>)}</select></Field><div className="form-grid"><Field label="Número de sección"><input type="number" min="1" max="999" required value={value.number} onChange={(e) => setValue({ ...value, number: Number(e.target.value) })}/></Field><Field label="Total de secciones"><input type="number" min="1" max="999" required value={value.total} onChange={(e) => setValue({ ...value, total: Number(e.target.value) })}/></Field></div><Field label="Nombre de la sección"><input required maxLength={160} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Filtrado de contenido en Linux" autoFocus/></Field><div className="form-grid"><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus, progress: e.target.value === "Completado" ? 100 : value.progress })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field><Field label={`Progreso: ${value.progress}%`}><input type="range" min="0" max="100" step="5" value={value.progress} onChange={(e) => setValue({ ...value, progress: Number(e.target.value), status: Number(e.target.value) === 100 ? "Completado" : value.status })}/></Field></div><div className="import-md-row"><span>Notas en Markdown</span><button type="button" className="btn ghost small" onClick={() => mdInput.current?.click()}><Upload size={15}/> Importar .md</button><input ref={mdInput} className="visually-hidden" type="file" accept="text/markdown,.md" onChange={(e) => void loadMarkdown(e.target.files?.[0])}/></div><Field label=""><textarea rows={7} value={value.notes} onChange={(e) => setValue({ ...value, notes: e.target.value })} placeholder="Comandos, conceptos y contexto…"/></Field><Field label="Qué aprendí"><textarea rows={3} value={value.learnings} onChange={(e) => setValue({ ...value, learnings: e.target.value })}/></Field><Field label="Dudas pendientes"><textarea rows={3} value={value.questions} onChange={(e) => setValue({ ...value, questions: e.target.value })} placeholder="Una duda por línea…"/></Field><button className="btn primary full" type="submit"><Check size={18}/> Guardar sección</button></form>;
+  async function loadImage(file?: File) {
+    setImageError("");
+    if (!file) return;
+    if (!SUPPORTED_NOTE_IMAGES.has(file.type)) { setImageError("Formato no admitido. Usá PNG, JPG, WebP o GIF."); return; }
+    if (file.size > MAX_NOTE_IMAGE_BYTES) { setImageError("La imagen supera 1 MB. Reducila antes de agregarla."); return; }
+    try {
+      const source = await fileAsDataUrl(file);
+      const alt = file.name.replace(/\.[^.]+$/, "").replace(/[\[\]]/g, " ").trim() || "Imagen del apunte";
+      setValue((current) => ({ ...current, notes: `${current.notes.trim()}\n\n![${alt}](${source})`.trim() }));
+      if (imageInput.current) imageInput.current.value = "";
+    } catch { setImageError("No se pudo leer la imagen seleccionada."); }
+  }
+  return <form onSubmit={onSubmit}><Field label="Curso"><select required value={value.moduleId} onChange={(e) => setValue({ ...value, moduleId: e.target.value })}><option value="">Seleccionar curso…</option>{modules.map((module) => <option key={module.id} value={module.id}>{module.title}</option>)}</select></Field><div className="form-grid"><Field label="Número de sección"><input type="number" min="1" max="999" required value={value.number} onChange={(e) => setValue({ ...value, number: Number(e.target.value) })}/></Field><Field label="Total de secciones"><input type="number" min="1" max="999" required value={value.total} onChange={(e) => setValue({ ...value, total: Number(e.target.value) })}/></Field></div><Field label="Nombre de la sección"><input required maxLength={160} value={value.title} onChange={(e) => setValue({ ...value, title: e.target.value })} placeholder="Ej: Filtrado de contenido en Linux" autoFocus/></Field><div className="form-grid"><Field label="Estado"><select value={value.status} onChange={(e) => setValue({ ...value, status: e.target.value as ModuleStatus, progress: e.target.value === "Completado" ? 100 : value.progress })}><option>Pendiente</option><option>En progreso</option><option>Completado</option><option>Repasar</option></select></Field><Field label={`Progreso: ${value.progress}%`}><input type="range" min="0" max="100" step="5" value={value.progress} onChange={(e) => setValue({ ...value, progress: Number(e.target.value), status: Number(e.target.value) === 100 ? "Completado" : value.status })}/></Field></div><div className="import-md-row"><span>Notas en Markdown</span><span className="import-actions"><button type="button" className="btn ghost small" onClick={() => mdInput.current?.click()}><Upload size={15}/> Importar .md</button><button type="button" className="btn ghost small" onClick={() => imageInput.current?.click()}><Upload size={15}/> Agregar imagen</button></span><input ref={mdInput} className="visually-hidden" type="file" accept="text/markdown,.md" onChange={(e) => void loadMarkdown(e.target.files?.[0])}/><input ref={imageInput} className="visually-hidden" type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={(e) => void loadImage(e.target.files?.[0])}/></div>{imageError ? <p className="form-error" role="alert">{imageError}</p> : null}<Field label=""><textarea rows={7} value={value.notes} onChange={(e) => setValue({ ...value, notes: e.target.value })} placeholder="Comandos, conceptos y contexto…"/></Field><Field label="Qué aprendí"><textarea rows={3} value={value.learnings} onChange={(e) => setValue({ ...value, learnings: e.target.value })}/></Field><Field label="Dudas pendientes"><textarea rows={3} value={value.questions} onChange={(e) => setValue({ ...value, questions: e.target.value })} placeholder="Una duda por línea…"/></Field><button className="btn primary full" type="submit"><Check size={18}/> Guardar sección</button></form>;
 }
 
 function SessionForm({ value, setValue, onSubmit }: { value: typeof sessionDefaults; setValue: React.Dispatch<React.SetStateAction<typeof sessionDefaults>>; onSubmit: (e: React.FormEvent) => void }) {
@@ -526,7 +540,9 @@ function MarkdownText({ text, query, counter, activeIndex }: { text: string; que
   text.split("\n").forEach((line, index) => {
     if (line.trim().startsWith("```")) { if (code) { blocks.push(<pre key={`code-${index}`}><code><Highlight text={code.join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>); code = null; } else code = []; return; }
     if (code) { code.push(line); return; }
-    if (line.startsWith("### ")) blocks.push(<h4 key={index}><Highlight text={line.slice(4)} query={query} counter={counter} activeIndex={activeIndex}/></h4>);
+    const image = line.trim().match(/^!\[([^\]]*)\]\((\S+)\)$/);
+    if (image && safeImageSource(image[2])) blocks.push(<figure className="reader-image" key={index}><img src={image[2]} alt={image[1] || "Imagen del apunte"} loading="lazy"/>{image[1] ? <figcaption><Highlight text={image[1]} query={query} counter={counter} activeIndex={activeIndex}/></figcaption> : null}</figure>);
+    else if (line.startsWith("### ")) blocks.push(<h4 key={index}><Highlight text={line.slice(4)} query={query} counter={counter} activeIndex={activeIndex}/></h4>);
     else if (line.startsWith("## ")) blocks.push(<h3 key={index}><Highlight text={line.slice(3)} query={query} counter={counter} activeIndex={activeIndex}/></h3>);
     else if (line.startsWith("# ")) blocks.push(<h2 key={index}><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></h2>);
     else if (/^[-*] /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>•</span><p><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></p></div>);
@@ -535,6 +551,22 @@ function MarkdownText({ text, query, counter, activeIndex }: { text: string; que
   });
   if (code !== null) blocks.push(<pre key="code-last"><code><Highlight text={(code as string[]).join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>);
   return <>{blocks}</>;
+}
+
+const MAX_NOTE_IMAGE_BYTES = 1024 * 1024;
+const SUPPORTED_NOTE_IMAGES = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
+
+function fileAsDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => typeof reader.result === "string" ? resolve(reader.result) : reject(new Error("No se pudo leer la imagen."));
+    reader.onerror = () => reject(reader.error ?? new Error("No se pudo leer la imagen."));
+    reader.readAsDataURL(file);
+  });
+}
+
+function safeImageSource(source: string) {
+  return source.startsWith("/") || source.startsWith("https://") || /^data:image\/(png|jpeg|webp|gif);base64,/i.test(source);
 }
 
 function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }

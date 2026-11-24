@@ -15,4 +15,6 @@
 .tutor-error{margin:0 18px 12px;padding:10px 12px;border:1px solid #6b3434;background:#281515;color:#ff9a9a;font-size:11px}
 .tutor-form{border-top:1px solid var(--line);padding:14px 18px}.tutor-form textarea{width:100%;resize:vertical;background:#07110d;border:1px solid #294035;color:#e7f0ec;padding:11px;outline:none}.tutor-form textarea:focus{border-color:var(--green)}.tutor-form>div{display:flex;justify-content:space-between;align-items:center;margin-top:8px}.tutor-form small{color:#60766b;font:10px 'IBM Plex Mono'}
 
+.import-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.form-error{margin:-7px 0 12px;color:#ff9a9a;font-size:11px}.reader-image{margin:24px 0;padding:12px;border:1px solid var(--line);background:#08110e}.reader-image img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain}.reader-image figcaption{margin-top:9px;color:var(--muted);font-size:11px;text-align:center}
+
 @media(max-width:800px){.tutor-heading{align-items:flex-start}.tutor-heading>small{max-width:105px;text-align:right}.tutor-tools>div{display:grid;grid-template-columns:1fr 1fr}.tutor-tools button{justify-content:center}.tutor-message{max-width:96%}.tutor-message-actions{align-items:flex-start;flex-direction:column}}
