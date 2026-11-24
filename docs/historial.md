@@ -139,3 +139,84 @@
 - Desde el lector se puede pasar al formulario de edición o descargar el `.md`.
 - Verificación realizada en navegador con un módulo de prueba: renderizado de encabezados, listas y bloque Bash; búsqueda de `grep` con 2 coincidencias; transición a edición; cero errores o advertencias de consola.
 - `npm run build` completó correctamente.
+
+## Metodología v1 archivada 2026-11-06 — cyberstudy
+
+# Estado — CyberStudy
+
+> Historial completo anterior: `docs/historial.md`.
+
+## 🔁 Último traspaso
+- **Fecha / IA:** 2026-11-02 · Codex
+- **Hice:** guardé la sección 3/12 *Components of a Network* como `Completado`, con apunte desarrollado, JSON individual, índice y consolidado.
+- **Estado:** *Network Foundations* en 3/12 (25%): secciones 1–2 `Repasar`, sección 3 `Completado` y cuestionario propio 6/6.
+- **Quedó a medias:** importar `estudio/cyberstudy-import.json` para reflejar las tres secciones en CyberStudy. Los cambios locales aún no tienen commit ni push.
+- **Próximo paso:** comprobar la importación y continuar con la sección 4, manteniendo explicaciones conceptuales antes de responder ejercicios HTB.
+- **Git:** commits `074a155` y `df9c20f` publicados en `origin/main`; los cambios de este nuevo estudio todavía no están versionados.
+- **Archivos tocados:** `src/App.tsx`, `src/types.ts`, `src/lib/markdown.ts`, `src/enhancements.css`, `estudio/README_IA.md`, `estudio/INDICE.md`, consolidado y par `resumen-del-modulo-introduction-to-information-security.*`.
+
+## Cómo está hoy
+- Versión 0.2.0, usable a diario. Supabase conectado (proyecto `nogebwczmxtcafmggelf`), login + sync funcionando. Deploy en Vercel activo.
+- Jerarquía: certificación → curso → sección. Cuaderno agrupa apuntes por curso.
+- Tutor IA implementado (2026-09-20), falta prueba manual con Tano antes de publicarlo.
+
+## Pendientes
+- [ ] Probar el Tutor IA con Tano y publicarlo.
+- [ ] Confirmar con Tano que la web online tiene todos los módulos (y dejar de depender de `localhost:4173`).
+- [ ] Importador: combinar respaldos por id sin borrar módulos. Mientras tanto, importar solo `estudio/cyberstudy-import.json`.
+- [ ] Reorganizar `estudio/` como `estudio/cursos/<curso>/` (confirmar estructura antes; preservar los cuadernos).
+- [ ] Markdown: tablas y enlaces si hacen falta. Tests de racha/fechas/importación.
+- [ ] Fase 2 (diario, repaso espaciado, base de conocimientos): no empezada.
+
+## 2026-11-06 — Migración de metodología v2
+
+- Se archivó el estado anterior y se dejó activo únicamente el último traspaso.
+- Se agregó el puente `GEMINI.md`; `AGENTS.md` sigue siendo la fuente canónica.
+
+## 2026-11-09 — Network Foundations, secciones 4 y 5
+
+- Se archivó el traspaso del 2026-11-02 sobre *Components of a Network*.
+- Se guardó *Network Communication* como `Repasar` (cuestionario 3/6), conservando como refuerzo switch/MAC vs router/IP, la MAC del gateway al salir de la LAN y el puerto efímero del cliente.
+- Se guardó *Dynamic Host Configuration Protocol (DHCP)* como `Completado` (cuestionario 6/6), incluyendo DORA, lease y renovación.
+- Network Foundations queda en 5/12 (42%). Pendiente importar el consolidado y continuar con la sección 6.
+
+## 2026-11-09 — Network Foundations, sección 6
+
+- Se guardó *Network Address Translation (NAT)* como `Completado` con cuestionario 6/6.
+- Se documentaron IP pública/privada, tabla NAT, Static NAT, Dynamic NAT, PAT, firewall y port forwarding.
+- Network Foundations queda en 6/12 (50%). Se continuará con la sección 7 antes de importar el consolidado.
+
+## 2026-11-13 — Traspaso archivado antes de secciones 7–9
+
+- Se habían guardado las secciones 4/12 *Network Communication* (`Repasar`, 3/6), 5/12 *DHCP* (`Completado`, 6/6) y 6/12 *NAT* (`Completado`, 6/6), con Markdown, JSON individual, índice y consolidado.
+- *Network Foundations* estaba en 6/12 (50%): secciones 1–2 y 4 `Repasar`; secciones 3, 5 y 6 `Completado`.
+- Seguían pendientes la importación de `estudio/cyberstudy-import.json`, el commit y el push. Los últimos commits publicados eran `074a155` y `df9c20f`.
+
+## 2026-11-13 — Network Foundations, secciones 7 a 9
+
+- Se guardaron *Domain Name System (DNS)* (`Completado`, 6/6), *Internet Architecture* (`Completado`, 5/6) y *Wireless Networks* (`Completado`, 6/6).
+- Se documentaron la resolución DNS, P2P/client-server/híbrida/cloud/SDN, Wi-Fi, hotspots, redes celulares y frecuencias.
+- En Arquitectura se conserva para repasar híbrida frente a two-tier; las preguntas repetidas de HTB no fueron una dificultad conceptual.
+- En Wireless se conserva la precisión de vocabulario `Cellular Data` y `Base Station Controller`; los conceptos estaban comprendidos.
+- Network Foundations queda en 9/12 (75%). Pendiente importar el consolidado y continuar con la sección 10.
+
+## 2026-11-18 — Network Foundations completado
+
+- Se guardaron *Network Security*, *Data Flow Example* y *Skills Assessment* como secciones 10–12 completadas, junto con el resumen total del módulo.
+- Se documentaron CIA, firewall/IDS/IPS, firmas/anomalías, el flujo completo Wi-Fi–DHCP–DNS–ARP–NAT y las herramientas observadas en Pwnbox.
+- La práctica de terminal y FTP de la evaluación fue guiada; queda explícitamente marcada para repaso sin guardar flags, credenciales, VPN ni direcciones temporales.
+- Network Foundations queda terminado y documentado en 12/12 (100%). Pendiente importar el consolidado en CyberStudy; no se hizo commit ni push.
+
+## 2026-11-18 — Traspaso archivado antes del soporte de imágenes
+
+- Se habían guardado las secciones 10–12 de Network Foundations y el resumen total, con Markdown, JSON individuales, índice y consolidado sincronizados.
+- Network Foundations estaba terminado en HTB y documentado 12/12 (100%); las secciones 1, 2 y 4 seguían para repasar y la terminal de la 12 constaba como práctica asistida.
+- Los JSON eran válidos, las entradas únicas y las notas coincidían entre Markdown, JSON individual y consolidado.
+- Seguían pendientes importar `estudio/cyberstudy-import.json`, commit y push.
+
+## 2026-11-18 — Traspaso archivado: soporte de imágenes en notas (Codex)
+
+- Se agregaron imágenes a las notas Markdown: selector PNG/JPG/WebP/GIF, límite de 1 MB, persistencia embebida y render seguro en el lector.
+- La imagen de *Networking Overview* quedó en `public/study-images/introduction-to-networking/01-networking-overview.png` (PNG 1004×704, 156 KB).
+- Validación: `npm run build` correcto y `git diff --check` sin errores; solo la advertencia no bloqueante del chunk JS >500 KB.
+- Pendiente en ese momento: estudiar la sección 1, enganchar la imagen en un cuaderno importable e importar Network Foundations. Archivos: `src/App.tsx`, `src/styles.css`, la imagen, `ESTADO_PROYECTO.md` y `docs/historial.md`.
