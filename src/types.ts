@@ -70,6 +70,45 @@ export interface FreezeDay {
   reason: string;
 }
 
+export type MachineStatus = "Pendiente" | "En progreso" | "Resuelta" | "Abandonada";
+export type HelpLevel = "Sin ayuda" | "Pista" | "IA" | "Walkthrough parcial" | "Walkthrough completo";
+export type RepeatConfidence = "Sí" | "Con dudas" | "No";
+export type WriteupVisibility = "Privado" | "Publicable";
+
+/** Máquina CTF (HTB, TryHackMe, etc.). Su progreso es independiente del de los cursos. */
+export interface Machine {
+  id: string;
+  name: string;
+  platform: string;
+  url: string;
+  os: string;
+  difficulty: string;
+  /** Solo para Starting Point de HTB: 0, 1 o 2. */
+  startingPointTier: number | null;
+  status: MachineStatus;
+  startedAt: string;
+  completedAt: string;
+  minutes: number;
+  labIp: string;
+  certifications: string[];
+  techniques: string[];
+  tools: string[];
+  notes: string;
+  writeupUrl: string;
+  writeupVisibility: WriteupVisibility;
+  helpLevel: HelpLevel;
+  /** Asistentes de IA usados (ChatGPT, Codex, Claude…). */
+  aiAssistants: string[];
+  personalDifficulty: number;
+  learnedConcept: string;
+  reviewConcept: string;
+  canRepeatAlone: RepeatConfidence;
+  relatedModuleIds: string[];
+  relatedSectionIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CyberStudyData {
   version: 3;
   dailyGoalMinutes: number;
@@ -78,6 +117,8 @@ export interface CyberStudyData {
   sections: StudySection[];
   sessions: StudySession[];
   frozenDays: FreezeDay[];
+  /** Laboratorio de máquinas CTF. Opcional: los respaldos de estudio sin este campo siguen siendo válidos. */
+  machines?: Machine[];
   /** IDs borrados; evita que la sincronización con la nube los resucite. */
   deletedIds?: string[];
 }

@@ -28,5 +28,5 @@ export function mergeData(local: CyberStudyData, cloud: CyberStudyData): CyberSt
   const deletedIds = [...new Set([...(cloud.deletedIds ?? []), ...(local.deletedIds ?? [])])];
   const deleted = new Set(deletedIds);
   const alive = <T extends { id: string }>(first: T[], second: T[]) => unique(first, second).filter((item) => !deleted.has(item.id));
-  return { version: 3, dailyGoalMinutes: local.dailyGoalMinutes || cloud.dailyGoalMinutes, paths: alive(cloud.paths, local.paths), modules: alive(cloud.modules, local.modules), sections: alive(cloud.sections, local.sections), sessions: alive(cloud.sessions, local.sessions), frozenDays: frozen, deletedIds };
+  return { version: 3, dailyGoalMinutes: local.dailyGoalMinutes || cloud.dailyGoalMinutes, paths: alive(cloud.paths, local.paths), modules: alive(cloud.modules, local.modules), sections: alive(cloud.sections, local.sections), sessions: alive(cloud.sessions, local.sessions), frozenDays: frozen, deletedIds, machines: alive(cloud.machines ?? [], local.machines ?? []) };
 }

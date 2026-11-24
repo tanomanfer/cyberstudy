@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  BookMarked, BookOpen, Check, ChevronDown, ChevronRight, ChevronUp, CircleHelp, Clock3, Cloud, Download, Flame, FolderOpen, LayoutDashboard,
+  BookMarked, BookOpen, Server, Check, ChevronDown, ChevronRight, ChevronUp, CircleHelp, Clock3, Cloud, Download, Flame, FolderOpen, LayoutDashboard,
   Bot, CheckCheck, Copy, Edit3, GraduationCap, Lightbulb, LogOut, Pause, Play, Plus, RotateCcw, Save, Search, Send, ShieldCheck, Snowflake, Sparkles, Target, TimerReset, Trash2, Upload, Workflow, X,
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
@@ -9,9 +9,11 @@ import { downloadMarkdown, moduleMarkdown, sectionMarkdown, sessionMarkdown } fr
 import { exportData, importData, loadData, loadTimer, saveData, saveTimer } from "./lib/storage";
 import { isSupabaseConfigured, loadCloudData, mergeData, saveCloudData, supabase } from "./lib/supabase";
 import { askTutor, type TutorMessage } from "./lib/tutor";
+import { Empty, Field, Metric, Modal, PanelTitle } from "./components/ui";
+import { MachinesView } from "./features/machines/MachinesView";
 import type { CertificationPath, CyberStudyData, ModuleStatus, StudyModule, StudySection, StudySession } from "./types";
 
-type View = "dashboard" | "modules" | "notebook" | "questions" | "sessions" | "search";
+type View = "dashboard" | "modules" | "notebook" | "questions" | "sessions" | "machines" | "search";
 type ModalKind = "path" | "module" | "section" | "reader" | "session" | "freeze" | "cloud";
 
 const pathDefaults = {
@@ -204,7 +206,12 @@ export function App() {
 
   async function restoreBackup(file?: File) {
     if (!file) return;
-    try { setData(await importData(file)); setSaveState("saved"); }
+    try {
+      const imported = await importData(file);
+      // El JSON de estudio no trae máquinas: en ese caso se conservan las que ya tenías.
+      setData((current) => imported.machines ? imported : { ...imported, machines: current.machines ?? [] });
+      setSaveState("saved");
+    }
     catch (error) { window.alert(error instanceof Error ? error.message : "No se pudo importar el respaldo."); }
     finally { if (importInput.current) importInput.current.value = ""; }
   }
@@ -222,6 +229,7 @@ export function App() {
           <NavButton active={view === "notebook"} icon={<BookMarked />} label="Cuaderno" count={data.sections.length} onClick={() => setView("notebook")} />
           <NavButton active={view === "questions"} icon={<CircleHelp />} label="Dudas" count={data.sections.filter((section) => section.questions.trim()).length} onClick={() => setView("questions")} />
           <NavButton active={view === "sessions"} icon={<Clock3 />} label="Sesiones" count={data.sessions.length} onClick={() => setView("sessions")} />
+          <NavButton active={view === "machines"} icon={<Server />} label="Máquinas CTF" count={data.machines?.length ?? 0} onClick={() => setView("machines")} />
         </nav>
         <div className={`sidebar-status ${saveState === "error" ? "save-error" : ""}`}><span className="status-dot" /> {saveState === "saved" ? "Guardado en este navegador" : "Error al guardar"}</div>
         <p className="sidebar-note">Tu centro de operaciones para convertir horas de estudio en progreso real.</p>
@@ -229,7 +237,7 @@ export function App() {
 
       <main>
         <header className="topbar">
-          <div><p className="eyebrow">{new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</p><h1>{view === "dashboard" ? "Buenas, Tano." : view === "modules" ? "Certificaciones, cursos y secciones" : view === "notebook" ? "Cuaderno global" : view === "questions" ? "Dudas para practicar" : view === "search" ? "Resultados de búsqueda" : "Sesiones de estudio"}</h1></div>
+          <div><p className="eyebrow">{new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</p><h1>{view === "dashboard" ? "Buenas, Tano." : view === "modules" ? "Certificaciones, cursos y secciones" : view === "notebook" ? "Cuaderno global" : view === "questions" ? "Dudas para practicar" : view === "search" ? "Resultados de búsqueda" : view === "machines" ? "Laboratorio de máquinas" : "Sesiones de estudio"}</h1></div>
           <div className="header-actions">
             <label className="global-search"><Search size={16}/><input value={search} onChange={(event) => { const value = event.target.value; setSearch(value); if (value.trim()) setView("search"); else if (view === "search") setView("dashboard"); }} placeholder="Buscar en todo…" aria-label="Buscar en todo" /></label>
             <button className="btn ghost" onClick={() => setModal("cloud")}><Cloud size={18} /> {user ? "Sincronizado" : "Nube"}</button>
@@ -249,6 +257,8 @@ export function App() {
           <Notebook modules={data.modules} sections={data.sections} search={search} onOpen={readSection} />
         ) : view === "questions" ? (
           <Questions modules={data.modules} sections={data.sections} search={search} onOpen={readSection} />
+        ) : view === "machines" ? (
+          <MachinesView data={data} setData={setData} />
         ) : view === "search" ? (
           <SearchResults data={data} query={search} onOpenCourse={() => setView("modules")} onOpenSection={readSection} onOpenSession={editSession} />
         ) : (
@@ -571,12 +581,7 @@ function safeImageSource(source: string) {
 
 function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
-function Modal({ title, subtitle, onClose, children, wide = false }: { title: string; subtitle: string; onClose: () => void; children: React.ReactNode; wide?: boolean }) { return <div className="modal-backdrop" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}><section className={`modal ${wide ? "modal-wide" : ""}`} role="dialog" aria-modal="true" aria-label={title}><button className="modal-close" onClick={onClose} aria-label="Cerrar"><X /></button><h2>{title}</h2><p>{subtitle}</p>{children}</section></div>; }
-function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="field"><span>{label}</span>{children}</label>; }
 function NavButton({ active, icon, label, count, onClick }: { active: boolean; icon: React.ReactNode; label: string; count?: number; onClick: () => void }) { return <button className={active ? "nav-button active" : "nav-button"} onClick={onClick}>{icon}<span>{label}</span>{count !== undefined ? <small>{count}</small> : null}</button>; }
-function Metric({ icon, value, label, note, hot }: { icon: React.ReactNode; value: string; label: string; note: string; hot?: boolean }) { return <article className="metric"><span className={hot ? "metric-icon hot" : "metric-icon"}>{icon}</span><div><strong>{value}</strong><span>{label}</span><small>{note}</small></div></article>; }
-function PanelTitle({ title, meta }: { title: string; meta: string }) { return <div className="panel-title"><h3>{title}</h3><span>{meta}</span></div>; }
-function Empty({ text, action, onAction }: { text: string; action?: string; onAction?: () => void }) { return <div className="empty"><BookOpen size={34}/><p>{text}</p>{action ? <button className="btn ghost" onClick={onAction}>{action}</button> : null}</div>; }
 
 function sectionText(section: StudySection) {
   return `${isModuleSummary(section) ? "resumen del módulo" : `${section.number} ${section.total}`} ${section.title} ${section.notes} ${section.learnings} ${section.questions}`.toLowerCase();

@@ -1,4 +1,5 @@
 import type { CertificationPath, CyberStudyData, StudyModule, StudySection } from "../types";
+import { normalizeMachines } from "../features/machines/machines";
 
 const STORAGE_KEY = "cyberstudy:data:v3";
 const BACKUP_KEY = "cyberstudy:data:v3:backup";
@@ -83,6 +84,8 @@ export function normalizeData(value: unknown): CyberStudyData | null {
     sessions: candidate.sessions,
     frozenDays: candidate.frozenDays,
     deletedIds: Array.isArray((value as { deletedIds?: unknown }).deletedIds) ? (value as { deletedIds: string[] }).deletedIds : [],
+    // Ausente = el archivo no trae máquinas (p. ej. el JSON del curso); quien importa decide conservar las actuales.
+    machines: normalizeMachines((value as { machines?: unknown }).machines),
   };
 }
 

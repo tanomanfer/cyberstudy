@@ -1,0 +1,7 @@
+import { BookOpen, X } from "lucide-react";
+
+export function Modal({ title, subtitle, onClose, children, wide = false }: { title: string; subtitle: string; onClose: () => void; children: React.ReactNode; wide?: boolean }) { return <div className="modal-backdrop" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}><section className={`modal ${wide ? "modal-wide" : ""}`} role="dialog" aria-modal="true" aria-label={title}><button className="modal-close" onClick={onClose} aria-label="Cerrar"><X /></button><h2>{title}</h2><p>{subtitle}</p>{children}</section></div>; }
+export function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="field"><span>{label}</span>{children}</label>; }
+export function Metric({ icon, value, label, note, hot }: { icon: React.ReactNode; value: string; label: string; note: string; hot?: boolean }) { return <article className="metric"><span className={hot ? "metric-icon hot" : "metric-icon"}>{icon}</span><div><strong>{value}</strong><span>{label}</span><small>{note}</small></div></article>; }
+export function PanelTitle({ title, meta }: { title: string; meta: string }) { return <div className="panel-title"><h3>{title}</h3><span>{meta}</span></div>; }
+export function Empty({ text, action, onAction }: { text: string; action?: string; onAction?: () => void }) { return <div className="empty"><BookOpen size={34}/><p>{text}</p>{action ? <button className="btn ghost" onClick={onAction}>{action}</button> : null}</div>; }
