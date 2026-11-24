@@ -231,3 +231,13 @@
 - **Próximo paso:** importar `estudio/cyberstudy-import.json` en CyberStudy y seguir con la sección 4.
 - **Git:** sin commit ni push; siguen sin versionar también los cambios de imágenes del 18/11 y Network Foundations.
 - **Archivos tocados:** `estudio/modulos/introduction-to-networking/*`, `estudio/cyberstudy-import.json`, `estudio/INDICE.md`, `ESTADO_PROYECTO.md`, `docs/historial.md`.
+
+## 2026-11-24 — Traspaso archivado: Máquinas CTF etapa 1 (Claude Code)
+
+- **Fecha / IA:** 2026-11-24 · Claude Code
+- **Hice:** etapa 1 de 4 del módulo **Máquinas CTF**: menú nuevo, dashboard (estados, % resueltas, horas, aprendizaje, barras por dificultad/SO/técnicas), filtros combinables + orden + tabla/tarjetas (preferencias en localStorage), alta/edición/borrado con validaciones y ficha de detalle.
+- **Decisiones:** máquinas en el mismo JSON (`machines?` opcional, sin subir versión); capturas futuras dentro del JSON (1 MB); Importar conserva las máquinas si el archivo no trae `machines`; sync une máquinas por id y respeta `deletedIds`. Lógica en `src/features/machines/machines.ts` (normaliza URLs solo http(s), IP, fechas, límites).
+- **Validación:** `npm run build` OK; probado en navegador: alta, IP inválida rechazada, importar respaldo sin máquinas las conserva, `javascript:` descartado, filtros combinados, tabla y detalle; sin errores de consola. Datos de prueba borrados.
+- **Pendiente:** etapa 2 (writeup por secciones, editor MD con vista previa, copiar comandos, capturas, export MD/PDF), etapa 3 (relación con secciones, ver máquinas desde el curso, CSV import/export), etapa 4 (Vitest). Ya existe relación máquina→curso desde el formulario.
+- **Git:** commit `54a3fd0` + `f2bc01c`, push a `main` hecho.
+- **Archivos:** `src/types.ts`, `src/lib/storage.ts`, `src/lib/supabase.ts`, `src/App.tsx`, nuevos `src/components/ui.tsx` y `src/features/machines/{machines.ts,MachinesView.tsx,machines.css}`.

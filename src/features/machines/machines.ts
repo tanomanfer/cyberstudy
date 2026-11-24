@@ -1,4 +1,5 @@
 import type { HelpLevel, Machine, MachineStatus, RepeatConfidence, WriteupVisibility } from "../../types";
+import { normalizeWriteup } from "./writeup";
 
 /**
  * Catálogos sugeridos. Son extensibles: los campos aceptan texto libre y
@@ -97,6 +98,7 @@ export function normalizeMachine(value: unknown): Machine | null {
     canRepeatAlone: oneOf(raw.canRepeatAlone, repeatOptions, "Con dudas"),
     relatedModuleIds: list(raw.relatedModuleIds),
     relatedSectionIds: list(raw.relatedSectionIds),
+    writeup: normalizeWriteup(raw.writeup),
     createdAt: text(raw.createdAt, 40) || now,
     updatedAt: text(raw.updatedAt, 40) || now,
   };

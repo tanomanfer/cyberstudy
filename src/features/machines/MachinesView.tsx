@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Check, Clock3, Edit3, ExternalLink, Flag, LayoutGrid, Plus, Rows3, Server, Target, Trash2, X } from "lucide-react";
+import { Check, Clock3, Edit3, ExternalLink, FileText, Flag, LayoutGrid, Plus, Rows3, Server, Target, Trash2, X } from "lucide-react";
 import type { CyberStudyData, Machine, StudyModule } from "../../types";
 import { formatMinutes } from "../../lib/dates";
 import { Empty, Field, Metric, Modal, PanelTitle } from "../../components/ui";
@@ -7,6 +7,9 @@ import {
   defaultFilters, emptyMachine, filterMachines, helpLevels, learningLabel, learningScore, LIMITS, loadFilters, machineKey,
   machineStats, machineStatuses, normalizeMachine, repeatOptions, saveFilters, suggestions, visibilities, type MachineFilters,
 } from "./machines";
+import { WriteupEditor } from "./WriteupEditor";
+import { writeupProgress } from "./writeup";
+import type { MachineWriteup } from "../../types";
 import "./machines.css";
 
 type Draft = ReturnType<typeof emptyMachine>;
@@ -17,12 +20,14 @@ export function MachinesView({ data, setData }: { data: CyberStudyData; setData:
   const [filters, setFilters] = useState<MachineFilters>(() => loadFilters());
   const [editing, setEditing] = useState<{ id: string | null; draft: Draft } | null>(null);
   const [viewingId, setViewingId] = useState<string | null>(null);
+  const [writingId, setWritingId] = useState<string | null>(null);
   useEffect(() => saveFilters(filters), [filters]);
 
   const stats = useMemo(() => machineStats(machines), [machines]);
   const options = useMemo(() => suggestions(machines), [machines]);
   const visible = useMemo(() => filterMachines(machines, filters), [machines, filters]);
   const viewing = machines.find((machine) => machine.id === viewingId);
+  const writing = machines.find((machine) => machine.id === writingId);
   const activeFilters = (Object.keys(defaultFilters) as (keyof MachineFilters)[]).filter((key) => !["sort", "direction", "layout"].includes(key) && filters[key] !== defaultFilters[key]).length;
   const set = <K extends keyof MachineFilters>(key: K, value: MachineFilters[K]) => setFilters((current) => ({ ...current, [key]: value }));
 
@@ -44,6 +49,12 @@ export function MachinesView({ data, setData }: { data: CyberStudyData; setData:
     });
     setEditing(null);
     return null;
+  }
+
+  function saveWriteup(id: string, writeup: MachineWriteup, notes: string) {
+    setData((current) => ({ ...current, machines: (current.machines ?? []).map((item) => item.id === id ? { ...item, writeup, notes, updatedAt: new Date().toISOString() } : item) }));
+    setWritingId(null);
+    setViewingId(id);
   }
 
   function remove(machine: Machine) {
@@ -92,8 +103,9 @@ export function MachinesView({ data, setData }: { data: CyberStudyData; setData:
       <MachineForm initial={editing.draft} options={options} modules={data.modules} onSubmit={save}/>
     </Modal> : null}
     {viewing ? <Modal wide title={viewing.name} subtitle={`${viewing.platform} · ${viewing.os} · ${viewing.difficulty}${viewing.startingPointTier !== null ? ` · Tier ${viewing.startingPointTier}` : ""}`} onClose={() => setViewingId(null)}>
-      <MachineDetail machine={viewing} modules={data.modules} onEdit={() => openEdit(viewing)} onDelete={() => remove(viewing)}/>
+      <MachineDetail machine={viewing} modules={data.modules} onEdit={() => openEdit(viewing)} onWriteup={() => { setViewingId(null); setWritingId(viewing.id); }} onDelete={() => remove(viewing)}/>
     </Modal> : null}
+    {writing ? <WriteupEditor machine={writing} onSave={(writeup, notes) => saveWriteup(writing.id, writeup, notes)} onClose={() => { setWritingId(null); setViewingId(writing.id); }}/> : null}
   </section>;
 }
 
@@ -114,6 +126,7 @@ function MachineCard({ machine, onOpen }: { machine: Machine; onOpen: () => void
     <header><span className={statusClass(machine.status)}>{machine.status}</span><small>{machine.platform}</small></header>
     <h3>{machine.name}</h3>
     <p>{machine.os} · {machine.difficulty}{machine.startingPointTier !== null ? ` · Tier ${machine.startingPointTier}` : ""}{machine.minutes ? ` · ${formatMinutes(machine.minutes)}` : ""}</p>
+    {writeupProgress(machine.writeup) ? <p className="writeup-badge"><FileText size={12}/> Writeup {writeupProgress(machine.writeup)}/8</p> : null}
     {machine.techniques.length ? <div className="chips">{machine.techniques.slice(0, 4).map((tag) => <span className="chip" key={tag}>{tag}</span>)}{machine.techniques.length > 4 ? <span className="chip">+{machine.techniques.length - 4}</span> : null}</div> : null}
     <footer><span>Aprendizaje: <b>{learningLabel(score)}</b>{score !== null ? ` (${score})` : ""}</span><span>{machine.completedAt || machine.startedAt || "Sin fecha"}</span></footer>
   </button>;
@@ -123,7 +136,8 @@ function MachineTable({ machines, onOpen }: { machines: Machine[]; onOpen: (mach
   return <div className="machine-table-wrap"><table className="machine-table"><thead><tr><th>Nombre</th><th>Plataforma</th><th>SO</th><th>Dificultad</th><th>Estado</th><th>Tiempo</th><th>Resuelta</th><th>Aprendizaje</th></tr></thead><tbody>{machines.map((machine) => <tr key={machine.id} onClick={() => onOpen(machine)} tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter") onOpen(machine); }}><td><b>{machine.name}</b></td><td>{machine.platform}</td><td>{machine.os}</td><td>{machine.difficulty}{machine.startingPointTier !== null ? ` T${machine.startingPointTier}` : ""}</td><td><span className={statusClass(machine.status)}>{machine.status}</span></td><td>{machine.minutes ? formatMinutes(machine.minutes) : "—"}</td><td>{machine.completedAt || "—"}</td><td>{learningLabel(learningScore(machine))}</td></tr>)}</tbody></table></div>;
 }
 
-function MachineDetail({ machine, modules, onEdit, onDelete }: { machine: Machine; modules: StudyModule[]; onEdit: () => void; onDelete: () => void }) {
+function MachineDetail({ machine, modules, onEdit, onWriteup, onDelete }: { machine: Machine; modules: StudyModule[]; onEdit: () => void; onWriteup: () => void; onDelete: () => void }) {
+  const progress = writeupProgress(machine.writeup);
   const score = learningScore(machine);
   const related = modules.filter((module) => machine.relatedModuleIds.includes(module.id));
   const row = (label: string, value: React.ReactNode) => value ? <div><dt>{label}</dt><dd>{value}</dd></div> : null;
@@ -140,11 +154,12 @@ function MachineDetail({ machine, modules, onEdit, onDelete }: { machine: Machin
     {machine.tools.length ? <h4>Herramientas</h4> : null}{tags(machine.tools)}
     {machine.learnedConcept ? <><h4>Concepto nuevo</h4><p>{machine.learnedConcept}</p></> : null}
     {machine.reviewConcept ? <><h4>Para repasar</h4><p>{machine.reviewConcept}</p></> : null}
-    {machine.notes ? <><h4>Notas</h4><p className="pre-line">{machine.notes}</p></> : null}
+    {machine.notes ? <><h4>Notas privadas</h4><p className="pre-line">{machine.notes}</p></> : null}
+    <div className="writeup-callout"><div><FileText size={18}/><span><b>Writeup</b><small>{progress ? `${progress}/8 secciones completas · ${machine.writeupVisibility}` : "Todavía no empezaste el writeup de esta máquina."}</small></span></div><button className="btn ghost small" onClick={onWriteup}>{progress ? "Abrir writeup" : "Empezar writeup"}</button></div>
     <h4>Cursos relacionados</h4>{related.length ? <div className="chips">{related.map((module) => <span className="chip course-chip" key={module.id}>{module.title}</span>)}</div> : <p className="muted-note">Sin cursos asociados todavía.</p>}
     <div className="machine-links">
       {machine.url ? <a className="text-button" href={machine.url} target="_blank" rel="noopener noreferrer"><ExternalLink size={14}/> Página oficial</a> : null}
-      {machine.writeupUrl ? <a className="text-button" href={machine.writeupUrl} target="_blank" rel="noopener noreferrer"><ExternalLink size={14}/> Writeup</a> : null}
+      {machine.writeupUrl ? <a className="text-button" href={machine.writeupUrl} target="_blank" rel="noopener noreferrer"><ExternalLink size={14}/> Writeup publicado</a> : null}
     </div>
     <div className="machine-detail-actions"><button className="btn primary" onClick={onEdit}><Edit3 size={16}/> Editar</button><button className="icon-button danger" onClick={onDelete} title="Eliminar máquina"><Trash2 size={16}/> Eliminar</button></div>
   </div>;

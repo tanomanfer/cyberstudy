@@ -10,6 +10,7 @@ import { exportData, importData, loadData, loadTimer, saveData, saveTimer } from
 import { isSupabaseConfigured, loadCloudData, mergeData, saveCloudData, supabase } from "./lib/supabase";
 import { askTutor, type TutorMessage } from "./lib/tutor";
 import { Empty, Field, Metric, Modal, PanelTitle } from "./components/ui";
+import { MarkdownText, ReadableText, MAX_NOTE_IMAGE_BYTES, SUPPORTED_NOTE_IMAGES, fileAsDataUrl, type MatchCounter } from "./components/markdown";
 import { MachinesView } from "./features/machines/MachinesView";
 import type { CertificationPath, CyberStudyData, ModuleStatus, StudyModule, StudySection, StudySession } from "./types";
 
@@ -529,57 +530,6 @@ function TutorPanel({ section, course, onAppendNote }: { section: StudySection; 
 
 function ReaderBlock({ title, tone, children }: { title: string; tone?: "question"; children: React.ReactNode }) { return <section className={`reader-block ${tone ?? ""}`}><h3>{title}</h3><div className="reader-copy">{children}</div></section>; }
 
-type MatchCounter = { current: number };
-
-function Highlight({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) {
-  const term = query.trim();
-  if (!term) return <>{text}</>;
-  const parts = text.split(new RegExp(`(${escapeRegExp(term)})`, "gi"));
-  return <>{parts.map((part, index) => {
-    if (part.toLowerCase() !== term.toLowerCase()) return part;
-    const idx = counter ? counter.current++ : undefined;
-    return <mark key={index} data-match-idx={idx} className={idx === activeIndex ? "active" : undefined}>{part}</mark>;
-  })}</>;
-}
-
-function ReadableText({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) { return <>{text.split(/\n+/).filter(Boolean).map((line, index) => <p key={index}><Highlight text={line} query={query} counter={counter} activeIndex={activeIndex}/></p>)}</>; }
-
-function MarkdownText({ text, query, counter, activeIndex }: { text: string; query: string; counter?: MatchCounter; activeIndex?: number }) {
-  const blocks: React.ReactNode[] = [];
-  let code: string[] | null = null;
-  text.split("\n").forEach((line, index) => {
-    if (line.trim().startsWith("```")) { if (code) { blocks.push(<pre key={`code-${index}`}><code><Highlight text={code.join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>); code = null; } else code = []; return; }
-    if (code) { code.push(line); return; }
-    const image = line.trim().match(/^!\[([^\]]*)\]\((\S+)\)$/);
-    if (image && safeImageSource(image[2])) blocks.push(<figure className="reader-image" key={index}><img src={image[2]} alt={image[1] || "Imagen del apunte"} loading="lazy"/>{image[1] ? <figcaption><Highlight text={image[1]} query={query} counter={counter} activeIndex={activeIndex}/></figcaption> : null}</figure>);
-    else if (line.startsWith("### ")) blocks.push(<h4 key={index}><Highlight text={line.slice(4)} query={query} counter={counter} activeIndex={activeIndex}/></h4>);
-    else if (line.startsWith("## ")) blocks.push(<h3 key={index}><Highlight text={line.slice(3)} query={query} counter={counter} activeIndex={activeIndex}/></h3>);
-    else if (line.startsWith("# ")) blocks.push(<h2 key={index}><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></h2>);
-    else if (/^[-*] /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>•</span><p><Highlight text={line.slice(2)} query={query} counter={counter} activeIndex={activeIndex}/></p></div>);
-    else if (/^\d+\. /.test(line)) blocks.push(<div className="reader-list-item" key={index}><span>{line.match(/^\d+/)?.[0]}.</span><p><Highlight text={line.replace(/^\d+\. /, "")} query={query} counter={counter} activeIndex={activeIndex}/></p></div>);
-    else if (line.trim()) blocks.push(<p key={index}><Highlight text={line} query={query} counter={counter} activeIndex={activeIndex}/></p>);
-  });
-  if (code !== null) blocks.push(<pre key="code-last"><code><Highlight text={(code as string[]).join("\n")} query={query} counter={counter} activeIndex={activeIndex}/></code></pre>);
-  return <>{blocks}</>;
-}
-
-const MAX_NOTE_IMAGE_BYTES = 1024 * 1024;
-const SUPPORTED_NOTE_IMAGES = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
-
-function fileAsDataUrl(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => typeof reader.result === "string" ? resolve(reader.result) : reject(new Error("No se pudo leer la imagen."));
-    reader.onerror = () => reject(reader.error ?? new Error("No se pudo leer la imagen."));
-    reader.readAsDataURL(file);
-  });
-}
-
-function safeImageSource(source: string) {
-  return source.startsWith("/") || source.startsWith("https://") || /^data:image\/(png|jpeg|webp|gif);base64,/i.test(source);
-}
-
-function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
 function NavButton({ active, icon, label, count, onClick }: { active: boolean; icon: React.ReactNode; label: string; count?: number; onClick: () => void }) { return <button className={active ? "nav-button active" : "nav-button"} onClick={onClick}>{icon}<span>{label}</span>{count !== undefined ? <small>{count}</small> : null}</button>; }
 

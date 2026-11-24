@@ -105,7 +105,30 @@ export interface Machine {
   canRepeatAlone: RepeatConfidence;
   relatedModuleIds: string[];
   relatedSectionIds: string[];
+  /** Writeup estructurado (opcional: las máquinas sin writeup siguen siendo válidas). */
+  writeup?: MachineWriteup;
   createdAt: string;
+  updatedAt: string;
+}
+
+/** Estado de una flag. Nunca se guarda el valor: solo si se obtuvo, cuándo y cómo. */
+export interface WriteupFlag {
+  id: string;
+  label: string;
+  obtained: boolean;
+  date: string;
+  evidence: string;
+}
+
+export interface MachineWriteup {
+  summary: string;
+  recon: string;
+  enumeration: string;
+  exploitation: string;
+  privesc: string;
+  flags: WriteupFlag[];
+  conclusions: string;
+  references: string;
   updatedAt: string;
 }
 
