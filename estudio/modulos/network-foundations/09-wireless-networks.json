@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 75,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP, NAT/PAT, DNS, arquitecturas de Internet y redes inalámbricas.",
+      "questions": "Repasar LAN sin Internet, encapsulación, MAC/IP/gateway/puerto efímero, híbrida vs two-tier y el vocabulario exacto Cellular Data.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-09-wireless-networks",
+      "moduleId": "htb-network-foundations",
+      "number": 9,
+      "total": 12,
+      "title": "Wireless Networks",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 9 de 12 — Wireless Networks\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUna red inalámbrica conecta computadoras, teléfonos y dispositivos IoT mediante ondas de radio u otras señales inalámbricas, sin requerir un cable físico para cada equipo. Ofrece movilidad y facilidad de instalación, pero debe manejar interferencia, alcance, rendimiento y seguridad.\n\n## Conceptos importantes\n\n### Ventajas y desventajas\n\nLa movilidad permite desplazarse dentro de la cobertura. Agregar dispositivos suele ser más sencillo que extender cableado. Como contrapartida, paredes, aparatos electrónicos y condiciones del entorno degradan la señal; una transmisión por el aire es más fácil de interceptar si no se protege; y una conexión inalámbrica suele ser menos estable o rápida que una conexión cableada equivalente.\n\n### Wireless Router\n\nUn router inalámbrico doméstico combina:\n\n- **Routing:** dirige paquetes entre la red local y otras redes, como Internet.\n- **Wireless Access Point:** proporciona cobertura Wi-Fi a los dispositivos.\n\nEl puerto **WAN** conecta con la fuente de Internet, como un módem. Los puertos **LAN** conectan por cable dispositivos locales. Las antenas transmiten y reciben señales; el procesador y la memoria ejecutan el enrutamiento y la administración.\n\nEl módem enlaza la casa con el servicio del ISP, el router comunica redes y el access point proporciona Wi-Fi. Un equipo doméstico puede integrar las tres funciones.\n\n### Mobile Hotspot\n\nUn hotspot móvil comparte mediante Wi-Fi la conexión **Cellular Data** 4G o 5G de un teléfono:\n\n```text\nLaptop → Wi-Fi → teléfono → Cellular Data 4G/5G → Internet\n```\n\nSu alcance suele ser de pocos metros. Consume batería y datos del plan, por lo que debe protegerse con una contraseña segura. `Cellular bands` son las bandas de frecuencia y `cellular network` es la infraestructura; `Cellular Data` es el servicio que el hotspot utiliza y comparte.\n\n### Cell Tower y celdas\n\nUna `cell tower` sostiene antenas y equipos que brindan cobertura a una zona llamada celda. Cuando una persona se desplaza, la sesión puede transferirse entre celdas para conservar la conexión.\n\nEl **Base Station Controller (BSC)** gestiona múltiples torres o estaciones base y ayuda a coordinar llamadas, datos y traspasos. Las torres se enlazan con la red central mediante `backhaul`, normalmente fibra óptica o microondas.\n\n- **Macro cells:** torres grandes con cobertura de varios kilómetros, útiles para áreas extensas o rurales.\n- **Micro/small cells:** instalaciones pequeñas que aportan capacidad y completan cobertura en zonas urbanas densas.\n\n### Frecuencias\n\nLa frecuencia es la tasa de oscilación de una onda y se mide en hertz (Hz).\n\n- **2.4 GHz:** mayor alcance y mejor penetración de paredes, pero más interferencia por la cantidad de dispositivos que la usan, como Bluetooth y hornos microondas.\n- **5 GHz:** mayor velocidad o capacidad potencial, pero menor alcance y peor penetración de obstáculos.\n- **Cellular bands:** 4G y 5G pueden utilizar bandas bajas, medias y muy altas. Las bajas cubren más distancia; las altas transportan más datos, pero a distancias menores.\n\nLa relación es una tendencia general: también influyen el estándar, canal, potencia, obstáculos y congestión. Organismos gubernamentales regulan el espectro para ordenar el uso de frecuencias y reducir interferencias.\n\n## Comandos y opciones\n\nLa sección fue conceptual y no requirió comandos.\n\n## Diferencias que hay que recordar\n\n- **Wi-Fi vs cellular:** Wi-Fi brinda acceso inalámbrico local; cellular ofrece cobertura amplia mediante torres y celdas.\n- **Hotspot vs router doméstico:** el hotspot comparte Cellular Data; el router doméstico suele recibir Internet desde un módem o equipo del ISP.\n- **WAN vs LAN:** WAN mira hacia la fuente de Internet; LAN conecta equipos de la red local.\n- **2.4 GHz vs 5 GHz:** 2.4 llega más lejos y atraviesa mejor paredes; 5 ofrece más capacidad a menor alcance.\n- **Cellular Data vs Cellular Bands:** Data es el servicio de datos compartido; Bands son las frecuencias utilizadas.\n- **Cell tower vs BSC:** la torre proporciona radio y cobertura; el Base Station Controller gestiona múltiples estaciones.\n\n## Ejemplos prácticos\n\nEn casa, el teléfono usa Wi-Fi de 2.4 o 5 GHz a través del router. Al salir, utiliza 4G o 5G mediante una torre celular. Si una notebook necesita Internet, el teléfono puede crear un hotspot: recibe Internet por Cellular Data y lo comparte localmente mediante Wi-Fi.\n\n## Errores y precauciones\n\n- No confundir Wi-Fi con la conexión celular que alimenta un hotspot.\n- Proteger el hotspot y el Wi-Fi con autenticación segura.\n- No asumir que una frecuencia más alta siempre es mejor: pierde alcance y penetración.\n- No confundir las bandas celulares con el servicio Cellular Data.\n- No asumir que una macro cell es necesariamente más rápida; su rasgo principal es la cobertura extensa.\n- El controlador debe escribirse exactamente como `Base Station Controller` cuando HTB exige tres palabras.\n\n## Inglés técnico del módulo\n\n- `radio waves` → ondas utilizadas para transmitir señales inalámbricas.\n- `wireless router` → equipo que combina routing y acceso Wi-Fi.\n- `Wireless Access Point` → punto de acceso inalámbrico.\n- `WAN port` → puerto hacia la fuente externa de red o Internet.\n- `LAN port` → puerto para dispositivos de la red local.\n- `mobile hotspot` → punto de acceso que comparte una conexión móvil.\n- `Cellular Data` → servicio de datos 4G/5G utilizado por el hotspot.\n- `cell tower` → estructura que proporciona cobertura celular.\n- `Base Station Controller` → controlador de múltiples estaciones base.\n- `backhaul` → enlace desde las torres hacia la red central.\n- `interference` → degradación producida por señales u obstáculos.\n- `frequency band` → rango de frecuencias asignado a una tecnología.\n\n## Lo que más costó\n\nEl cuestionario propio terminó 6/6. En HTB se entendía el funcionamiento del hotspot, pero costó la expresión exacta `Cellular Data`: `Cellular Bands` y `Cellular Networks` eran conceptos relacionados, no la frase pedida. También hubo un problema de ingreso con `Base Station Controller`; el concepto era correcto y HTB finalmente aceptó el nombre exacto de tres palabras. Esto se conserva como precisión de vocabulario, no como una falla conceptual.\n\n## Qué aprendí\n\nEntendí cómo se relacionan Wi-Fi, routers inalámbricos, hotspots, redes celulares, torres y controladores, y cómo las frecuencias cambian el equilibrio entre alcance, penetración, interferencia y capacidad.\n\n## Para repasar o practicar\n\n- Explicar el recorrido completo desde una laptop conectada a un hotspot hasta Internet.\n- Diferenciar módem, router y access point.\n- Recordar `Cellular Data`, `Cell Tower` y `Base Station Controller`.\n- Comparar 2.4 GHz y 5 GHz sin afirmar que una siempre es mejor.\n- Explicar macro cells, small cells y backhaul.\n\n## Cuestionario de repaso\n\n1. ¿Qué funciones combina un router inalámbrico doméstico? — **Respuesta:** Routing y Wireless Access Point.\n2. ¿Qué puerto conecta normalmente con el módem o la fuente de Internet? — **Respuesta:** El puerto WAN.\n3. ¿Qué conexión utiliza un hotspot para salir a Internet? — **Respuesta:** Cellular Data 4G o 5G.\n4. ¿Para qué se usan micro o small cells? — **Respuesta:** Para aportar capacidad y completar cobertura en zonas urbanas densas.\n5. ¿Qué diferencia habitual existe entre 2.4 GHz y 5 GHz? — **Respuesta:** 2.4 GHz ofrece mayor alcance y penetración; 5 GHz ofrece más capacidad con menor alcance.\n6. ¿Qué ocurre cuando un teléfono mantiene la conexión mientras cambia de zona? — **Respuesta:** La sesión se transfiere entre celdas o torres cercanas.\n",
+      "learnings": "Entendí cómo se relacionan Wi-Fi, hotspots, redes celulares, torres, controladores y frecuencias inalámbricas.",
+      "questions": "Cuestionario aprobado 6/6. Reforzar el vocabulario exacto Cellular Data y Base Station Controller; los conceptos estaban comprendidos.",
+      "createdAt": "2026-11-13T15:16:28.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

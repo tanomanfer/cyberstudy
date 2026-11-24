@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 50,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP y NAT/PAT.",
+      "questions": "Repasar LAN sin Internet, encapsulación, Network Layer vs Internet Layer y MAC/IP/gateway/puerto efímero.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-06-network-address-translation-nat",
+      "moduleId": "htb-network-foundations",
+      "number": 6,
+      "total": 12,
+      "title": "Network Address Translation (NAT)",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 6 de 12 — Network Address Translation (NAT)\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nNAT permite que varios dispositivos con direcciones IP privadas compartan una dirección IP pública para comunicarse por Internet. Esto conserva el espacio limitado de IPv4 y evita asignar una dirección pública exclusiva a cada equipo de una red doméstica o empresarial.\n\nEl router modifica información de los paquetes y conserva una tabla de traducciones para saber a qué dispositivo interno debe entregar cada respuesta.\n\n## Conceptos importantes\n\n### IP privada e IP pública\n\nLas direcciones privadas se usan dentro de redes locales y no son enrutadas por la Internet pública. Los rangos definidos por RFC 1918 son:\n\n- `10.0.0.0` a `10.255.255.255`\n- `172.16.0.0` a `172.31.255.255`\n- `192.168.0.0` a `192.168.255.255`\n\nDistintas redes pueden reutilizar esas direcciones sin entrar en conflicto. Una dirección pública, en cambio, es globalmente enrutable y normalmente es asignada por el proveedor de Internet.\n\n### Traducción de salida y respuesta\n\nCuando un equipo privado inicia una conexión, el router reemplaza la dirección privada de origen por su dirección pública y registra la relación en su tabla NAT. El servidor remoto responde a la dirección pública. Al recibir la respuesta, el router consulta la tabla, reconstruye el destino privado y entrega el tráfico al equipo correcto.\n\nEjemplo conceptual:\n\n```text\n203.0.113.50:4444 ↔ 192.168.1.10:5555\n```\n\nLa combinación de IP y puerto permite distinguir conexiones que comparten la misma IP pública.\n\n### Tipos de NAT\n\n- **Static NAT:** mapeo fijo uno a uno entre una IP privada y una pública.\n- **Dynamic NAT:** toma una IP pública de un pool disponible cuando se necesita.\n- **PAT o NAT Overload:** varios dispositivos comparten una IP pública y se diferencian mediante puertos. Es la modalidad habitual en hogares y oficinas pequeñas.\n\n### Port forwarding\n\nLas conexiones iniciadas desde Internet no tienen necesariamente una traducción previa en la tabla. Para publicar un servidor interno se configura **port forwarding**, que dirige un puerto público concreto hacia una IP y un puerto privados.\n\n### NAT y seguridad\n\nNAT reduce la exposición directa de las direcciones internas, pero no reemplaza un firewall. NAT traduce direcciones y puertos; un firewall permite o bloquea tráfico según reglas. Los routers domésticos suelen integrar ambas funciones, lo que puede hacerlas parecer iguales.\n\n## Comandos y opciones\n\nEsta sección es conceptual. Herramientas como `ip address`, `ip route`, `ss` y capturas con `tcpdump` pueden ayudar a observar direcciones, rutas y puertos, pero no fueron necesarias para resolverla.\n\n## Diferencias que hay que recordar\n\n- **IP privada vs pública:** la privada se reutiliza dentro de una red local; la pública es enrutable globalmente.\n- **Static NAT vs Dynamic NAT:** Static mantiene un mapeo fijo; Dynamic asigna temporalmente desde un pool.\n- **NAT vs PAT:** NAT es el concepto general; PAT permite compartir una IP diferenciando conexiones con puertos.\n- **NAT vs firewall:** NAT traduce; el firewall filtra.\n- **Conexión saliente vs entrante:** la saliente crea una traducción; una entrante hacia un servidor suele requerir port forwarding.\n\n## Ejemplos prácticos\n\nUna notebook `192.168.1.10` visita una web. El router sustituye esa IP por su dirección pública `203.0.113.50` y registra los puertos utilizados. El servidor responde al router; la tabla NAT indica que la respuesta pertenece a la notebook y permite entregársela.\n\nSi se desea publicar un servidor web interno en `192.168.1.20:80`, puede configurarse una regla que envíe un puerto de la IP pública hacia ese destino privado. Esa regla debe acompañarse con controles de firewall y una configuración segura del servicio.\n\n## Errores y precauciones\n\n- No asumir que NAT cifra el tráfico.\n- No tratar NAT como reemplazo de un firewall.\n- No confundir un rango privado con una dirección pública accesible desde Internet.\n- No abrir port forwarding sin evaluar el servicio expuesto y aplicar controles de seguridad.\n- No olvidar que PAT utiliza puertos para separar conexiones detrás de una misma IP pública.\n\n## Inglés técnico del módulo\n\n- `Network Address Translation (NAT)` → traducción de direcciones de red.\n- `private IP address` → dirección reutilizable dentro de una red privada.\n- `public IP address` → dirección enrutable en Internet.\n- `translation table` → tabla que relaciona conexiones públicas y privadas.\n- `Static NAT` → traducción fija uno a uno.\n- `Dynamic NAT` → asignación desde un conjunto de IP públicas.\n- `Port Address Translation (PAT)` → traducción que distingue conexiones mediante puertos.\n- `NAT Overload` → otro nombre habitual para PAT.\n- `port forwarding` → redirección de un puerto público hacia un servicio interno.\n\n## Lo que más costó\n\nEl cuestionario terminó 6/6 después de corregir dos puntos: el router no difunde cada respuesta, sino que consulta su tabla de traducciones; y para publicar un servidor interno se necesita port forwarding, no DHCP.\n\n## Qué aprendí\n\nEntendí por qué NAT conserva direcciones IPv4, cómo una IP pública puede representar a varios dispositivos, cómo la tabla NAT devuelve las respuestas al equipo correcto y por qué NAT, PAT, firewall y port forwarding cumplen funciones diferentes.\n\n## Para repasar o practicar\n\n- Reconocer los tres rangos privados de RFC 1918.\n- Dibujar una traducción entre IP y puerto privados y públicos.\n- Comparar Static NAT, Dynamic NAT y PAT.\n- Explicar por qué NAT no reemplaza un firewall.\n- Razonar cuándo hace falta port forwarding.\n\n## Cuestionario de repaso\n\n1. ¿Por qué se utiliza principalmente NAT en IPv4? — **Respuesta:** Para conservar direcciones públicas permitiendo que varios dispositivos las compartan.\n2. ¿`192.168.1.10` pertenece a un rango público o privado? — **Respuesta:** A un rango privado.\n3. ¿Qué modalidad diferencia mediante puertos a varios dispositivos que comparten una IP pública? — **Respuesta:** PAT o NAT Overload.\n4. ¿Cómo identifica el router el dispositivo interno al que pertenece una respuesta? — **Respuesta:** Consulta su tabla de traducciones y conexiones.\n5. ¿Cuál es la diferencia entre NAT y un firewall? — **Respuesta:** NAT traduce direcciones y puertos; el firewall aplica reglas de filtrado.\n6. ¿Qué suele necesitar un servidor interno para aceptar conexiones iniciadas desde Internet? — **Respuesta:** Port forwarding.\n",
+      "learnings": "Entendí cómo NAT conserva IPv4, cómo PAT diferencia conexiones y cómo se relacionan la tabla NAT, el firewall y port forwarding.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que NAT traduce, el firewall filtra y port forwarding publica un servicio interno.",
+      "createdAt": "2026-11-09T14:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

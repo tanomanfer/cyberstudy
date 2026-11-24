@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-11-02",
+      "completedAt": "2026-11-18",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP, NAT/PAT, DNS, arquitecturas de Internet y redes inalámbricas.",
+      "questions": "Repasar LAN sin Internet, encapsulación, MAC/IP/gateway/puerto efímero, híbrida vs two-tier y el vocabulario exacto Cellular Data.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-10-network-security",
+      "moduleId": "htb-network-foundations",
+      "number": 10,
+      "total": 12,
+      "title": "Network Security",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 10 de 12 — Network Security\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nLa seguridad de red protege datos, dispositivos y servicios conectados. No depende de una sola herramienta: combina controles preventivos, detectivos y correctivos para mantener la confidencialidad, integridad y disponibilidad de la información.\n\n## Conceptos importantes\n\n### Tríada CIA\n\n- **Confidentiality:** solo acceden quienes están autorizados.\n- **Integrity:** los datos no se alteran de forma indebida.\n- **Availability:** sistemas y datos están disponibles cuando se necesitan.\n\n### Firewalls, IDS e IPS\n\nUn **firewall** permite o bloquea tráfico según reglas. Puede filtrar por direcciones, puertos, protocolos, estado de las conexiones o contenido de aplicación, según su tipo.\n\nUn **IDS** inspecciona actividad y genera alertas, pero normalmente no bloquea por sí solo. Un **IPS** trabaja en línea: detecta y también puede detener tráfico malicioso. Colocar un IPS en línea le permite bloquear, pero también exige reglas cuidadosas para evitar interrupciones por falsos positivos.\n\n### Métodos de detección\n\n- **Signature-based:** compara con patrones conocidos. Es preciso frente a amenazas conocidas, pero puede no reconocer ataques nuevos o modificados.\n- **Anomaly-based:** busca desviaciones respecto de un comportamiento normal. Puede detectar actividad desconocida, aunque suele producir más falsos positivos.\n\n### Defensa en profundidad\n\nLa `defense in depth` combina varias capas: segmentación, autenticación, mínimos privilegios, firewalls, IDS/IPS, actualizaciones, monitoreo, copias de seguridad y respuesta a incidentes. Si una capa falla, otra puede reducir el impacto.\n\n## Comandos y opciones\n\nLa sección fue principalmente conceptual. En un sistema real, las reglas y alertas deben revisarse con las herramientas autorizadas de cada entorno; no se debe asumir que una alerta confirma por sí sola un ataque.\n\n## Diferencias que hay que recordar\n\n- **IDS vs IPS:** el IDS detecta y alerta; el IPS detecta y puede bloquear.\n- **Firewall vs IDS/IPS:** el firewall aplica reglas de acceso; IDS/IPS analiza patrones o comportamientos potencialmente maliciosos.\n- **Firmas vs anomalías:** las firmas buscan amenazas conocidas; las anomalías buscan comportamientos fuera de lo normal.\n- **Prevención vs detección:** impedir una acción y descubrir que ocurrió son funciones diferentes y complementarias.\n\n## Ejemplos prácticos\n\nSi llega tráfico a un puerto que la política no permite, el firewall puede descartarlo. Si una secuencia coincide con una firma de ataque, el IDS puede alertar al equipo; un IPS podría además interrumpirla. Una defensa completa también limita permisos, registra eventos y conserva respaldos.\n\n## Errores y precauciones\n\n- No confundir una alerta con una confirmación: debe investigarse el contexto.\n- No asumir que un firewall reemplaza antivirus, monitoreo o actualizaciones.\n- Un IPS mal ajustado puede bloquear tráfico legítimo.\n- La detección por anomalías necesita una línea base razonable.\n- Ningún control aislado elimina todo el riesgo.\n\n## Inglés técnico del módulo\n\n- `Confidentiality, Integrity, Availability` → confidencialidad, integridad y disponibilidad.\n- `firewall rule` → regla que permite o bloquea tráfico.\n- `Intrusion Detection System (IDS)` → sistema de detección y alerta.\n- `Intrusion Prevention System (IPS)` → sistema que detecta y puede bloquear.\n- `signature-based detection` → detección mediante patrones conocidos.\n- `anomaly-based detection` → detección mediante desviaciones de una línea base.\n- `false positive` → actividad legítima identificada erróneamente como amenaza.\n- `defense in depth` → varias capas de protección complementarias.\n\n## Lo que más costó\n\nEl punto principal para conservar es la diferencia operativa entre IDS e IPS: ambos detectan, pero el IPS está preparado para actuar en línea y bloquear. También conviene recordar que firmas y anomalías se complementan y tienen limitaciones diferentes.\n\n## Qué aprendí\n\nEntendí cómo la tríada CIA orienta la protección de redes y cómo firewalls, IDS, IPS, firmas, anomalías y defensa en profundidad cumplen funciones distintas pero complementarias.\n\n## Para repasar o practicar\n\n- Explicar IDS e IPS con un ejemplo propio.\n- Reconocer falsos positivos y falsos negativos.\n- Comparar detección por firmas y por anomalías.\n- Diseñar varias capas de defensa para una red doméstica o pequeña empresa.\n\n## Cuestionario de repaso\n\n1. ¿Qué tres propiedades forman la tríada CIA? — **Respuesta:** Confidencialidad, integridad y disponibilidad.\n2. ¿Qué hace normalmente un IDS al detectar actividad sospechosa? — **Respuesta:** Genera una alerta para que sea investigada.\n3. ¿Qué capacidad adicional tiene un IPS frente a un IDS? — **Respuesta:** Puede bloquear o detener el tráfico malicioso.\n4. ¿Qué busca la detección basada en firmas? — **Respuesta:** Patrones conocidos asociados con amenazas identificadas.\n5. ¿Qué riesgo tiene la detección basada en anomalías? — **Respuesta:** Puede generar falsos positivos al marcar comportamientos legítimos poco habituales.\n6. ¿Por qué se utiliza defensa en profundidad? — **Respuesta:** Para que varias capas reduzcan el daño si una protección falla.\n",
+      "learnings": "Entendí CIA, firewalls, IDS/IPS, detección por firmas y anomalías, y defensa en profundidad.",
+      "questions": "Repasar IDS frente a IPS, falsos positivos y la combinación de controles.",
+      "createdAt": "2026-11-18T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 75,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP, NAT/PAT, DNS, arquitecturas de Internet y redes inalámbricas.",
+      "questions": "Repasar LAN sin Internet, encapsulación, MAC/IP/gateway/puerto efímero, híbrida vs two-tier y el vocabulario exacto Cellular Data.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-08-internet-architecture",
+      "moduleId": "htb-network-foundations",
+      "number": 8,
+      "total": 12,
+      "title": "Internet Architecture",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 8 de 12 — Internet Architecture\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nLa arquitectura de Internet describe cómo se distribuyen los datos, las tareas y el control entre equipos y servicios. Cada modelo busca un equilibrio diferente entre escalabilidad, rendimiento, seguridad, costo, resistencia y facilidad de administración. En sistemas reales es frecuente combinar modelos.\n\n## Conceptos importantes\n\n### Peer-to-Peer (P2P)\n\nEn P2P cada nodo puede actuar como cliente y servidor: solicita recursos y también los comparte directamente con otros participantes. Puede ser totalmente descentralizado o utilizar un coordinador parcial que no aloja todos los datos.\n\nBitTorrent es un ejemplo. Un `seeder` posee el archivo completo y continúa compartiéndolo. Agregar participantes puede aportar almacenamiento, procesamiento o ancho de banda, pero también complica las actualizaciones, la seguridad y la disponibilidad de recursos cuando los participantes se desconectan.\n\n### Client-Server\n\nLos clientes envían solicitudes y los servidores responden. Un navegador, por ejemplo, solicita una página y un servidor web devuelve el contenido. La centralización facilita administración, actualizaciones y políticas de seguridad, pero un servidor sin redundancia puede convertirse en punto único de fallo o congestionarse.\n\n### Arquitecturas por tiers\n\nUn `tier` es una capa de responsabilidades; no implica necesariamente una sola máquina física.\n\n- **Single-tier:** presentación, lógica y datos residen en la misma máquina. Es simple, pero escala y se protege con dificultad.\n- **Two-tier:** el cliente maneja la presentación y se comunica directamente con el servidor de datos. Es común en ciertas aplicaciones de escritorio.\n- **Three-tier:** separa presentación, lógica de aplicación y base de datos. Cada capa puede mantenerse o escalarse de forma independiente.\n- **N-tier:** agrega más capas especializadas para sistemas complejos y distribuidos. Aumenta la flexibilidad, pero también la cantidad de comunicaciones, configuraciones y controles necesarios.\n\nVisitar una web común no constituye necesariamente two-tier: el navegador suele hablar con un servidor web o de aplicación, no directamente con la base de datos.\n\n### Arquitectura híbrida\n\nCombina client-server y P2P. Un servidor central puede autenticar usuarios, controlar el acceso y coordinar una sesión, mientras parte de los datos se transfiere directamente entre participantes. Las videoconferencias son un ejemplo conceptual: coordinación centralizada y transferencia distribuida.\n\nEste modelo reduce carga central y conserva control, pero es más complejo. Si falla el coordinador, podrían interrumpirse el descubrimiento de participantes o el inicio de nuevas sesiones.\n\n### Cloud Architecture\n\nLa infraestructura es virtualizada y administrada por un proveedor como AWS, Azure o Google Cloud. El usuario consume servidores, almacenamiento o aplicaciones sin controlar el hardware subyacente.\n\nSus cinco características esenciales son:\n\n1. **On-demand self-service:** aprovisionamiento automático cuando se necesita.\n2. **Broad network access:** acceso por red desde distintos dispositivos.\n3. **Resource pooling:** recursos compartidos y asignados dinámicamente.\n4. **Rapid elasticity:** capacidad que aumenta o disminuye rápidamente.\n5. **Measured service:** consumo medido para control o facturación.\n\nSaaS, como Google Drive o Dropbox, entrega una aplicación lista para usar. La nube facilita escalar y reduce mantenimiento de hardware, pero requiere conectividad, confianza y controles sobre el proveedor. `Vendor lock-in` describe la dificultad de migrar a otra plataforma.\n\n### Software-Defined Networking (SDN)\n\nSDN separa el **control plane**, que decide por dónde enviar el tráfico, del **data plane**, que reenvía los paquetes. Un controlador basado en software centraliza decisiones y los switches ejecutan instrucciones.\n\nEsta separación permite automatizar políticas, rutas y asignación de ancho de banda. El controlador es un componente crítico: debe protegerse y diseñarse con redundancia para evitar que sea un punto único de fallo.\n\n## Comandos y opciones\n\nLa sección fue conceptual y no requirió comandos.\n\n## Diferencias que hay que recordar\n\n- **P2P vs client-server:** P2P distribuye recursos entre pares; client-server centraliza servicios en servidores.\n- **Two-tier vs three-tier:** three-tier introduce una capa de aplicación entre presentación y datos.\n- **Híbrida vs two-tier:** híbrida combina coordinación central con intercambio P2P; two-tier describe comunicación directa entre dos capas.\n- **Cloud vs client-server local:** cloud sigue usando principios client-server, pero la infraestructura es virtualizada y administrada por un proveedor.\n- **Control plane vs data plane:** el primero decide; el segundo ejecuta el reenvío.\n\n## Ejemplos prácticos\n\n```text\nThree-tier: navegador → servidor de aplicación → base de datos\nHíbrida: autenticación central → coordinación → transferencia entre pares\nSDN: controlador decide → switches reenvían\n```\n\n## Errores y precauciones\n\n- No asumir que P2P significa ausencia absoluta de coordinación central.\n- No llamar two-tier a cualquier sitio web.\n- No asumir que cloud elimina la responsabilidad del cliente sobre datos y configuración.\n- No confundir el control central de SDN con el reenvío real de paquetes.\n- La centralización simplifica la gestión, pero exige redundancia y protección del componente central.\n\n## Inglés técnico del módulo\n\n- `Peer-to-Peer (P2P)` → pares que solicitan y comparten recursos.\n- `seeder` → participante que posee el archivo completo y lo comparte.\n- `Client-Server` → clientes solicitan servicios a servidores.\n- `tier` → capa de responsabilidades de una aplicación.\n- `business logic` → reglas y procesamiento de la aplicación.\n- `Hybrid Architecture` → combinación de modelos centralizados y distribuidos.\n- `on-demand self-service` → aprovisionamiento bajo demanda.\n- `rapid elasticity` → cambio rápido de capacidad.\n- `vendor lock-in` → dependencia que dificulta cambiar de proveedor.\n- `Software-Defined Networking` → redes definidas por software.\n- `control plane` → decide cómo dirigir el tráfico.\n- `data plane` → reenvía el tráfico.\n\n## Lo que más costó\n\nEl cuestionario propio terminó 5/6 por confundir un ejemplo híbrido con two-tier. Después quedó clara la diferencia: híbrido combina coordinación central y transferencia P2P; two-tier separa cliente y servidor de datos. En HTB se repitieron respuestas como `Peer-to-Peer` y `Hybrid` con formulaciones distintas; eso no fue falta de comprensión, sino una expectativa razonable de que cada respuesta sería diferente. También se reconoció `SDN`, y se ajustó al formato desarrollado `Software-Defined Networking` pedido por la plataforma.\n\n## Qué aprendí\n\nEntendí qué problema resuelven P2P, client-server, arquitecturas por tiers, modelos híbridos, cloud y SDN, y qué ventajas, riesgos y puntos centrales introduce cada uno.\n\n## Para repasar o practicar\n\n- Comparar P2P, client-server e híbrida con un ejemplo propio.\n- Distinguir two-tier de three-tier.\n- Memorizar las cinco características esenciales de cloud.\n- Explicar control plane y data plane sin confundir decisión con reenvío.\n- Recordar el nombre desarrollado `Software-Defined Networking`.\n\n## Cuestionario de repaso\n\n1. ¿Qué roles puede cumplir un participante P2P? — **Respuesta:** Cliente y servidor al mismo tiempo.\n2. ¿Qué agrega three-tier respecto de two-tier? — **Respuesta:** Una capa de aplicación entre presentación y datos.\n3. ¿Cómo puede funcionar una arquitectura híbrida? — **Respuesta:** Con coordinación y autenticación centrales, pero transferencia de datos entre pares.\n4. ¿Qué significa rapid elasticity en cloud? — **Respuesta:** Aumentar o reducir recursos rápidamente según la demanda.\n5. ¿Qué función cumple el control plane en SDN? — **Respuesta:** Decide cómo debe dirigirse el tráfico.\n6. ¿Qué riesgo comparten un client-server sin redundancia y un SDN mal diseñado? — **Respuesta:** Un componente central puede convertirse en punto único de fallo.\n",
+      "learnings": "Entendí las diferencias, ventajas y riesgos de P2P, client-server, tiers, híbrida, cloud y SDN.",
+      "questions": "Cuestionario 5/6. Repasar híbrida frente a two-tier; las respuestas repetidas de HTB y el formato desarrollado de SDN no fueron errores conceptuales.",
+      "createdAt": "2026-11-13T15:16:28.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

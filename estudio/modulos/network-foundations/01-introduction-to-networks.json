@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 17,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comencé por la relación entre LAN/WAN y por los modelos OSI y TCP/IP.",
+      "questions": "Repasar LAN sin Internet, encapsulación, nombres equivalentes entre OSI/TCP-IP y modos de transmisión.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-01-introduction-to-networks",
+      "moduleId": "htb-network-foundations",
+      "number": 1,
+      "total": 12,
+      "title": "Introduction to Networks",
+      "status": "Repasar",
+      "progress": 100,
+      "notes": "# 1 de 12 — Introduction to Networks\n\n**Estado:** Repasar\n**Progreso de la sección:** 100% (realizada en HTB)\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nUna **red** es un conjunto de dispositivos interconectados que pueden comunicarse, intercambiar datos y compartir recursos. Para que exista una red no alcanza con reunir dispositivos: también hacen falta enlaces que transporten la información y reglas que permitan interpretarla.\n\nEsta base es importante para ciberseguridad porque los ataques, las alertas y los controles defensivos dependen de cómo se comunican los dispositivos, por dónde circulan los datos y qué redes conectan entre sí.\n\n## Conceptos importantes\n\n### Nodo, enlace y datos\n\n- Un **node (nodo)** es un dispositivo conectado: computadora, teléfono, impresora, servidor, televisor o equipo de red.\n- Un **link (enlace)** es el camino de comunicación entre nodos. Puede ser cableado, como Ethernet o fibra, o inalámbrico, como Wi-Fi.\n- Los **data (datos)** son la información que los nodos envían y reciben.\n\nUna conversación sirve como analogía: las personas son nodos, la posibilidad de hablar y escuchar es el enlace, y la conversación son los datos. Si hay personas pero no pueden oírse, no existe comunicación efectiva.\n\n### Para qué sirve una red\n\nLas redes permiten compartir impresoras, almacenamiento y aplicaciones; enviar mensajes o videollamadas; acceder a archivos y bases de datos; colaborar desde distintos lugares y alcanzar servicios externos a través de Internet.\n\nUna red local puede funcionar aunque Internet esté caído. Los dispositivos todavía pueden comunicarse entre sí si el router, los enlaces y los servicios locales siguen disponibles.\n\n### Local Area Network (LAN)\n\nUna **LAN** conecta dispositivos dentro de un área limitada, como una casa, escuela, oficina o edificio. Suele ser administrada por una persona u organización, ofrece altas velocidades y utiliza Ethernet o Wi-Fi.\n\n`LAN` es la sigla internacional de **Local Area Network**. La traducción automática del material mostró “RAN” en un fragmento, pero no debe utilizarse para este concepto.\n\n### Wide Area Network (WAN)\n\nUna **WAN** conecta redes a través de grandes distancias: ciudades, países o continentes. Normalmente intervienen proveedores y organizaciones distintas, y su infraestructura es más compleja que la de una LAN.\n\nInternet es la WAN más grande: conecta millones de redes locales distribuidas por el mundo.\n\n### Cómo se conectan LAN y WAN\n\nEn una casa, teléfonos y computadoras se conectan al router y forman una LAN. Esa red obtiene acceso externo a través de la infraestructura del **Internet Service Provider (ISP)**.\n\nRecorrido simplificado:\n\n`dispositivo → router/LAN → módem o equipo del proveedor → ISP/WAN → Internet`\n\n- El **router** organiza el tráfico local y decide hacia dónde enviarlo.\n- El **módem** adapta la señal entre la red doméstica y el medio del proveedor.\n- El **ISP** es la empresa que brinda acceso a Internet.\n\nMuchos proveedores entregan un solo aparato que combina módem, router, switch y punto de acceso Wi-Fi. Aunque compartan una caja, sus funciones siguen siendo diferentes.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no presenta comandos. Más adelante se utilizarán herramientas para observar interfaces, direcciones, rutas y tráfico.\n\n## Diferencias que hay que recordar\n\n- **Nodo vs enlace:** el nodo es el dispositivo; el enlace es el camino que permite comunicarlo.\n- **LAN vs WAN:** una LAN cubre un área local; una WAN conecta redes a grandes distancias.\n- **Router vs módem:** el router organiza y dirige tráfico; el módem adapta la conexión al medio del ISP.\n- **Wi-Fi vs Internet:** Wi-Fi es un enlace inalámbrico dentro de una red; Internet es una red global externa.\n- **Red vs Internet:** puede existir una red local sin acceso a Internet.\n\n## Ejemplos prácticos\n\n- Una computadora y una impresora conectadas al mismo router pueden comunicarse dentro de la LAN aunque el ISP tenga una caída.\n- Una empresa conecta la LAN de Buenos Aires con la LAN de Córdoba mediante una WAN para compartir sistemas centrales.\n- Un teléfono conectado por Wi-Fi es un nodo; la señal de radio es el enlace; una foto enviada constituye datos.\n- Si el Wi-Fi funciona pero no abre ninguna web, primero hay que distinguir si falla la LAN, el router, el enlace con el ISP o el servicio remoto.\n\n## Errores y precauciones\n\n- No asumir que “conectado a Wi-Fi” significa “conectado a Internet”.\n- No confundir el nombre de la red inalámbrica con el servicio del ISP.\n- No utilizar `RAN` como traducción de LAN en este contexto.\n- No pensar que una WAN es solamente Internet; una organización puede operar su propia WAN.\n- No atribuir al módem y al router exactamente la misma función aunque estén integrados.\n\n## Inglés técnico del módulo\n\n- `network` → conjunto de dispositivos interconectados.\n- `node` → dispositivo individual conectado a una red.\n- `link` → vía cableada o inalámbrica que une nodos.\n- `data sharing` → intercambio de información y recursos.\n- `Local Area Network (LAN)` → red de área local.\n- `Wide Area Network (WAN)` → red de área amplia.\n- `Internet Service Provider (ISP)` → proveedor de acceso a Internet.\n- `router` → equipo que dirige tráfico entre redes.\n- `modem` → equipo que adapta señales para el medio del proveedor.\n- `wired / wireless` → cableado / inalámbrico.\n\n## Lo que más costó\n\nEn el cuestionario propio se respondió 5/6. La dificultad concreta fue pensar que, si cae el ISP, el teléfono deja de pertenecer a la LAN. La corrección es separar dos hechos: el dispositivo puede seguir conectado al router y comunicarse localmente, aunque haya perdido la salida hacia Internet.\n\nLas preguntas de HTB sobre `network`, `nodes`, `Internet`, `LAN` y `links` fueron respondidas y la plataforma permitió continuar.\n\n## Qué aprendí\n\nEntendí que una red combina nodos, enlaces y datos. Puedo diferenciar LAN de WAN, router de módem y Wi-Fi de Internet. También sé que una LAN puede continuar activa aunque el ISP no brinde acceso externo.\n\n## Para repasar o practicar\n\n- Dibujar la LAN de casa e identificar nodos y enlaces.\n- Explicar qué comunicación seguiría disponible durante una caída del ISP.\n- Diferenciar router, módem y equipo combinado del proveedor.\n- Identificar ejemplos de LAN y WAN que no dependan solamente de Internet.\n\n## Cuestionario de repaso\n\n1. ¿Qué es una red? — **Respuesta:** Un conjunto de dispositivos conectados que pueden comunicarse y compartir recursos.\n2. ¿Cuál es la diferencia entre nodo y enlace? — **Respuesta:** El nodo es el dispositivo; el enlace es el medio que permite la comunicación.\n3. ¿Qué describe una LAN? — **Respuesta:** Una red local dentro de un área limitada como una casa, oficina o edificio.\n4. ¿Cuál es la función general de una WAN? — **Respuesta:** Conectar redes a través de grandes distancias.\n5. ¿Qué diferencia básica existe entre router y módem? — **Respuesta:** El router organiza y dirige tráfico; el módem adapta la conexión al medio del proveedor.\n6. Si el teléfono sigue conectado al Wi-Fi pero cae el ISP, ¿qué ocurre? — **Respuesta:** La LAN puede seguir funcionando, pero no existe acceso a Internet mediante ese proveedor.\n",
+      "learnings": "Entendí cómo nodos, enlaces y datos forman una red, y puedo diferenciar LAN, WAN, router, módem, Wi-Fi e Internet.",
+      "questions": "Repasar que una LAN puede seguir funcionando aunque caiga el ISP; no confundir conexión Wi-Fi con acceso a Internet.",
+      "createdAt": "2026-11-02T19:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

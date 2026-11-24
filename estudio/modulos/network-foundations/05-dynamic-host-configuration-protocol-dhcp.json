@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 42,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, los componentes de una red, MAC/IP/puertos y el proceso DHCP.",
+      "questions": "Repasar LAN sin Internet, encapsulación, Network Layer vs Internet Layer, MAC/IP/gateway y el propósito del puerto efímero.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-05-dynamic-host-configuration-protocol-dhcp",
+      "moduleId": "htb-network-foundations",
+      "number": 5,
+      "total": 12,
+      "title": "Dynamic Host Configuration Protocol (DHCP)",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 5 de 12 — Dynamic Host Configuration Protocol (DHCP)\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nDHCP configura automáticamente los dispositivos cuando se conectan a una red. Puede entregar una dirección IP, máscara de subred, puerta de enlace predeterminada y servidores DNS, evitando configurar cada equipo manualmente y reduciendo conflictos por direcciones duplicadas.\n\nLa dirección se concede durante un tiempo limitado llamado **lease time**. Cuando deja de utilizarse, puede regresar al conjunto de direcciones disponibles para ser asignada a otro dispositivo.\n\n## Conceptos importantes\n\n### Servidor y cliente DHCP\n\nEl **DHCP server** administra un conjunto o pool de direcciones disponibles y los parámetros de red. En una casa suele ser el router; en una organización puede ser un servidor dedicado.\n\nEl **DHCP client** es el dispositivo que solicita configuración: computadora, celular, impresora u otro equipo conectado.\n\n### Proceso DORA\n\nLa asignación inicial se resume como **DORA**:\n\n1. **Discover:** el cliente difunde un mensaje para encontrar servidores DHCP.\n2. **Offer:** un servidor ofrece una IP y parámetros de red.\n3. **Request:** el cliente indica que acepta y solicita formalmente esa oferta.\n4. **Acknowledge:** el servidor confirma la concesión y el cliente puede usarla.\n\nUna forma simple de recordarlo es: “¿hay un servidor?” → “te ofrezco esta IP” → “quiero esa IP” → “queda asignada”.\n\n### Lease time y renovación\n\nLa asignación no es necesariamente permanente. Antes de vencer, el cliente intenta renovar la concesión. Como ya conoce al servidor y posee una IP, normalmente envía un **DHCP Request** y recibe un **DHCP Acknowledge** si la renovación es aceptada; no necesita repetir siempre las cuatro etapas de DORA.\n\n## Comandos y opciones\n\nLa sección es conceptual. En Linux, herramientas como `ip address` permiten observar la IP recibida y `ip route` permite ver el gateway, pero no fueron necesarias para comprender el proceso presentado.\n\n## Diferencias que hay que recordar\n\n- **Configuración manual vs DHCP:** la primera se escribe en cada equipo; DHCP la distribuye automáticamente.\n- **Servidor vs cliente DHCP:** el servidor administra y ofrece; el cliente descubre, solicita y utiliza.\n- **Asignación vs propiedad:** recibir una IP no significa ser su dueño permanente; se concede durante un lease.\n- **DORA inicial vs renovación:** el inicio usa Discover, Offer, Request y Acknowledge; la renovación suele usar Request y Acknowledge.\n- **DHCP vs DNS:** DHCP entrega configuración; DNS traduce nombres a direcciones IP.\n\n## Ejemplos prácticos\n\nUna notebook nueva se conecta a la red de una oficina. Envía Discover; el servidor ofrece `192.168.1.10`; la notebook responde Request y el servidor confirma con Acknowledge. La notebook también puede recibir máscara, gateway y DNS. Antes de vencer el lease, solicita continuar usando esa dirección.\n\n## Errores y precauciones\n\n- No asumir que una IP entregada por DHCP es permanente.\n- No confundir DHCP con DNS: pueden trabajar juntos, pero resuelven problemas diferentes.\n- No asignar manualmente una dirección dentro del pool DHCP sin coordinación, porque puede producir un conflicto.\n- No interpretar Offer como asignación definitiva: la confirmación llega con Acknowledge.\n\n## Inglés técnico del módulo\n\n- `Dynamic Host Configuration Protocol` → protocolo de configuración dinámica de hosts.\n- `address pool` → conjunto de direcciones disponibles.\n- `lease` / `lease time` → concesión y duración de uso de una dirección.\n- `Discover` → búsqueda de servidores DHCP.\n- `Offer` → propuesta de configuración.\n- `Request` → solicitud o aceptación del cliente.\n- `Acknowledge` → confirmación del servidor.\n- `renewal` → renovación de una concesión.\n\n## Lo que más costó\n\nEl cuestionario terminó 6/6 después de corregir dos puntos: una concesión es temporal, no permanente, y la renovación normalmente utiliza Request y Acknowledge sin repetir todo DORA.\n\n## Qué aprendí\n\nEntendí cómo DHCP evita configurar manualmente cada equipo, qué información puede entregar, cómo funciona DORA y por qué las direcciones se conceden durante un tiempo que debe renovarse.\n\n## Para repasar o practicar\n\n- Memorizar DORA entendiendo la función de cada mensaje.\n- Diferenciar asignación inicial de renovación.\n- Identificar IP, máscara, gateway y DNS dentro de una configuración.\n- Explicar por qué el pool permite reutilizar direcciones.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la función principal de DHCP? — **Respuesta:** Asignar automáticamente direcciones IP y otros parámetros de red.\n2. ¿Quién suele funcionar como servidor DHCP en una red doméstica? — **Respuesta:** El router.\n3. ¿Cuál es el orden correcto de DORA? — **Respuesta:** Discover, Offer, Request y Acknowledge.\n4. ¿Qué sucede durante DHCP Offer? — **Respuesta:** El servidor propone una dirección IP y parámetros de red.\n5. ¿Qué significa que una IP tenga tiempo de concesión? — **Respuesta:** Que fue entregada por un período limitado.\n6. ¿Qué intercambio se usa normalmente para renovar la concesión? — **Respuesta:** Request y Acknowledge.\n",
+      "learnings": "Entendí cómo DHCP entrega automáticamente la configuración de red, cómo funciona DORA y cómo se renueva una concesión.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que el lease es temporal y que la renovación suele usar Request y Acknowledge.",
+      "createdAt": "2026-11-09T13:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

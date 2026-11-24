@@ -1,0 +1,56 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "Completado",
+      "progress": 100,
+      "startedAt": "2026-11-02",
+      "completedAt": "2026-11-18",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP, NAT/PAT, DNS, arquitecturas de Internet y redes inalámbricas.",
+      "questions": "Repasar LAN sin Internet, encapsulación, MAC/IP/gateway/puerto efímero, híbrida vs two-tier y el vocabulario exacto Cellular Data.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-module-summary",
+      "moduleId": "htb-network-foundations",
+      "number": 0,
+      "total": 12,
+      "title": "Resumen del módulo: Network Foundations",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# Resumen del módulo: Network Foundations\n\n**Estado:** Completado\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n**Cobertura:** 12 de 12 secciones\n\n## Visión general\n\nUna red permite que dispositivos intercambien datos mediante reglas comunes. El módulo conecta los elementos físicos y lógicos de ese proceso: tipos de red, modelos por capas, switches y routers, direcciones MAC e IP, puertos, DHCP, NAT, DNS, arquitecturas de Internet, Wi-Fi, seguridad y diagnóstico básico.\n\nLa idea central es seguir el recorrido completo de los datos. Una aplicación genera información; las capas agregan cabeceras; la trama viaja al siguiente salto; routers encaminan el paquete; servicios como DNS, DHCP y NAT resuelven necesidades específicas; el destino desencapsula y responde.\n\n## 1. Alcance y tipos de red\n\nUna LAN conecta dispositivos en un área limitada. Una WAN enlaza redes a mayor distancia y un ISP proporciona conectividad hacia Internet. Tener conexión local no garantiza salida a Internet: los equipos de una casa pueden seguir comunicándose aunque falle el ISP.\n\nLa comunicación puede ser `simplex`, `half-duplex` o `full-duplex`. En half-duplex ambos extremos transmiten, pero no al mismo tiempo; un walkie-talkie es el ejemplo típico.\n\n## 2. Capas y encapsulación\n\nLos modelos OSI y TCP/IP separan responsabilidades para que tecnologías diferentes puedan interoperar. No son solo listas para memorizar: cada capa resuelve un problema.\n\n```text\ndatos → segmento → paquete → trama → bits\n```\n\nTransporte usa puertos para llegar a la aplicación correcta; red usa direcciones IP y routing; enlace usa tramas y MAC para el salto local; la capa física transmite bits.\n\n## 3. Switches, routers y direcciones\n\nUn switch reenvía tramas dentro de la LAN según direcciones MAC. Un router conecta redes y decide rutas según direcciones IP. Cuando el destino está fuera de la LAN, el equipo no busca la MAC del servidor remoto: usa ARP para conocer la MAC del gateway.\n\nLa MAC identifica una interfaz dentro del enlace local; la IP permite direccionamiento entre redes; el puerto identifica un servicio o proceso. Un cliente suele utilizar un puerto efímero para distinguir su conexión.\n\n## 4. DHCP, NAT y DNS\n\nDHCP automatiza la configuración mediante DORA: Discover, Offer, Request y Acknowledge. Entrega una concesión temporal con IP, máscara, gateway y DNS.\n\nNAT traduce direcciones; PAT o NAT Overload permite que muchos equipos privados compartan una IP pública mediante puertos. Port forwarding habilita tráfico entrante hacia un servicio interno, pero NAT no debe confundirse con un firewall.\n\nDNS relaciona nombres con información como direcciones IP. Primero se consulta la caché; si hace falta, un resolvedor recursivo sigue la jerarquía root, TLD y servidor autoritativo. El root normalmente orienta hacia el TLD, no entrega la IP final.\n\n## 5. Arquitecturas y redes inalámbricas\n\nP2P distribuye recursos entre pares; client-server centraliza servicios. Two-tier comunica presentación y datos directamente, mientras three-tier agrega una capa de aplicación. Una arquitectura híbrida puede usar coordinación central y transferencia entre pares. Cloud ofrece recursos virtualizados bajo demanda. SDN separa el control plane, que decide, del data plane, que reenvía.\n\nUn router inalámbrico doméstico combina routing y punto de acceso. Un hotspot comparte `Cellular Data` 4G/5G mediante Wi-Fi. En general, 2.4 GHz ofrece más alcance y penetración; 5 GHz ofrece más capacidad a menor distancia. Las redes celulares usan torres, celdas, backhaul y controladores como el `Base Station Controller`.\n\n## 6. Seguridad de red\n\nLa tríada CIA guía la protección: confidencialidad, integridad y disponibilidad. Firewalls aplican reglas; IDS detecta y alerta; IPS detecta y puede bloquear. Las firmas reconocen patrones conocidos y las anomalías buscan desviaciones. Defensa en profundidad combina controles para que una sola falla no comprometa todo.\n\n## 7. Recorrido de una solicitud web\n\n```text\nWi-Fi → DHCP → DNS → encapsulación → ARP del gateway\n→ router/NAT → Internet → servidor → respuesta → desencapsulación\n```\n\nEste recorrido permite ubicar cada concepto: Wi-Fi da acceso al medio; DHCP configura; DNS resuelve el nombre; ARP encuentra la MAC local; el router encamina; NAT traduce; TCP/UDP usa puertos; el servidor responde.\n\n## 8. Herramientas observadas\n\n```bash\nip address\nip route\nip neigh\nss -ltnp\nnetstat -tulnp\nnmap IP_AUTORIZADA\nnc IP_AUTORIZADA PUERTO\n```\n\n`ip` inspecciona interfaces, rutas y vecinos; `ss` y `netstat` observan sockets; `nmap` enumera puertos de objetivos autorizados; `nc` permite hablar manualmente con servicios de texto. `ifconfig` y `netstat` son herramientas clásicas; `ip` y `ss` son alternativas modernas.\n\nEn FTP, control y datos usan conexiones separadas. En modo pasivo, el puerto anunciado se calcula como `p1 × 256 + p2` y es temporal. `GET` recupera un archivo.\n\n## Diferencias esenciales\n\n- Switch/MAC opera en el salto local; router/IP conecta redes.\n- DNS resuelve nombre a IP; ARP resuelve IPv4 local a MAC.\n- DHCP entrega configuración; NAT traduce direcciones y puertos.\n- IDS alerta; IPS puede bloquear.\n- P2P distribuye; client-server centraliza; híbrida combina ambos.\n- Wi-Fi es acceso inalámbrico local; Cellular Data proviene de la red móvil.\n- Pwnbox es el host de trabajo; target es el objetivo autorizado; localhost siempre es la máquina actual.\n\n## Precauciones\n\n- No asumir que Wi-Fi equivale a Internet.\n- No tratar NAT como firewall.\n- No escanear sistemas sin autorización.\n- No guardar ni compartir VPN, credenciales o flags.\n- No reutilizar IP y puertos temporales de laboratorios anteriores.\n- Una herramienta o capa no explica por sí sola todo el flujo.\n\n## Qué aprendí\n\nPuedo explicar cómo se conectan dispositivos, cómo viajan los datos dentro y fuera de una LAN y qué funciones cumplen DHCP, NAT, DNS, Wi-Fi, routing y los controles de seguridad. También reconozco herramientas básicas de diagnóstico, aunque la terminal de Pwnbox y FTP necesitan más práctica guiada.\n\n## Para repasar o practicar\n\n- Encapsulación y recorrido completo de una solicitud.\n- Switch/MAC frente a router/IP y MAC del gateway.\n- Puerto efímero del cliente.\n- Arquitectura híbrida frente a two-tier.\n- Vocabulario `Cellular Data` y `Base Station Controller`.\n- Uso práctico de `ip`, `ss`, `netstat`, `nmap`, `nc` y FTP pasivo en laboratorios autorizados.\n- Las secciones 1, 2 y 4 continúan señaladas para repaso conceptual; la práctica de la sección 12 fue asistida.\n",
+      "learnings": "Resumen integral de redes, direccionamiento, servicios, arquitecturas, seguridad, flujo de datos y diagnóstico vistos en las 12 secciones.",
+      "questions": "Repasar secciones 1, 2 y 4, además de la práctica asistida de terminal de la sección 12.",
+      "createdAt": "2026-11-18T12:00:00.000Z",
+      "kind": "module-summary"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

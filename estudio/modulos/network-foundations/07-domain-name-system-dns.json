@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 75,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, componentes de red, MAC/IP/puertos, DHCP, NAT/PAT, DNS, arquitecturas de Internet y redes inalámbricas.",
+      "questions": "Repasar LAN sin Internet, encapsulación, MAC/IP/gateway/puerto efímero, híbrida vs two-tier y el vocabulario exacto Cellular Data.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-07-domain-name-system-dns",
+      "moduleId": "htb-network-foundations",
+      "number": 7,
+      "total": 12,
+      "title": "Domain Name System (DNS)",
+      "status": "Completado",
+      "progress": 100,
+      "notes": "# 7 de 12 — Domain Name System (DNS)\n\n**Estado:** Completado\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nEl Domain Name System (DNS) relaciona nombres fáciles de recordar, como `www.example.com`, con direcciones IP, como `93.184.216.34`. Los dispositivos necesitan la IP para comunicarse, pero las personas pueden usar nombres. Por eso DNS funciona como una agenda distribuida de Internet.\n\n## Conceptos importantes\n\n### Dominio e IP\n\nUn nombre de dominio identifica un recurso con palabras legibles. Una dirección IP es la etiqueta numérica utilizada para localizar y alcanzar un destino en la red. DNS construye el puente entre ambas representaciones.\n\n### Jerarquía DNS\n\nDNS está organizado como un árbol:\n\n- **Root (`.`):** raíz de la jerarquía.\n- **Top-Level Domain (TLD):** terminación como `.com`, `.org`, `.net` o `.ar`.\n- **Second-Level Domain:** nombre registrado, como `example` en `example.com`.\n- **Hostname o subdomain:** nombre que identifica un servicio o subdivisión, como `www` o `accounts`.\n\nEn `accounts.google.com`, `.com` es el TLD, `google` es el dominio de segundo nivel y `accounts` es el hostname o subdominio.\n\n### Resolución DNS\n\nCuando se solicita `www.example.com`, el equipo primero consulta su caché DNS local. Si no tiene una respuesta vigente, pregunta a un servidor DNS recursivo, normalmente provisto por el ISP o por servicios públicos.\n\nEl recursivo realiza el trabajo de búsqueda:\n\n1. Consulta a un servidor raíz.\n2. La raíz lo dirige hacia los servidores del TLD `.com`.\n3. El servidor TLD indica cuál es el servidor autoritativo de `example.com`.\n4. El autoritativo devuelve la respuesta oficial para `www.example.com`.\n5. El recursivo entrega la IP al equipo y puede conservarla temporalmente en caché.\n\nLa raíz no suele entregar la IP final. Su función es indicar cuál es el siguiente nivel correcto de la jerarquía.\n\n## Comandos y opciones\n\nLa sección fue conceptual. Herramientas como `dig`, `host` o `nslookup` permiten consultar DNS, pero no fueron necesarias para resolver el contenido ni se practicaron en esta sección.\n\n## Diferencias que hay que recordar\n\n- **Dominio vs IP:** el dominio es legible para personas; la IP permite localizar el destino en la red.\n- **Recursivo vs autoritativo:** el recursivo busca la respuesta en nombre del cliente; el autoritativo posee la información oficial del dominio.\n- **Root vs TLD:** la raíz señala los servidores del TLD; el TLD señala el autoritativo del dominio.\n- **Caché vs consulta completa:** si existe una respuesta vigente en caché, puede evitarse el recorrido por la jerarquía.\n- **Dominio vs URL:** el dominio es solo una parte de una URL, que también puede incluir esquema, ruta y otros componentes.\n\n## Ejemplo práctico\n\n```text\nComputadora → DNS recursivo → Root → TLD → DNS autoritativo\nComputadora ← DNS recursivo ← 93.184.216.34\n```\n\nCon la IP obtenida, el navegador puede iniciar la conexión con el servidor web. DNS localiza el destino; no descarga por sí mismo la página.\n\n## Errores y precauciones\n\n- No asumir que el servidor raíz conoce directamente todas las IP.\n- No confundir el servidor recursivo con el autoritativo.\n- No confundir `www`, que puede ser un hostname, con el dominio de segundo nivel.\n- Una respuesta en caché puede quedar desactualizada hasta que venza su tiempo de validez.\n- DNS tradicional no cifra por sí mismo todo el tráfico posterior hacia el sitio.\n\n## Inglés técnico del módulo\n\n- `Domain Name System (DNS)` → sistema que relaciona nombres con información como direcciones IP.\n- `domain name` → nombre legible de un dominio.\n- `IP address` → dirección utilizada para alcanzar un destino.\n- `DNS resolution` → proceso de obtener la respuesta DNS correspondiente a un nombre.\n- `recursive DNS server` → servidor que busca la respuesta por el cliente.\n- `root server` → servidor que dirige hacia el TLD adecuado.\n- `TLD name server` → servidor que dirige hacia el autoritativo del dominio.\n- `authoritative name server` → fuente oficial de los registros del dominio.\n- `DNS cache` → almacenamiento temporal de respuestas DNS.\n\n## Lo que más costó\n\nEl cuestionario propio terminó 6/6. El punto que conviene conservar es que la búsqueda comienza por la caché y que el servidor raíz orienta hacia el TLD, pero no suele responder con la IP final.\n\n## Qué aprendí\n\nEntendí cómo DNS traduce nombres a direcciones IP, cómo se divide un dominio y cómo colaboran caché, recursivo, raíz, TLD y servidor autoritativo para resolver una consulta.\n\n## Para repasar o practicar\n\n- Separar hostname, dominio de segundo nivel y TLD en nombres reales.\n- Dibujar el recorrido completo de una consulta sin caché.\n- Explicar la diferencia entre servidor recursivo y autoritativo.\n- Recordar que la raíz señala el TLD correspondiente.\n\n## Cuestionario de repaso\n\n1. ¿Cuál es la función principal de DNS? — **Respuesta:** Traducir nombres de dominio a direcciones IP u otros datos asociados.\n2. En `www.example.com`, ¿cuál es el TLD? — **Respuesta:** `.com`.\n3. ¿Qué sucede si la respuesta está vigente en la caché DNS local? — **Respuesta:** Puede utilizarse sin repetir toda la consulta jerárquica.\n4. ¿Qué hace normalmente el servidor raíz? — **Respuesta:** Indica dónde consultar por el TLD correspondiente.\n5. ¿Qué servidor posee la información oficial del dominio? — **Respuesta:** El servidor autoritativo.\n6. ¿Cuál es el orden general después de consultar al recursivo? — **Respuesta:** Root, TLD y servidor autoritativo.\n",
+      "learnings": "Entendí cómo DNS relaciona dominios e IP y cómo colaboran caché, recursivo, raíz, TLD y servidor autoritativo.",
+      "questions": "Cuestionario aprobado 6/6. Recordar que la caché se consulta primero y que la raíz dirige al TLD, no suele devolver la IP final.",
+      "createdAt": "2026-11-13T15:16:28.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}

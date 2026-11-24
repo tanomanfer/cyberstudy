@@ -9,13 +9,53 @@
 
 ## Curso activo
 
-- Curso: **Introduction to Information Security**
-- Posición en la ruta: módulo 1 de 20
-- Duración estimada HTB: 2h — Tier 0
-- Estado en HTB: **In Progress**
-- Carpeta de apuntes: `modulos/introduction-to-information-security/`
-- Última actualización: **2026-10-29**
+- Curso: **Introduction to Networking**
+- Posición en la ruta: módulo 3 de 20
+- Duración estimada HTB: 3h — Tier 0
+- Estado en HTB: **En progreso — 3 de 21 secciones realizadas (14.29%)**
+- Carpeta de apuntes: `modulos/introduction-to-networking/`
+- Última actualización: **2026-11-24**
 - Meta profesional declarada por Tano: **Penetration Tester** (objetivo a futuro), pasando primero por **Security Analyst / SOC** (objetivo inmediato).
+
+### Secciones de Introduction to Networking
+
+| Sección | Tema | Estado | Archivo |
+|---:|---|---|---|
+| 1 | Networking Overview | Completado | `modulos/introduction-to-networking/01-networking-overview.md` |
+| 2 | Network Types | Completado | `modulos/introduction-to-networking/02-network-types.md` |
+| 3 | Networking Topologies | Completado | `modulos/introduction-to-networking/03-networking-topologies.md` |
+
+Cuestionarios de repaso de las secciones 1 a 3: completos (respuestas redactadas por la IA a pedido de Tano). La sección 1 incluye el diagrama `public/study-images/introduction-to-networking/01-networking-overview.png`.
+
+## Curso completado: Network Foundations
+
+- Posición en la ruta: módulo 2 de 20
+- Duración estimada HTB: 4h — Tier 0
+- Estado en HTB: **Completado — 12 de 12 secciones realizadas (100%)**
+- Carpeta de apuntes: `modulos/network-foundations/`
+
+### Secciones de Network Foundations
+
+| Sección | Tema | Estado | Archivo |
+|---:|---|---|---|
+| 1 | Introduction to Networks | Repasar | `modulos/network-foundations/01-introduction-to-networks.md` |
+| 2 | Network Concepts | Repasar | `modulos/network-foundations/02-network-concepts.md` |
+| 3 | Components of a Network | Completado | `modulos/network-foundations/03-components-of-a-network.md` |
+| 4 | Network Communication | Repasar | `modulos/network-foundations/04-network-communication.md` |
+| 5 | Dynamic Host Configuration Protocol (DHCP) | Completado | `modulos/network-foundations/05-dynamic-host-configuration-protocol-dhcp.md` |
+| 6 | Network Address Translation (NAT) | Completado | `modulos/network-foundations/06-network-address-translation-nat.md` |
+| 7 | Domain Name System (DNS) | Completado | `modulos/network-foundations/07-domain-name-system-dns.md` |
+| 8 | Internet Architecture | Completado | `modulos/network-foundations/08-internet-architecture.md` |
+| 9 | Wireless Networks | Completado | `modulos/network-foundations/09-wireless-networks.md` |
+| 10 | Network Security | Completado | `modulos/network-foundations/10-network-security.md` |
+| 11 | Data Flow Example | Completado | `modulos/network-foundations/11-data-flow-example.md` |
+| 12 | Skills Assessment | Completado | `modulos/network-foundations/12-skills-assessment.md` |
+
+Las doce secciones fueron realizadas en HTB. En Network Communication, repasar switch/MAC vs router/IP, la MAC del gateway al salir de la LAN y el puerto efímero. En Arquitectura, repasar híbrida frente a two-tier. La práctica de terminal de Skills Assessment fue guiada/observada y queda para practicar, aunque HTB dio el módulo por terminado.
+
+Resumen total disponible: `modulos/network-foundations/resumen-del-modulo-network-foundations.md`.
+
+## Curso completado: Introduction to Information Security
 
 ### Secciones de Introduction to Information Security
 
@@ -52,11 +92,11 @@ Resumen total disponible: `modulos/introduction-to-information-security/resumen-
 
 Pendiente de repaso en la sección 1: la relación riesgo = amenaza + vulnerabilidad (quedó floja en el cuestionario) y la ubicación de roles (Security Analyst vs Penetration Tester).
 
-## Cursos siguientes en la ruta (orden oficial de HTB)
+## Cursos de la ruta (orden oficial de HTB)
 
 1. **Introduction to Information Security** — **Completado**
-2. **Network Foundations** — Pendiente (4h, Tier 0)
-3. **Introduction to Networking** — Pendiente (3h, Tier 0)
+2. **Network Foundations** — **Completado: 12/12 (100%)**
+3. **Introduction to Networking** — **En progreso: 3/21 (14.29%)**
 4. Linux Fundamentals — **Completado** (ver abajo)
 
 ## Curso completado: Linux Fundamentals

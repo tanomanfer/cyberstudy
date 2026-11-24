@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "dailyGoalMinutes": 120,
+  "paths": [
+    {
+      "id": "htb-junior-cybersecurity-analyst",
+      "title": "Junior Cybersecurity Analyst",
+      "certification": "CJCA",
+      "platform": "Hack The Box Academy",
+      "status": "En progreso",
+      "progress": 17.3,
+      "totalCourses": 20,
+      "notes": "Ruta de rol profesional de HTB Academy. Los cursos se registran en el mismo orden oficial de la ruta.",
+      "url": "https://academy.hackthebox.com/path/preview/junior-cybersecurity-analyst",
+      "createdAt": "2026-09-27T12:00:00.000Z"
+    }
+  ],
+  "modules": [
+    {
+      "title": "Network Foundations",
+      "platform": "Hack The Box Academy",
+      "category": "Networking",
+      "difficulty": "Tier 0",
+      "status": "En progreso",
+      "progress": 42,
+      "startedAt": "2026-11-02",
+      "completedAt": "",
+      "url": "",
+      "notes": "Segundo módulo de la ruta Junior Cybersecurity Analyst. Fundamentos de redes, modelos, protocolos y comunicación.",
+      "learnings": "Comprendí LAN/WAN, OSI y TCP/IP, los componentes de una red, MAC/IP/puertos y el proceso DHCP.",
+      "questions": "Repasar LAN sin Internet, encapsulación, Network Layer vs Internet Layer, MAC/IP/gateway y el propósito del puerto efímero.",
+      "id": "htb-network-foundations",
+      "createdAt": "2026-11-02T18:00:00.000Z",
+      "pathId": "htb-junior-cybersecurity-analyst",
+      "order": 2
+    }
+  ],
+  "sections": [
+    {
+      "id": "network-foundations-04-network-communication",
+      "moduleId": "htb-network-foundations",
+      "number": 4,
+      "total": 12,
+      "title": "Network Communication",
+      "status": "Repasar",
+      "progress": 100,
+      "notes": "# 4 de 12 — Network Communication\n\n**Estado:** Repasar\n**Progreso de la sección:** 100%\n**Curso:** Network Foundations (módulo 2 de 20 — Junior Cybersecurity Analyst Job Role Path)\n**Plataforma:** Hack The Box Academy\n\n## Idea principal\n\nPara que dos aplicaciones se comuniquen, la red necesita identificar tres cosas distintas: la interfaz local mediante una dirección **MAC**, el equipo o destino lógico mediante una dirección **IP**, y el servicio o proceso mediante un **puerto**. Cada dato cumple una función diferente y trabaja en una capa distinta.\n\nAl abrir una página web, el equipo primero resuelve el nombre con DNS, obtiene la IP del servidor y prepara el envío. Si el destino está fuera de la red local, la trama se entrega a la MAC del gateway; el paquete conserva como destino la IP del servidor remoto.\n\n## Conceptos importantes\n\n### Dirección MAC\n\nLa MAC identifica una interfaz dentro del enlace local. Los switches la utilizan para entregar tramas dentro de la LAN. No sirve para encaminar tráfico por todo Internet y puede cambiar en cada salto porque cada enlace crea una trama nueva.\n\n### Dirección IP\n\nLa IP es una dirección lógica usada para localizar equipos y encaminar paquetes entre redes. Los routers observan la IP de destino y deciden el siguiente salto. En un acceso a Internet, la IP de destino corresponde al servidor remoto aunque la primera trama local se dirija al router.\n\n### Puertos\n\nLos puertos identifican servicios o procesos dentro de un host. HTTPS utiliza habitualmente el puerto de destino `443`. El cliente usa un puerto temporal o **ephemeral port**, que permite al sistema operativo reconocer a qué conexión debe entregar la respuesta.\n\n### ARP y gateway\n\nARP relaciona una dirección IPv4 local con una dirección MAC. Si el destino está en la misma LAN, el equipo busca la MAC del destinatario. Si está en otra red, busca la MAC del **default gateway**, no la MAC del servidor remoto.\n\n### DNS\n\nDNS traduce un nombre como `example.com` a una dirección IP. En una sesión web iniciada escribiendo un dominio, la consulta DNS ocurre antes de poder enviar la solicitud al servidor por su IP.\n\n## Comandos y opciones\n\nEsta sección es conceptual y no exige comandos. Más adelante `ip`, `arp` o `ip neigh`, `ss`, `dig` y `tcpdump` permiten observar direcciones, vecinos, puertos, DNS y tráfico real.\n\n## Diferencias que hay que recordar\n\n- **MAC vs IP:** MAC entrega una trama en el enlace local; IP identifica y encamina el paquete entre redes.\n- **IP vs puerto:** IP identifica el host o interfaz lógica; el puerto identifica el servicio o proceso.\n- **Switch vs router:** el switch trabaja localmente con MAC; el router conecta redes usando IP.\n- **IP remota vs MAC de destino local:** al salir de la LAN, el paquete apunta a la IP remota, pero la trama apunta a la MAC del gateway.\n- **Puerto de servidor vs puerto efímero:** el servidor escucha en un puerto conocido; el cliente usa uno temporal para asociar la respuesta con su conexión.\n\n## Ejemplos prácticos\n\nAl visitar `https://example.com`:\n\n1. DNS obtiene la IP del servidor.\n2. El navegador abre una conexión desde un puerto temporal hacia el puerto `443`.\n3. El equipo detecta que la IP está fuera de su LAN.\n4. ARP obtiene la MAC del gateway.\n5. La trama local se dirige al gateway y contiene el paquete destinado al servidor remoto.\n6. Los routers encaminan el paquete hasta el servidor y la respuesta vuelve al puerto temporal del cliente.\n\n## Errores y precauciones\n\n- No buscar mediante ARP la MAC de un servidor que está en Internet.\n- No confundir el puerto físico de un switch con un puerto lógico TCP o UDP.\n- No afirmar que la MAC identifica al destino durante todo el recorrido; solo vale para el enlace actual.\n- No confundir DNS, que resuelve nombres, con ARP, que relaciona IPv4 y MAC dentro de la LAN.\n\n## Inglés técnico del módulo\n\n- `MAC address` → identificador de una interfaz en el enlace local.\n- `IP address` → dirección lógica usada para localizar y encaminar.\n- `port` → identificador lógico de un servicio o proceso.\n- `default gateway` → router utilizado para alcanzar otras redes.\n- `ARP` → protocolo que relaciona IPv4 con MAC en la LAN.\n- `DNS lookup` → consulta para convertir un nombre en una IP.\n- `ephemeral port` → puerto temporal elegido para una conexión del cliente.\n\n## Lo que más costó\n\nEl cuestionario quedó 3/6. Hay que reforzar la diferencia entre switch/MAC y router/IP, recordar que al salir de la LAN se obtiene la MAC del gateway y comprender que el puerto temporal del cliente permite entregar la respuesta a la conexión correcta.\n\n## Qué aprendí\n\nEntendí que MAC, IP y puerto no compiten: identifican niveles distintos de la comunicación. También entendí que ARP busca al siguiente salto local y que DNS debe resolver el nombre antes de iniciar una comunicación web por IP.\n\n## Para repasar o practicar\n\n- Dibujar un paquete hacia Internet dentro de una trama dirigida al gateway.\n- Explicar qué información usa un switch y cuál usa un router.\n- Diferenciar DNS de ARP.\n- Explicar para qué sirve el puerto temporal del cliente.\n- Recordar que HTTPS usa habitualmente el puerto 443.\n\n## Cuestionario de repaso\n\n1. ¿Qué dirección usa principalmente un switch para entregar una trama en la LAN? — **Respuesta:** La dirección MAC.\n2. ¿Qué dirección utiliza un router para encaminar entre redes? — **Respuesta:** La dirección IP.\n3. Si el servidor está en Internet, ¿qué dirección MAC busca el cliente mediante ARP? — **Respuesta:** La MAC de su default gateway.\n4. ¿Para qué sirve un puerto lógico? — **Respuesta:** Para identificar el servicio o proceso dentro de un host.\n5. ¿Para qué usa el cliente un puerto efímero? — **Respuesta:** Para que el sistema operativo asocie la respuesta con la conexión o aplicación correcta.\n6. ¿Cuál suele ser el primer paso al navegar escribiendo un dominio? — **Respuesta:** Una consulta DNS para obtener la dirección IP.\n",
+      "learnings": "Entendí cómo MAC, IP, puertos, ARP, DNS y el gateway colaboran durante una comunicación local o hacia Internet.",
+      "questions": "Cuestionario 3/6. Repasar switch/MAC vs router/IP, la MAC del gateway al salir de la LAN y el propósito del puerto efímero.",
+      "createdAt": "2026-11-09T12:00:00.000Z"
+    }
+  ],
+  "sessions": [],
+  "frozenDays": []
+}
