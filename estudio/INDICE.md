@@ -12,7 +12,7 @@
 - Curso: **Introduction to Networking**
 - Posición en la ruta: módulo 3 de 20
 - Duración estimada HTB: 3h — Tier 0
-- Estado en HTB: **En progreso — 3 de 21 secciones realizadas (14.29%)**
+- Estado en HTB: **En progreso — 5 de 21 secciones realizadas (23.81%)**
 - Carpeta de apuntes: `modulos/introduction-to-networking/`
 - Última actualización: **2026-11-24**
 - Meta profesional declarada por Tano: **Penetration Tester** (objetivo a futuro), pasando primero por **Security Analyst / SOC** (objetivo inmediato).
@@ -24,8 +24,10 @@
 | 1 | Networking Overview | Completado | `modulos/introduction-to-networking/01-networking-overview.md` |
 | 2 | Network Types | Completado | `modulos/introduction-to-networking/02-network-types.md` |
 | 3 | Networking Topologies | Completado | `modulos/introduction-to-networking/03-networking-topologies.md` |
+| 4 | Proxies | Completado | `modulos/introduction-to-networking/04-proxies.md` |
+| 5 | Networking Models | Completado | `modulos/introduction-to-networking/05-networking-models.md` |
 
-Cuestionarios de repaso de las secciones 1 a 3: completos (respuestas redactadas por la IA a pedido de Tano). La sección 1 incluye el diagrama `public/study-images/introduction-to-networking/01-networking-overview.png`.
+Cuestionarios de repaso de las secciones 1 a 3: completos (respuestas redactadas por la IA a pedido de Tano). Secciones 4 y 5: cuestionario conjunto de 6 preguntas respondido por Tano y corregido (repasar forward/reverse proxy y orden de PDU). La sección 1 incluye el diagrama `public/study-images/introduction-to-networking/01-networking-overview.png`.
 
 ## Curso completado: Network Foundations
 
@@ -96,7 +98,7 @@ Pendiente de repaso en la sección 1: la relación riesgo = amenaza + vulnerabil
 
 1. **Introduction to Information Security** — **Completado**
 2. **Network Foundations** — **Completado: 12/12 (100%)**
-3. **Introduction to Networking** — **En progreso: 3/21 (14.29%)**
+3. **Introduction to Networking** — **En progreso: 5/21 (23.81%)**
 4. Linux Fundamentals — **Completado** (ver abajo)
 
 ## Curso completado: Linux Fundamentals

@@ -2,10 +2,10 @@
 
 ## 🔁 Último traspaso
 - **Fecha / IA:** 2026-11-24 · Claude Code
-- **Hice:** etapa 2 de 4 de **Máquinas CTF**: writeup por máquina con 8 secciones (Resumen, Reconocimiento, Enumeración, Explotación, Escalada, Flags, Conclusiones, Referencias) + pestaña de notas privadas y vista completa. Editor con vista previa, "Usar guía", bloque de comandos, capturas (botón o Ctrl+V, 1 MB c/u, tope 3 MB por writeup), export `.md` y PDF vía impresión del navegador.
-- **Seguridad:** las flags guardan solo obtenida/fecha/evidencia; si la evidencia parece una flag no deja guardar. Lo que parezca `HTB{…}` o hash de 32 hex se reemplaza por `[REDACTADO]` en `.md` y PDF; notas privadas, IP, ayuda e IA nunca se exportan.
-- **Extra:** el lector Markdown pasó a `src/components/markdown.tsx` (lo usan Cuaderno, tutor y writeups); ahora los bloques de código tienen botón Copiar y colores para comandos de terminal.
-- **Validación:** `npm run build` OK; probado en navegador: pestañas, vista previa, copiar, guardado (writeup + notas), bloqueo de flag en evidencia, PDF con redacción, export `.md` sin notas ni flags; sin errores de consola. Datos de prueba borrados.
-- **Pendiente:** etapa 3 (relación con secciones, ver máquinas desde el curso, CSV import/export), etapa 4 (Vitest). Sección 4 de Introduction to Networking cuando Tano la pase.
-- **Git:** etapa 2 sin commit ni push.
-- **Archivos:** `src/types.ts`, `src/App.tsx`, `src/features/machines/{machines.ts,MachinesView.tsx,machines.css}`, nuevos `src/components/markdown.tsx`, `src/features/machines/{writeup.ts,WriteupEditor.tsx}`.
+- **Hice:** secciones 4 (Proxies) y 5 (Networking Models) de Introduction to Networking: `.md` + `.json`, `cyberstudy-import.json` e `INDICE.md` al 5/21 (24%).
+- **Cuestionario:** 6 preguntas entre las dos secciones, respondidas por Tano y corregidas (2 bien, 3 a medias, 1 mal). Dudas guardadas: forward vs reverse proxy, DNS como C2, desencapsulación y orden de PDU (segment → packet → frame → bit).
+- **Validación:** `jq empty` OK en los JSON.
+- **Máquinas CTF:** etapas 1 y 2 publicadas (`54a3fd0`, `b04b9c4`). Pendiente: etapa 3 (relación con secciones, CSV import/export) y etapa 4 (Vitest).
+- **Próximo paso:** Tano importa `estudio/cyberstudy-import.json` en la app y pasa la sección 6.
+- **Git:** commit y push de esta tanda.
+- **Archivos:** `estudio/modulos/introduction-to-networking/0{4,5}-*.{md,json}`, `estudio/cyberstudy-import.json`, `estudio/INDICE.md`, `ESTADO_PROYECTO.md`, `docs/historial.md`.
